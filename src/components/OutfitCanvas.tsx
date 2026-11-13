@@ -10,12 +10,12 @@ interface Props {
 
 const pieceLabels: Record<Category, string> = {
   tops: 'Top',
-  layers: 'Layer',
+  layers: 'Outerwear',
   bottoms: 'Bottoms',
   shoes: 'Shoes',
 }
 
-function ProductPhoto({ garment, className = '' }: { garment: Garment; className?: string }) {
+function ProductPhoto({ garment, className = '', lazy = false }: { garment: Garment; className?: string; lazy?: boolean }) {
   const [unavailable, setUnavailable] = useState(false)
   return unavailable
     ? <span className={`outfit-canvas__photo-unavailable ${className}`}>{garment.name}<small>Photo unavailable</small></span>
@@ -23,6 +23,7 @@ function ProductPhoto({ garment, className = '' }: { garment: Garment; className
         className={`outfit-canvas__photo ${className}`}
         src={`/garments/${garment.id}.webp`}
         alt={garment.name}
+        loading={lazy ? 'lazy' : 'eager'}
         decoding="async"
         draggable={false}
         onError={() => setUnavailable(true)}
@@ -66,13 +67,13 @@ export default function OutfitCanvas({ selection, garments, compact = false }: P
     <div className="outfit-canvas__arrangement" ref={arrangement}>
       <div className="outfit-canvas__assembly" ref={assembly}>
         <div className="outfit-canvas__base">
-          {shoes && <ProductPhoto key={shoes.id} garment={shoes} className="outfit-canvas__shoes"/>}
-          {bottoms && <ProductPhoto key={bottoms.id} garment={bottoms} className="outfit-canvas__bottoms"/>}
-          {top && <ProductPhoto key={top.id} garment={top} className="outfit-canvas__top"/>}
+          {shoes && <ProductPhoto key={shoes.id} garment={shoes} lazy={compact} className="outfit-canvas__shoes"/>}
+          {bottoms && <ProductPhoto key={bottoms.id} garment={bottoms} lazy={compact} className="outfit-canvas__bottoms"/>}
+          {top && <ProductPhoto key={top.id} garment={top} lazy={compact} className="outfit-canvas__top"/>}
         </div>
         {layer && <div className="outfit-canvas__layer">
           <span className="outfit-canvas__layer-label">The finishing layer</span>
-          <ProductPhoto key={layer.id} garment={layer}/>
+          <ProductPhoto key={layer.id} garment={layer} lazy={compact}/>
           <span className="outfit-canvas__layer-name">{layer.name}</span>
         </div>}
       </div>

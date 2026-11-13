@@ -89,6 +89,19 @@ function tailor(geometry: THREE.BufferGeometry, kind?: string) {
   return geometry
 }
 
+export function fitCoatLength(geometry: THREE.BufferGeometry) {
+  // The authored coat has a floor-length skirt. Preserve the waist and upper
+  // tailoring while bringing its hem to the knee (rather than jacket length).
+  const positions = geometry.getAttribute('position')
+  const waist = .96, hem = .48
+  for (let vertex = 0; vertex < positions.count; vertex++) {
+    const y = positions.getY(vertex)
+    if (y < waist) positions.setY(vertex, hem + y * (waist - hem) / waist)
+  }
+  positions.needsUpdate = true
+  geometry.computeVertexNormals()
+}
+
 function instantiate(source: THREE.Object3D, options: { garment?: Garment; hideMask?: number; kind?: string; padding?: number } = {}) {
   const group = new THREE.Group()
   source.traverse(object => {
@@ -102,16 +115,7 @@ function instantiate(source: THREE.Object3D, options: { garment?: Garment; hideM
         positions.setXYZ(vertex, positions.getX(vertex) + normals.getX(vertex) * options.padding, positions.getY(vertex) + normals.getY(vertex) * options.padding, positions.getZ(vertex) + normals.getZ(vertex) * options.padding)
       }
     }
-    if (options.kind === 'coat') {
-      // The source has a floor-length hem; this wardrobe's coat is knee-length.
-      const positions = geometry.getAttribute('position')
-      for (let index = 0; index < positions.count; index++) {
-        const y = positions.getY(index)
-        if (y < .96) positions.setY(index, .57 + y * (.96 - .57) / .96)
-      }
-      positions.needsUpdate = true
-      geometry.computeVertexNormals()
-    }
+    if (options.kind === 'coat') fitCoatLength(geometry)
     smoothTextureSeams(geometry)
     const cloneMaterial = (input: THREE.Material) => {
       const material = input.clone() as THREE.MeshStandardMaterial

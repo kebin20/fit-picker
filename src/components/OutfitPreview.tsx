@@ -2,17 +2,26 @@ import { useState } from 'react'
 import type { Outfit } from '../types'
 import { garments } from '../data/wardrobe'
 import OutfitCanvas from './OutfitCanvas'
+import { outfitPhoto } from '../lib/outfit-photos'
+import { useDeferredImage } from '../lib/use-deferred-image'
 
 /** Every new combination can be previewed directly from its exact garment photos. */
 export default function OutfitPreview({ outfit }: { outfit: Outfit }) {
   const [failedSource, setFailedSource] = useState<string | null>(null)
-  if (outfit.image && failedSource !== outfit.image) return <img
+  const photo = outfitPhoto(outfit)
+  const { ref, ready } = useDeferredImage(photo?.src)
+  if (photo && failedSource !== photo.src) return <img
     className="outfit-photograph"
-    src={outfit.image}
+    ref={ref}
+    src={ready ? photo.src : undefined}
+    srcSet={ready ? photo.srcSet : undefined}
+    sizes="(max-width: 700px) calc((100vw - 50px) / 2), (max-width: 960px) calc((100vw - 150px) / 2), (max-width: 1190px) calc((100vw - 330px) / 2), (max-width: 1600px) calc((100vw - 350px) / 3), 430px"
+    width={photo.width}
+    height={photo.height}
     alt={`${outfit.name}: ${outfit.subtitle}. Generated styling illustration.`}
     loading="lazy"
     decoding="async"
-    onError={() => setFailedSource(outfit.image!)}
+    onError={() => setFailedSource(photo.src)}
   />
   return <div className="outfit-flat-preview outfit-flat-preview--composed" role="group" aria-label={`${outfit.name}: ${outfit.subtitle}`}>
     <OutfitCanvas selection={outfit.items} garments={garments} compact/>

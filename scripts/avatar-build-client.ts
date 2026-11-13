@@ -17,6 +17,7 @@ function aimBone(scene: THREE.Object3D, name: string, childName: string, directi
 
 export async function bakeAvatarAsset(file: string) {
   const gltf = await new GLTFLoader().loadAsync(`/.cache/avatar-source/${file}`)
+  const plainGarment = file.startsWith('clothing_')
   const scene = gltf.scene
   scene.traverse(object => {
     const mesh = object as THREE.Mesh
@@ -55,13 +56,23 @@ export async function bakeAvatarAsset(file: string) {
     geometry.morphAttributes = {}
     geometry.computeVertexNormals()
     geometry.computeBoundingBox()
-    const material = Array.isArray(mesh.material) ? mesh.material.map(m => m.clone()) : mesh.material.clone()
+    const cloneMaterial = (source: THREE.Material) => {
+      const material = source.clone() as THREE.MeshStandardMaterial
+      if (plainGarment) {
+        // Runtime applies solid wardrobe colours and its own tiny weave texture.
+        // Avoid shipping/decoding source denim and shoe maps that it discards.
+        material.map = material.normalMap = material.roughnessMap = material.metalnessMap = null
+        material.bumpMap = material.alphaMap = material.aoMap = material.emissiveMap = null
+      }
+      return material
+    }
+    const material = Array.isArray(mesh.material) ? mesh.material.map(cloneMaterial) : cloneMaterial(mesh.material)
     const product = new THREE.Mesh(geometry, material)
     product.name = mesh.name
     output.add(product)
     meshes.push({ name: mesh.name, vertices: position.count, attributes: Object.keys(geometry.attributes) })
   })
-  const buffer = await new GLTFExporter().parseAsync(output, { binary: true, maxTextureSize: 1024, onlyVisible: true }) as ArrayBuffer
+  const buffer = await new GLTFExporter().parseAsync(output, { binary: true, maxTextureSize: file.startsWith('hair_') ? 512 : 1024, onlyVisible: true }) as ArrayBuffer
   const bytes = new Uint8Array(buffer)
   let binary = ''
   for (let index = 0; index < bytes.length; index += 16384) binary += String.fromCharCode(...bytes.subarray(index, index + 16384))

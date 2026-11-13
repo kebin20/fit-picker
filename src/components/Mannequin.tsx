@@ -23,7 +23,8 @@ export default function Mannequin({ garments, selection, rotation, zoom, onUnava
     let renderer: THREE.WebGLRenderer
     try { renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' }) }
     catch { unavailable.current?.(); return }
-    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2))
+    const mobileQuality = window.matchMedia('(max-width: 700px)').matches
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, mobileQuality ? 1.5 : 2))
     renderer.setClearColor(0xffffff, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
     renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -57,7 +58,8 @@ export default function Mannequin({ garments, selection, rotation, zoom, onUnava
     const key = new THREE.DirectionalLight('#fff5e6', 1.7)
     key.position.set(-3, 5, 4)
     key.castShadow = true
-    key.shadow.mapSize.set(2048, 2048)
+    const shadowSize = mobileQuality ? 1024 : 2048
+    key.shadow.mapSize.set(shadowSize, shadowSize)
     key.shadow.camera.left = -1.4
     key.shadow.camera.right = 1.4
     key.shadow.camera.top = 2.5

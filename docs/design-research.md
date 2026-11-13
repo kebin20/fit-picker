@@ -61,3 +61,11 @@ This is the initial asset-based fitting implementation. The generic body is not 
 Season/occasion filters now sit below the recommendation heading. The manual outfit builder always exposes the confirmed wardrobe independently; changing recommendation filters does not modify the selected pieces or available builder cards. Wardrobe browsing has a separate season filter. “Try this look” remains the explicit action that changes the current outfit.
 
 Edit 02 adds 96 distinct curated compositions: 24 per season, with at least four choices per occasion in every season. The combinations are built from bounded editorial garment/palette templates with season and ownership checks, not a full cartesian wardrobe expansion. They use a responsive 2D garment-photo composition as previews. All looks are available by default, with collection filters and six-at-a-time expansion.
+
+## Complete model-photo library and phone loading — November 14, 2026
+
+The outer slot is now labelled Outerwear, with a persistent selector and explicit removal action. The selected outerwear name stays visible even when browsing tops or shoes. The separate coat mesh retains its tailored upper shape and now reaches clearly to the knee; other categories still use generic fitted templates.
+
+All 161 selectable combinations now have dedicated model photographs: the existing 12 Edit 01 images, 96 Edit 02 images and 53 confirmed original-guide combinations. The source-only suggested-grey-sweatshirt look remains excluded. Each new portrait was generated separately with the built-in ImageGen tool from a garment-level brief. Prompts and four contact sheets are recorded alongside optimized deliverables; images illustrate styling and do not claim exact prints or the owner's likeness.
+
+Phone loading uses explicit near-viewport image deferral and responsive WebP sizes; the selected 2D outfit remains eager. Guide previews are small WebPs with full-size original links. Unused garment textures are removed from glTF exports and the hair texture is reduced while preserving alpha and geometry. The optional phone renderer uses a smaller drawing buffer and shadow map. The performance review records measured asset savings and the remaining priorities.

@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 import * as THREE from 'three'
 import { garments } from '../data/wardrobe'
 import { avatarGarment } from './avatar-assets'
-import { hideCoveredFaces } from './avatar-scene'
+import { fitCoatLength, hideCoveredFaces } from './avatar-scene'
 
 const modelRoot = new URL('../../public/models/', import.meta.url)
 const parse = (file: string) => {
@@ -23,7 +23,7 @@ describe('fitted glTF model assets', () => {
     for (const asset of manifest.assets) {
       const gltf = parse(asset.file)
       expect(gltf.meshes.length, asset.file).toBeGreaterThan(0)
-      expect(gltf.images.every((image: { uri?: string; bufferView?: number }) => !image.uri && image.bufferView !== undefined), asset.file).toBe(true)
+      expect((gltf.images || []).every((image: { uri?: string; bufferView?: number }) => !image.uri && image.bufferView !== undefined), asset.file).toBe(true)
       expect(gltf.meshes.every((mesh: { primitives: { targets?: unknown[] }[] }) => mesh.primitives.every(part => !part.targets)), asset.file).toBe(true)
     }
     const body = parse('base_body.glb')
@@ -41,6 +41,22 @@ describe('fitted glTF model assets', () => {
     }
     expect(avatarGarment(garments.find(piece => piece.id === 'navy-shirt')!, 'tops').kind).toBe('shirt-short')
     expect(avatarGarment(garments.find(piece => piece.id === 'navy-sweatshirt')!, 'tops').kind).toBe('sweater')
+  })
+
+  it('uses the long authored coat model and keeps a knee-length hem', () => {
+    const coat = avatarGarment(garments.find(piece => piece.id === 'beige-coat')!, 'layers')
+    const jacket = avatarGarment(garments.find(piece => piece.id === 'navy-bomber')!, 'layers')
+    expect(coat).toEqual({ file: 'clothing_trenchcoat.glb', zone: 16, kind: 'coat' })
+    expect(coat.file).not.toBe(jacket.file)
+    const geometry = new THREE.BufferGeometry()
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute([0, .08, 0, .1, .96, 0, 0, 1.5, 0], 3))
+    fitCoatLength(geometry)
+    const positions = geometry.getAttribute('position')
+    expect(positions.getY(0)).toBeGreaterThan(.48)
+    expect(positions.getY(0)).toBeLessThan(.54)
+    expect(positions.getY(1)).toBeCloseTo(.96)
+    expect(positions.getY(2)).toBeCloseTo(1.5)
+    geometry.dispose()
   })
 
   it('hides covered body faces while retaining boundary faces for garment seams', () => {

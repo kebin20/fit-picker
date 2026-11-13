@@ -42,11 +42,16 @@ try {
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await expect(page.locator('canvas')).toHaveAttribute('data-model-format', 'gltf', { timeout: 30000 })
   await page.locator('.preview-panel').screenshot({ path: 'docs/mockups/gltf-avatar.png' })
+  await page.getByRole('combobox', { name: 'Selected outerwear', exact: true }).selectOption('beige-coat')
+  await expect(page.locator('canvas')).toHaveAttribute('aria-label', /Beige single-breasted coat/, { timeout: 30000 })
+  await page.getByRole('combobox', { name: 'Selected outerwear', exact: true }).selectOption('')
+  await expect(page.locator('.selection-strip')).toContainText('No outerwear')
+  await expect(page.locator('canvas')).not.toHaveAttribute('aria-label', /Beige single-breasted coat/, { timeout: 30000 })
   await page.getByRole('button', { name: '2D outfit', exact: true }).click()
   await expect(page.locator('.preview-panel .outfit-canvas')).toBeVisible()
-  for (const category of ['Tops', 'Layers', 'Bottoms', 'Shoes']) {
+  for (const category of ['Tops', 'Outerwear', 'Bottoms', 'Shoes']) {
     await page.getByRole('button', { name: category, exact: true }).click()
-    const card = page.locator('.garment-card').nth(category === 'Layers' ? 1 : 0)
+    const card = page.locator('.garment-card').nth(category === 'Outerwear' ? 1 : 0)
     await card.click()
     await expect(card).toHaveAttribute('aria-pressed', 'true')
   }
@@ -78,7 +83,11 @@ try {
     await image.decode()
     return { width: image.naturalWidth, height: image.naturalHeight }
   })))
-  if (guideImages.some(image => image.width < 1000 || image.height < 1000)) throw new Error('A source guide did not decode at full size')
+  if (guideImages.some(image => image.width < 600 || image.height < 400)) throw new Error('A source guide preview did not decode')
+  for (const href of await page.locator('.source-guides a').evaluateAll(links => links.map(link => link.href))) {
+    const original = await page.request.get(href)
+    if (!original.ok() || !original.headers()['content-type']?.includes('image/png')) throw new Error('A full-size original guide link is broken')
+  }
   await page.keyboard.press('Escape')
   await expect(page.getByRole('dialog')).not.toBeVisible()
 
@@ -94,20 +103,24 @@ try {
     await page.getByRole('combobox', { name: 'Season', exact: true }).selectOption(season)
     await page.getByRole('button', { name: 'Everyday', exact: true }).click()
     await expect(page.locator('.outfit-card')).toHaveCount(6)
-    await expect(page.locator('.outfit-photograph')).toHaveCount(3)
+    await expect(page.locator('.outfit-photograph')).toHaveCount(6)
+    for (const photo of await page.locator('.outfit-photograph').all()) {
+      await photo.scrollIntoViewIfNeeded()
+      await expect(photo).toHaveAttribute('src', /outfits/)
+    }
     const decoded = await page.locator('.outfit-photograph').evaluateAll(async images => Promise.all(images.map(async image => {
       image.loading = 'eager'
       await image.decode()
       return { src: image.currentSrc, width: image.naturalWidth, height: image.naturalHeight }
     })))
-    if (decoded.some(image => image.width < 1000 || image.height < 1000)) throw new Error(`Small or broken styling image in ${season}`)
+    if (decoded.some(image => image.width < 300 || image.height < 450)) throw new Error(`Small or broken styling image in ${season}`)
     console.log(`${season}: expanded combinations and original styling images verified`)
   }
   await page.getByRole('button', { name: /Show 6 more looks/ }).click()
   await expect(page.locator('.outfit-card')).toHaveCount(12)
   await page.getByRole('button', { name: 'From your guides', exact: true }).click()
-  await expect(page.locator('.outfit-flat-preview').first()).toBeVisible()
-  await expect(page.locator('.outfit-photograph')).toHaveCount(0)
+  await expect(page.locator('.outfit-photograph').first()).toBeVisible()
+  await expect(page.locator('.outfit-photograph')).toHaveCount(6)
   await page.getByRole('button', { name: 'Try this look', exact: true }).first().click()
   await expect(page.locator('.current-look p')).toContainText('Spring / Summer')
 
@@ -130,7 +143,12 @@ try {
     await page.setViewportSize({ width, height })
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
     await page.waitForTimeout(350)
-    await page.locator('.outfit-photograph').evaluateAll(async images => Promise.all(images.map(async image => { image.loading = 'eager'; await image.decode() })))
+    for (const photo of await page.locator('.outfit-photograph').all()) {
+      await photo.scrollIntoViewIfNeeded()
+      await expect(photo).toHaveAttribute('src', /outfits/)
+      await photo.evaluate(image => image.decode())
+    }
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)
     if (overflow) throw new Error(`Horizontal overflow at ${width}px`)
     await page.screenshot({ path: `docs/mockups/${name}.png`, fullPage: true })
@@ -164,9 +182,12 @@ try {
   await expect(fallback.getByRole('button', { name: 'Save look', exact: true })).toBeEnabled()
   await fallback.close()
   const brokenImage = await browser.newPage()
-  await brokenImage.route('**/outfits/*.webp', route => route.abort())
+  await brokenImage.route('**/outfits/**', route => route.abort())
   await brokenImage.goto(baseURL)
-  await brokenImage.locator('.recommendation-section').scrollIntoViewIfNeeded()
+  for (const card of await brokenImage.locator('.outfit-card').all()) {
+    await card.scrollIntoViewIfNeeded()
+    await expect(card.locator('.outfit-flat-preview')).toBeVisible()
+  }
   await expect(brokenImage.locator('.outfit-flat-preview')).toHaveCount(6)
   await expect(brokenImage.locator('.outfit-photograph')).toHaveCount(0)
   await brokenImage.close()
@@ -178,5 +199,5 @@ try {
   await expect(missingModel.locator('.preview-panel .outfit-canvas')).toBeVisible()
   await missingModel.close()
   if (errors.length) throw new Error(`Browser errors: ${errors.join('; ')}`)
-  console.log('PASS: default 2D outfit, loaded glTF assets and 3D controls, scoped recommendation filters, 96 additional outfits, 51 garment photos, all clothing slots, save/reload/delete, search, ownership, decoded source guides, 12 high-resolution seasonal images, original guide overview, try/undo, mobile navigation, responsive breakpoints, WebGL and image-error fallbacks; no page errors.')
+  console.log('PASS: default 2D outfit, loaded glTF assets and 3D controls, scoped recommendation filters, 96 additional outfits, 51 garment photos, all clothing slots, save/reload/delete, search, ownership, decoded source guides, 161 responsive model photos, original guide model previews, try/undo, mobile navigation, responsive breakpoints, WebGL and image-error fallbacks; no page errors.')
 } finally { await browser.close() }

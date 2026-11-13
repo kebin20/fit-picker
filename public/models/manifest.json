@@ -2,7 +2,7 @@
   "source": "https://github.com/kblood/CharacterCreator/tree/852e48f316b90a0937234886630e4fb4cdfd1f78/output",
   "sourceCommit": "852e48f316b90a0937234886630e4fb4cdfd1f78",
   "license": "CC0-1.0",
-  "build": "Adult male morph; relaxed standing pose; static morph/skin bake; embedded textures capped at 1024 px. No upstream application code copied.",
+  "build": "Adult male morph; relaxed standing pose; static morph/skin bake; skin textures capped at 1024 px; alpha-preserving hair texture capped at 512 px; unused garment textures removed. No upstream application code copied.",
   "assets": [
     {
       "file": "base_body.glb",
@@ -97,7 +97,7 @@
     },
     {
       "file": "hair_short02.glb",
-      "bytes": 860792,
+      "bytes": 295196,
       "bounds": {
         "min": [
           -0.09031732380390167,
@@ -126,7 +126,7 @@
     },
     {
       "file": "clothing_tshirt.glb",
-      "bytes": 90472,
+      "bytes": 43424,
       "bounds": {
         "min": [
           -0.2815166115760803,
@@ -154,7 +154,7 @@
     },
     {
       "file": "clothing_shirt.glb",
-      "bytes": 121968,
+      "bytes": 75620,
       "bounds": {
         "min": [
           -0.32560995221138,
@@ -182,7 +182,7 @@
     },
     {
       "file": "clothing_hoodie.glb",
-      "bytes": 153844,
+      "bytes": 85408,
       "bounds": {
         "min": [
           -0.33672016859054565,
@@ -210,7 +210,7 @@
     },
     {
       "file": "clothing_jeans.glb",
-      "bytes": 155432,
+      "bytes": 46208,
       "bounds": {
         "min": [
           -0.25112032890319824,
@@ -238,7 +238,7 @@
     },
     {
       "file": "clothing_shorts.glb",
-      "bytes": 86424,
+      "bytes": 25012,
       "bounds": {
         "min": [
           -0.21833306550979614,
@@ -266,7 +266,7 @@
     },
     {
       "file": "clothing_shoes.glb",
-      "bytes": 389528,
+      "bytes": 80608,
       "bounds": {
         "min": [
           -0.2562941908836365,
@@ -293,7 +293,7 @@
     },
     {
       "file": "clothing_jacket.glb",
-      "bytes": 185048,
+      "bytes": 92528,
       "bounds": {
         "min": [
           -0.35074982047080994,
@@ -320,7 +320,7 @@
     },
     {
       "file": "clothing_trenchcoat.glb",
-      "bytes": 229260,
+      "bytes": 132244,
       "bounds": {
         "min": [
           -0.34404444694519043,
@@ -349,7 +349,7 @@
     },
     {
       "file": "clothing_briefs.glb",
-      "bytes": 50340,
+      "bytes": 26504,
       "bounds": {
         "min": [
           -0.18944689631462097,

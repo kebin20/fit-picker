@@ -14,7 +14,7 @@ for (const file of [...files, 'clothing.json', 'asset_licenses.json']) {
   }
 }
 const browser = await chromium.launch()
-const manifest = { source: `https://github.com/kblood/CharacterCreator/tree/${commit}/output`, sourceCommit: commit, license: 'CC0-1.0', build: 'Adult male morph; relaxed standing pose; static morph/skin bake; embedded textures capped at 1024 px. No upstream application code copied.', assets: [] }
+const manifest = { source: `https://github.com/kblood/CharacterCreator/tree/${commit}/output`, sourceCommit: commit, license: 'CC0-1.0', build: 'Adult male morph; relaxed standing pose; static morph/skin bake; skin textures capped at 1024 px; alpha-preserving hair texture capped at 512 px; unused garment textures removed. No upstream application code copied.', assets: [] }
 try {
   const page = await browser.newPage()
   const baseURL = process.env.FIT_PICKER_URL || 'http://127.0.0.1:5173/'

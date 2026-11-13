@@ -1,0 +1,63 @@
+{
+  "baseline": {
+    "measuredAt": "2026-11-13T22:48:03.442Z",
+    "url": "https://fit-picker.kaikei-app.workers.dev/",
+    "coldCache": true,
+    "device": "Chromium iPhone 13 emulation; no CPU/network throttling; software WebGL",
+    "startup": {
+      "requests": 45,
+      "bytes": 1188498,
+      "imageRequests": 39,
+      "imageBytes": 1021517
+    },
+    "deferred": {
+      "models": true,
+      "guides": true,
+      "outfitPhotos": false
+    },
+    "responsivePhoto": "https://fit-picker.kaikei-app.workers.dev/outfits/styled-autumn-01.webp",
+    "canvas": {
+      "width": 704,
+      "height": 800,
+      "cssWidth": 352,
+      "cssHeight": 400
+    },
+    "afterBrowsingAnd3D": {
+      "requests": 52,
+      "bytes": 4748377,
+      "imageRequests": 39,
+      "imageBytes": 1021517
+    }
+  },
+  "v0.5.0": {
+    "measuredAt": "2026-11-13T22:57:16.047Z",
+    "url": "https://fit-picker.kaikei-app.workers.dev/",
+    "coldCache": true,
+    "device": "Chromium iPhone 13 emulation; no CPU/network throttling; software WebGL",
+    "startup": {
+      "requests": 11,
+      "bytes": 285662,
+      "imageRequests": 5,
+      "imageBytes": 117327
+    },
+    "deferred": {
+      "models": true,
+      "guides": true,
+      "outfitPhotos": true
+    },
+    "responsivePhoto": "https://fit-picker.kaikei-app.workers.dev/outfits/800/styled-autumn-01.webp",
+    "canvas": {
+      "width": 528,
+      "height": 600,
+      "cssWidth": 352,
+      "cssHeight": 400
+    },
+    "afterBrowsingAnd3D": {
+      "requests": 22,
+      "bytes": 2850019,
+      "imageRequests": 9,
+      "imageBytes": 244103
+    }
+  },
+  "startupTransferReductionPercent": 75.96
+}

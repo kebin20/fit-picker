@@ -159,6 +159,10 @@ try {
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)
     if (overflow) throw new Error(`Horizontal overflow at breakpoint ${width}px`)
   }
+  await page.setViewportSize({ width: 833, height: 900 })
+  await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'My wardrobe', exact: true }).click()
+  await expect(page.getByRole('textbox', { name: 'Search wardrobe' })).toBeVisible()
+  await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'Outfit studio', exact: true }).click()
   await page.setViewportSize({ width: 390, height: 844 })
   await page.getByRole('navigation', { name: 'Mobile navigation' }).getByRole('button', { name: 'My wardrobe', exact: true }).click()
   await expect(page.getByRole('textbox', { name: 'Search wardrobe' })).toBeVisible()

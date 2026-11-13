@@ -1,6 +1,6 @@
 # Personal-use performance review
 
-Measured 13 November 2026. Baseline production commit: `72fd3fe` (v0.4.0). Measurements use a cold Chromium context with iPhone 13 viewport/device scale, disabled HTTP cache, no network/CPU throttling and software WebGL. Transfer totals include response headers; local `blob:` image decoding contributes no network bytes. These are resource measurements, not benchmarks of a physical phone or battery life.
+Initial audit 13 November 2026; live before/after verification 14 November 2026 (Japan time). Baseline production commit: `72fd3fe` (v0.4.0). Measurements use a cold Chromium context with iPhone 13 viewport/device scale, disabled HTTP cache, no network/CPU throttling and software WebGL. Transfer totals include response headers; local `blob:` image decoding contributes no network bytes. These are resource measurements, not benchmarks of a physical phone or battery life.
 
 ## Baseline loading
 
@@ -15,6 +15,21 @@ Measured 13 November 2026. Baseline production commit: `72fd3fe` (v0.4.0). Measu
 Only six images intersected the initial phone viewport, but all 48 image elements had decoded. The entire top picker, composed recommendation images and three large model photos were loaded. Garment assets are already roughly 300 pixels wide; indiscriminately shrinking them further would hurt phone clarity. Model photos need responsive alternatives because current files are over 1000 pixels wide.
 
 The initial 2D page correctly avoids the Three.js chunk and all GLBs. Source-guide imports resolve to URLs: the three large PNG guides are not requested until their dialog opens. The existing six-card pagination and on-demand 3D rendering are also worth retaining.
+
+## Verified live release comparison — 14 November 2026
+
+The same script measured Cloudflare production immediately before and after v0.5.0, in fresh phone contexts with HTTP caching disabled. Full results are in `performance-metrics-v0.5.0.json`; reproduce with `FIT_PICKER_URL=https://fit-picker.kaikei-app.workers.dev/ node scripts/measure-mobile.mjs`.
+
+| Initial phone load | v0.4.0 | v0.5.0 |
+| --- | ---: | ---: |
+| Network requests | 45 | 11 |
+| Transferred bytes | 1,188,498 | 285,662 |
+| Image requests | 39 | 5 |
+| Image bytes | 1,021,517 | 117,327 |
+
+Initial transfer fell **76.0%** (about 1.19 MB to 0.29 MB), while the library expanded to 161 model photographs. No outfit portraits, 3D assets or full-size guide PNGs were fetched on startup. The selected 2D outfit remains eager. Card images use a 200-pixel near-viewport loading window and 400/800/1024-pixel WebP alternatives; the phone selected the 800-pixel photo when browsing. Guide previews total about 0.29 MB instead of loading 7.04 MB of originals in the dialog; full-size original links remain available.
+
+The mobile drawing buffer measured 528×600 pixels for a 352×400 CSS-pixel stage, confirming the 1.5 pixel-ratio cap. The complete unit suite (26 tests), full browser checks, responsive layouts and model/image failure fallbacks passed. These figures measure downloaded resources in emulation, not physical-phone load times or battery use.
 
 ## Implemented glTF optimizations
 
@@ -31,11 +46,11 @@ On screens at most 700 CSS pixels wide, the renderer caps pixel ratio at 1.5 rat
 
 Old/new model assets were rendered at the same mobile quality profile and visually compared; clothing, skin and hair appearance remained consistent. The optimized files loaded without page errors. The complete unit suite passed (24 tests at that point, including the coat regression).
 
-## Further changes with the best trade-off
+## Loading choices and further improvements
 
 1. Keep 2D as the default and 3D as an explicit choice. Render the 3D scene only after changes, as it already does. Avoid automatic rotation or an idle animation loop. [Three.js rendering on demand](https://threejs.org/manual/pages/rendering-on-demand.html).
-2. Serve model photos in several widths with accurate `srcset`/`sizes`, and defer offscreen garment cards. Keep the selected outfit's visible pieces eager. Prefer static, pre-generated images over generating them during phone use. [Responsive images](https://web.dev/learn/design/responsive-images), [image loading and decoding](https://web.dev/learn/performance/image-performance).
-3. Move the Google Fonts request from CSS `@import` into an early stylesheet link with preconnects, or use local WOFF2 subsets if measurement supports it. Current font bytes are modest; discovery/connection delay is the relevant issue. [Font loading guidance](https://web.dev/articles/font-best-practices).
+2. Implemented: responsive model photos with `srcset`/`sizes` and explicit offscreen deferral. The visible selected outfit stays eager. All model photos are static, pre-generated assets; no generation service runs during phone use. [Responsive images](https://web.dev/learn/design/responsive-images), [image loading and decoding](https://web.dev/learn/performance/image-performance).
+3. Implemented: the font request now uses an early stylesheet link and preconnects instead of CSS `@import`. Local WOFF2 subsets remain an option if later measurement supports them. Current font bytes are modest; discovery/connection delay is the relevant issue. [Font loading guidance](https://web.dev/articles/font-best-practices).
 4. Keep explicit disposal when a model is replaced or 3D closes. Textures have independent lifetimes; the bounded shared template cache is deliberate, while renderer resources should be released when unused. [Three.js disposal](https://threejs.org/manual/pages/how-to-dispose-of-objects.html).
 5. If offline support is added, cache a small app shell and favourites first. Avoid precaching the full photo/model library on installation.
 

@@ -74,6 +74,8 @@ node scripts/prepare-avatar-assets.mjs
 
 The script downloads exported CC0 DATA from pinned source commit `852e48f316b90a0937234886630e4fb4cdfd1f78` into ignored `.cache/avatar-source/`. A browser-side build helper applies an adult male morph and relaxed pose, bakes skin/morph data, retains 1024 px skin and 512 px alpha-preserving hair textures, removes unused garment maps, derives an open overshirt with clean polygon clipping and small baked folds, and writes `public/models/*.glb` plus a provenance manifest. It does not import the source project’s GPL application/build code. Source/licence details and silhouette limitations are recorded in [the model notice](public/models/NOTICE.md).
 
+[Before/after garment preview](docs/mockups/garment-comparison.png) compares actual renders of the same outfit.
+
 Runtime templates and coverage zones are resolved in `src/lib/avatar-assets.ts`. `avatar-scene.ts` clones the cached glTF data, hides covered faces, applies wardrobe colours and small shared fabric maps, fits trouser cuts around each leg, leaves room for thick inner layers, and derives clean short sleeves / hood-free sweaters / a knee-length coat from the fitted meshes. Mesh and material instances are disposed when selections change; shared template textures remain in a bounded asset cache.
 
 ### Prepare responsive outfit photos

@@ -65,3 +65,14 @@ The oversized field-jacket substitution for overshirts is replaced with a shirt-
 The new overshirt is about 0.27 MB, replacing the 0.09 MB jacket request for that outfit. This adds about 0.18 MB when opening a 3D outfit with an overshirt; initial 2D loading is unaffected. Both templates remain available because bombers and puffers still use the jacket. Two shared 128×128 RGBA normal/roughness maps use about 0.17 MB including mipmaps, with no network downloads or per-garment texture copies. MeshPhysicalMaterial enables fabric sheen, which adds shader work per rendered pixel; clearcoat, transmission and other optional physical features remain disabled. The existing phone pixel/shadow caps and rendering on demand remain in place. [Three.js fabric sheen and material cost](https://threejs.org/docs/pages/MeshPhysicalMaterial.html).
 
 These changes improve a stylised preview. More convincing drape requires garment-specific modelling or offline cloth simulation, retopology and baked normal maps exported as compact GLBs; adding a live cloth solver would work against the phone budget. Runtime performance still needs physical-device testing before making frame-rate or battery claims.
+
+Live verification of source commit `694121a` on 14 November 2026 passed: 33 unit tests, the browser regression suite and focused live garment/camera/outerwear checks. Cloudflare version: `d4af31ae-d51b-4b98-a92a-391eedbbc80c`. Raw resource measurements are in `performance-metrics-v0.6.0.json`.
+
+| Cold phone startup | v0.5.0 | v0.6.0 |
+| --- | ---: | ---: |
+| Network requests | 11 | 11 |
+| Transferred bytes | 285,662 | 285,715 |
+| Image requests | 5 | 5 |
+| Initial 3D model / module requests | 0 | 0 |
+
+The 53-byte transfer difference includes response headers and is immaterial. The mobile drawing buffer remains 528×600 for a 352×400 CSS-pixel stage. The six model files in the default 3D outfit now total 2,444,644 bytes, up 178,228 bytes from v0.5.0 because the overshirt has its own mesh. The old jacket remains available for other outerwear. Shared fabric maps add no network requests. The seam fix averages displacement directions across coincident UV vertices before applying ease, keeping those edges joined. [Actual render comparison](mockups/garment-comparison.png).

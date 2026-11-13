@@ -33,3 +33,13 @@ Built-in ImageGen produced the master at `public/app-icon-master.png`; exported 
 ## Mockups
 
 `docs/mockups/desktop.png`, `tablet.png` and `mobile.png` are browser captures of the implemented interface, rather than separate static concepts. They use the same wardrobe data and interactions as the deployed prototype.
+
+## Seasonal Edit 01 — November 13, 2026
+
+Browser feedback identified unclear source-image previews and an overly segmented mannequin. The revised experience removes the sidebar tagline, replaces the Winter/Spring placeholder circles with meaningful season icons, and separates new styling edits from original guide combinations.
+
+The first edit adds twelve new compositions: three per season, using only confirmed, season-appropriate catalogue items. Each has an independent 1024×1536 generated image, a dedicated full-resolution WebP asset and a short styling explanation. Original generated PNGs, prompts and the contact sheet are in `docs/artwork/outfits/`. These illustrate outfits rather than documenting exact garment prints or the owner’s likeness. Each image was generated individually using the built-in ImageGen tool, then encoded as WebP without changing its dimensions or composition. Future edits can be appended in `src/data/seasonal-outfits.ts` using new stable IDs.
+
+Original guide looks now use sharp vector garment overviews instead of magnifying tiny portions of a composite image. The original guides use build-verified image imports with content-hashed production URLs; an unavailable image shows a useful fallback rather than a broken-image icon.
+
+The mannequin uses interpolated garment profiles and continuous curved sleeves, smoother shoulders, a single sculpted head, relaxed hands, curved collars, unified trouser shapes and rounded shoes. It remains an illustrative model, with no claim to fit simulation.

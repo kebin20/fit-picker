@@ -1,0 +1,98 @@
+[
+  {
+    "id": "styled-autumn-01",
+    "clothing": "A dark navy short-sleeve button-front shirt, worn under an OPEN warm medium-brown casual overshirt with long sleeves and chest pockets. Slim grey full-length slacks. Entirely black low athletic sneakers with BLACK soles; no white on the shoes.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-autumn-01.webp",
+    "original": "docs/artwork/outfits/styled-autumn-01.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  },
+  {
+    "id": "styled-autumn-02",
+    "clothing": "A solid rust burnt-orange crewneck tee under an OPEN warm medium-brown casual long-sleeve overshirt with chest pockets. Relaxed warm cream full-length trousers, not white. Black LOW-TOP canvas Converse-style sneakers with off-white rubber toe caps and white soles.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-autumn-02.webp",
+    "original": "docs/artwork/outfits/styled-autumn-02.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  },
+  {
+    "id": "styled-autumn-03",
+    "clothing": "An off-white crewneck sweatshirt under an OPEN olive-green casual bomber jacket with ribbed cuffs and short hem. Relaxed wide olive green full-length trousers. Entirely black low athletic sneakers with BLACK soles; no white on the shoes.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-autumn-03.webp",
+    "original": "docs/artwork/outfits/styled-autumn-03.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  },
+  {
+    "id": "styled-winter-01",
+    "clothing": "A light brown/taupe cotton hoodie, hood resting visibly outside the neckline of an OPEN beige single-breasted knee-length tailored coat. Slim grey full-length slacks. Entirely white low athletic sneakers with white soles and no black stripes. No scarf.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-winter-01.webp",
+    "original": "docs/artwork/outfits/styled-winter-01.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  },
+  {
+    "id": "styled-winter-02",
+    "clothing": "A dark navy crewneck sweatshirt under an OPEN brown long-sleeve flannel shirt with a subtle small dark brown check (not a large tartan). Wide black barrel-leg full-length trousers with gentle curved silhouette. Black LOW-TOP canvas Converse-style sneakers with off-white rubber toe caps and white soles. No coat; indoor winter casual.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-winter-02.webp",
+    "original": "docs/artwork/outfits/styled-winter-02.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  },
+  {
+    "id": "styled-winter-03",
+    "clothing": "A dark navy crewneck sweatshirt under an OPEN matte black warm puffer jacket, horizontal quilted baffles, standing collar without hood. Wide olive green full-length trousers. Entirely black low athletic sneakers with BLACK soles; no white on shoes.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-winter-03.webp",
+    "original": "docs/artwork/outfits/styled-winter-03.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  },
+  {
+    "id": "styled-spring-01",
+    "clothing": "A clean off-white short-sleeve collared button-front shirt, buttoned with collar casually open, worn untucked. Relaxed beige full-length trousers. Entirely white low athletic sneakers with white soles and NO dark stripes. No outer layer.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-spring-01.webp",
+    "original": "docs/artwork/outfits/styled-spring-01.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  },
+  {
+    "id": "styled-spring-02",
+    "clothing": "A plain warm cream crewneck tee under an OPEN teal blue-green SHORT-SLEEVE collared shirt. Black tapered ankle-length trousers. Black LOW-TOP canvas Converse-style sneakers with off-white rubber toe caps and white soles.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-spring-02.webp",
+    "original": "docs/artwork/outfits/styled-spring-02.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  },
+  {
+    "id": "styled-spring-03",
+    "clothing": "A plain white crewneck tee under an OPEN navy casual bomber jacket with ribbed cuffs and short hem. Wide olive-green full-length trousers. Light brown/taupe slip-on walking sneakers with taupe uppers and pale rubber soles, no dark stripes.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-spring-03.webp",
+    "original": "docs/artwork/outfits/styled-spring-03.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  },
+  {
+    "id": "styled-summer-01",
+    "clothing": "A solid medium brown SHORT-SLEEVE collared button-front shirt, buttoned with open neck and neat subtle half-tuck. Black tapered ankle-length trousers. White low-top athletic sneakers with exactly three clean parallel BLACK diagonal side stripes, white soles. No outer layer.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-summer-01.webp",
+    "original": "docs/artwork/outfits/styled-summer-01.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  },
+  {
+    "id": "styled-summer-02",
+    "clothing": "A solid muted sage/olive green crewneck short-sleeve tee. Beige knee-above shorts, relaxed and tidy. Black LOW-TOP canvas Converse-style sneakers with off-white rubber toe caps and white soles. No outer layer.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-summer-02.webp",
+    "original": "docs/artwork/outfits/styled-summer-02.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  },
+  {
+    "id": "styled-summer-03",
+    "clothing": "A solid warm cream crewneck short-sleeve tee. Charcoal grey knee-above shorts, relaxed and tidy. Light brown/taupe slip-on walking sneakers with taupe uppers and pale soles, no dark stripes. No outer layer.",
+    "tool": "Built-in ImageGen",
+    "output": "public/outfits/styled-summer-03.webp",
+    "original": "docs/artwork/outfits/styled-summer-03.png",
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+  }
+]

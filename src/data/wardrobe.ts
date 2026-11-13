@@ -1,22 +1,6 @@
 import type { Category, Garment, GarmentStyle, Occasion, Outfit, Season } from '../types'
 
-export const sources = {
-  'aw-core': {
-    title: 'Autumn / Winter Fit Guide',
-    image: '/references/aw-core.png',
-    description: 'Core pieces, eight outfit combinations, and explicitly labelled sweatshirt recommendations.',
-  },
-  'aw-updated': {
-    title: 'Autumn & Winter Wardrobe — Updated',
-    image: '/references/aw-updated.png',
-    description: 'Updated actual collection, eight autumn looks and eight winter looks.',
-  },
-  ss: {
-    title: 'Kevin’s Summer Style Guide — Updated',
-    image: '/references/ss.png',
-    description: 'Thirty combinations across relaxed, clean casual, smart casual, friends, shorts and variations.',
-  },
-} as const
+export { sourceGuides as sources } from './source-guides'
 
 const all: Season[] = ['Autumn', 'Winter', 'Spring', 'Summer']
 const cool: Season[] = ['Autumn', 'Winter', 'Spring']

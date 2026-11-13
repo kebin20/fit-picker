@@ -17,6 +17,8 @@ export interface Garment {
   ownership?: 'confirmed' | 'recommended'
 }
 export interface Outfit {
+  origin?: 'guide' | 'styled'
+  image?: string
   id: string
   name: string
   subtitle: string

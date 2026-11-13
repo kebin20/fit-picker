@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Garment, Selection } from '../types'
+import { shell, sweep, trousers, shoeHull, type Ring, type Point, type SweepPoint } from './mannequinGeometry'
 
 interface Props {
   garments: Garment[]
@@ -9,39 +10,6 @@ interface Props {
   rotation: number
   zoom: number
   onUnavailable?: () => void
-}
-
-type Ring = [y: number, width: number, depth: number]
-type Point = [number, number, number]
-
-// Elliptical sections give the clothing a tailored silhouette without loading
-// heavyweight models. The front of the figure faces positive Z.
-function shell(rings: Ring[], gap = 0) {
-  const segments = 64
-  const positions: number[] = []
-  const uvs: number[] = []
-  const indices: number[] = []
-  for (let row = 0; row < rings.length; row++) {
-    const [y, width, depth] = rings[row]
-    for (let col = 0; col <= segments; col++) {
-      const angle = Math.PI / 2 + gap / 2 + (col / segments) * (Math.PI * 2 - gap)
-      positions.push(Math.cos(angle) * width, y, Math.sin(angle) * depth)
-      uvs.push(col / segments, row / (rings.length - 1))
-    }
-  }
-  for (let row = 0; row < rings.length - 1; row++) {
-    for (let col = 0; col < segments; col++) {
-      const a = row * (segments + 1) + col
-      const b = a + segments + 1
-      indices.push(a, a + 1, b, b, a + 1, b + 1)
-    }
-  }
-  const geometry = new THREE.BufferGeometry()
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
-  geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2))
-  geometry.setIndex(indices)
-  geometry.computeVertexNormals()
-  return geometry
 }
 
 function disposeTree(root: THREE.Object3D) {
@@ -69,10 +37,10 @@ function makeMannequin(garments: Garment[], selection: Selection) {
   const layer = get('layers')
   const bottoms = get('bottoms')
   const shoes = get('shoes')
-  const skin = new THREE.MeshStandardMaterial({ color: '#c8bda9', roughness: 0.77, metalness: 0.02 })
+  const skin = new THREE.MeshStandardMaterial({ color: '#c8c0b5', roughness: 0.58, metalness: 0.025 })
 
   const material = (color: string, roughness = 0.92) => {
-    const surface = new THREE.MeshStandardMaterial({ color, roughness, side: THREE.DoubleSide })
+    const surface = new THREE.MeshPhysicalMaterial({ color, roughness, side: THREE.DoubleSide, sheen: 0.24, sheenRoughness: 0.82, sheenColor: new THREE.Color(color).lerp(new THREE.Color('#ebe6dc'), 0.22) })
     // Thin garment shells should not shadow themselves through their front face.
     surface.shadowSide = THREE.BackSide
     return surface
@@ -92,14 +60,6 @@ function makeMannequin(garments: Garment[], selection: Selection) {
     object.scale.set(...scale)
     return object
   }
-  const segment = (from: Point, to: Point, radiusTop: number, radiusBottom: number, surface: THREE.Material, parent: THREE.Object3D = figure) => {
-    const start = new THREE.Vector3(...from)
-    const end = new THREE.Vector3(...to)
-    const object = mesh(new THREE.CylinderGeometry(radiusTop, radiusBottom, start.distanceTo(end), 32), surface, parent)
-    object.position.copy(start).add(end).multiplyScalar(0.5)
-    object.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), start.sub(end).normalize())
-    return object
-  }
   const seam = (points: Point[], color: string, radius = 0.004, parent: THREE.Object3D = figure) => {
     const curve = new THREE.CatmullRomCurve3(points.map((p) => new THREE.Vector3(...p)))
     const object = mesh(new THREE.TubeGeometry(curve, Math.max(points.length * 3, 12), radius, 6, false), material(color), parent)
@@ -115,59 +75,85 @@ function makeMannequin(garments: Garment[], selection: Selection) {
     seam(points, color, 0.003, parent)
   }
   const panel = (points: Point[], surface: THREE.Material, parent: THREE.Object3D = figure) => {
+    // A bilinear patch shades as folded fabric rather than two flat triangles.
+    const steps = 10
+    const positions: number[] = []
+    const indices: number[] = []
+    const [a, b, c, d] = points.map(point => new THREE.Vector3(...point))
+    for (let row = 0; row <= steps; row++) {
+      const v = row / steps
+      for (let col = 0; col <= steps; col++) {
+        const u = col / steps
+        const point = a.clone().lerp(b, u).lerp(d.clone().lerp(c, u), v)
+        point.z += Math.sin(Math.PI * u) * Math.sin(Math.PI * v) * 0.006
+        positions.push(point.x, point.y, point.z)
+      }
+    }
+    for (let row = 0; row < steps; row++) for (let col = 0; col < steps; col++) {
+      const start = row * (steps + 1) + col
+      indices.push(start, start + 1, start + steps + 1, start + 1, start + steps + 2, start + steps + 1)
+    }
     const geometry = new THREE.BufferGeometry()
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(points.flat(), 3))
-    geometry.setIndex([0, 1, 2, 0, 2, 3])
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
+    geometry.setIndex(indices)
     geometry.computeVertexNormals()
     const object = mesh(geometry, surface, parent)
     object.castShadow = false
     return object
   }
 
-  // The sculpted mannequin stays neutral so the wardrobe remains the focus.
-  ellipsoid([0, 3.36, 0.015], [0.205, 0.29, 0.205], skin)
-  ellipsoid([0, 3.22, 0.036], [0.158, 0.16, 0.167], skin)
-  segment([0, 3.17, 0], [0, 2.96, 0], 0.097, 0.125, skin)
-  mesh(shell([[3.01, 0.16, 0.12], [2.92, 0.435, 0.19], [2.71, 0.44, 0.21], [2.35, 0.32, 0.17], [1.95, 0.30, 0.175]]), skin)
-  mesh(shell([[2.0, 0.30, 0.175], [1.81, 0.35, 0.20], [1.65, 0.30, 0.16]]), skin)
+  // One smoothly sculpted head profile replaces the separate head/chin balls.
+  const head = mesh(shell([[3.657, 0.004, 0.004], [3.625, 0.108, 0.12], [3.55, 0.174, 0.177], [3.43, 0.19, 0.196], [3.31, 0.179, 0.177], [3.22, 0.149, 0.142], [3.145, 0.103, 0.108], [3.122, 0.042, 0.052], [3.117, 0.002, 0.003]]), skin)
+  head.position.z = 0.008
+  mesh(shell([[3.19, 0.086, 0.087], [3.10, 0.093, 0.095], [3.02, 0.11, 0.107], [2.96, 0.15, 0.124]]), skin)
+  mesh(shell([[3.025, 0.116, 0.104], [2.98, 0.235, 0.142], [2.9, 0.365, 0.18], [2.78, 0.406, 0.20], [2.55, 0.366, 0.196], [2.25, 0.29, 0.167], [1.96, 0.29, 0.17], ...(!bottoms ? [[1.76, 0.32, 0.19], [1.61, 0.275, 0.163]] as Ring[] : [])]), skin)
   for (const side of [-1, 1]) {
-    ellipsoid([side * 0.415, 2.80, 0], [0.13, 0.13, 0.14], skin)
-    segment([side * 0.45, 2.82, 0], [side * 0.56, 2.25, 0.015], 0.118, 0.087, skin)
-    ellipsoid([side * 0.56, 2.25, 0.015], [0.087, 0.092, 0.09], skin)
-    segment([side * 0.56, 2.25, 0.015], [side * 0.63, 1.72, 0.075], 0.086, 0.059, skin)
-    const hand = ellipsoid([side * 0.633, 1.585, 0.087], [0.071, 0.137, 0.081], skin)
-    hand.rotation.z = side * 0.08
-    ellipsoid([side * 0.581, 1.61, 0.136], [0.032, 0.073, 0.038], skin)
-    segment([side * 0.174, 1.78, 0], [side * 0.183, 0.91, 0.005], 0.175, 0.116, skin)
-    segment([side * 0.183, 0.95, 0.005], [side * 0.183, 0.19, 0.02], 0.12, 0.067, skin)
-    ellipsoid([side * 0.183, 0.12, 0.115], [0.09, 0.075, 0.198], skin)
+    ellipsoid([side * 0.181, 3.345, -0.006], [0.024, 0.052, 0.032], skin)
+    mesh(sweep([
+      [side * 0.31, 2.86, 0, 0.07, 0.09],
+      [side * 0.423, 2.78, 0, 0.107, 0.12],
+      [side * 0.493, 2.54, 0.008, 0.099, 0.109],
+      [side * 0.548, 2.29, 0.028, 0.076, 0.083],
+      [side * 0.581, 2.06, 0.058, 0.085, 0.085],
+      [side * 0.612, 1.74, 0.096, 0.047, 0.049],
+      [side * 0.614, 1.68, 0.102, 0.044, 0.042],
+    ]), skin)
+    // A relaxed, flattened palm and four individually tapered fingers retain
+    // human proportions while keeping the anonymous display-mannequin style.
+    ellipsoid([side * 0.615, 1.619, 0.109], [0.06, 0.09, 0.039], skin)
+    for (let finger = 0; finger < 4; finger++) {
+      const x = side * (0.576 + finger * 0.025)
+      const length = [0.098, 0.125, 0.118, 0.092][finger]
+      mesh(sweep([[x, 1.584, 0.109, 0.014, 0.018], [x + side * 0.004, 1.53, 0.119, 0.012, 0.015], [x + side * 0.004, 1.584 - length, 0.128, 0.008, 0.01], [x + side * 0.004, 1.577 - length, 0.127, 0.001, 0.002]]), skin)
+    }
+    mesh(sweep([[side * 0.575, 1.662, 0.12, 0.025, 0.023], [side * 0.553, 1.61, 0.151, 0.019, 0.019], [side * 0.565, 1.566, 0.164, 0.013, 0.014], [side * 0.571, 1.558, 0.164, 0.002, 0.002]]), skin)
+    const legSkin: SweepPoint[] = !bottoms
+      ? [[side * 0.17, 1.82, 0, 0.157, 0.173], [side * 0.19, 1.47, 0, 0.148, 0.163]]
+      : bottoms.style === 'shorts'
+        ? [[side * 0.19, 1.34, 0.01, 0.126, 0.141]]
+        : []
+    if (!bottoms || bottoms.style === 'shorts') legSkin.push([side * 0.198, 0.99, 0.025, 0.105, 0.111], [side * 0.191, 0.68, 0.022, 0.099, 0.111])
+    legSkin.push([side * 0.183, 0.36, 0.035, 0.062, 0.065], [side * 0.183, 0.22, 0.035, 0.061, 0.064])
+    mesh(sweep(legSkin), skin)
+    if (!shoes) ellipsoid([side * 0.183, 0.105, 0.12], [0.083, 0.072, 0.187], skin)
   }
 
   if (bottoms) {
     const fabric = material(bottoms.color)
-    const stitching = darker(bottoms.color, 0.73)
+    const stitching = darker(bottoms.color, 0.85)
     const shorts = bottoms.style === 'shorts'
     const wide = /barrel|wide|chef/i.test(bottoms.name)
     const ankle = /ankle/i.test(bottoms.name)
-    mesh(shell([[2.01, 0.319, 0.188], [1.92, 0.359, 0.213], [1.73, 0.366, 0.22], [1.59, 0.307, 0.191]]), fabric)
-    ellipseSeam(2.012, 0.322, 0.192, stitching)
-    ellipseSeam(1.961, 0.348, 0.207, stitching)
+    // Each leg flows directly from half of the waistband through the crotch;
+    // there is no horizontal hip cylinder or intersecting thigh end-cap.
+    mesh(shell([[1.77, 0.29, 0.185], [1.72, 0.26, 0.13], [1.68, 0.20, 0.05], [1.64, 0.12, 0.001]]), fabric)
     for (const side of [-1, 1]) {
-      const leg = mesh(shell(shorts
-        ? [[1.83, 0.19, 0.21], [1.55, 0.187, 0.197], [1.29, 0.174, 0.177]]
-        : wide
-          ? [[1.83, 0.196, 0.214], [1.5, 0.208, 0.215], [1.05, 0.203, 0.201], [0.77, 0.188, 0.187], [0.33, 0.16, 0.167], [0.245, 0.158, 0.167]]
-          : [[1.83, 0.188, 0.214], [1.5, 0.181, 0.196], [1.05, 0.151, 0.166], [0.77, 0.137, 0.151], [0.36, 0.123, 0.132], [ankle ? 0.34 : 0.245, 0.123, 0.132]]), fabric)
-      leg.position.x = side * 0.186
-      const hem = shorts ? 1.3 : ankle ? 0.35 : 0.265
-      ellipseSeam(hem, shorts ? 0.175 : wide ? 0.16 : 0.124, shorts ? 0.18 : wide ? 0.169 : 0.134, stitching, 0, leg)
-      if (!shorts) seam([[side * 0.30, 1.7, 0.143], [side * 0.30, 1.05, 0.118], [side * 0.28, 0.29, 0.095]], stitching, 0.0025)
-      seam([[side * 0.30, 1.92, 0.152], [side * 0.252, 1.80, 0.205], [side * 0.232, 1.76, 0.206]], stitching)
-      // Small waistband belt loops read as tailoring without adding logos.
-      segment([side * 0.19, 2.015, 0.163], [side * 0.19, 1.947, 0.188], 0.012, 0.012, fabric)
+      mesh(trousers(side, wide, shorts, ankle), fabric)
+      seam([[side * 0.283, 1.94, 0.112], [side * 0.248, 1.85, 0.166], [side * 0.233, 1.78, 0.188]], stitching, 0.0025)
     }
-    seam([[0, 1.96, 0.213], [0.012, 1.85, 0.223], [0, 1.73, 0.224]], stitching)
-    ellipsoid([0, 1.981, 0.204], [0.014, 0.014, 0.008], material('#8e877c', 0.45))
+    ellipseSeam(1.992, 0.337, 0.19, stitching)
+    seam([[0, 1.98, 0.189], [0.012, 1.88, 0.209], [0, 1.77, 0.21]], stitching, 0.0025)
+    ellipsoid([0, 1.988, 0.192], [0.011, 0.011, 0.004], material('#8e877c', 0.45))
   }
 
   function dress(garment: Garment, isLayer: boolean) {
@@ -179,7 +165,8 @@ function makeMannequin(garments: Garment[], selection: Selection) {
     const puff = style === 'puffer'
     const hasCollar = ['shirt', 'overshirt', 'coat', 'raincoat'].includes(style)
     const shortSleeve = style === 'tee' || (style === 'shirt' && (garment.id === 'navy-shirt' || /short.sleeve/i.test(garment.name) || (garment.seasons.includes('Summer') && !garment.seasons.includes('Winter'))))
-    const thickness = isLayer ? (puff ? 0.062 : 0.035) : 0
+    const underLayerBulk = isLayer && top && ['hoodie', 'sweatshirt'].includes(top.style) ? 0.012 : 0
+    const thickness = isLayer ? (puff ? 0.070 : 0.045) + underLayerBulk : 0
     const neck = style === 'hoodie' ? 0.168 : 0.145
     const hemY = longCoat ? 1.36 : (style === 'tee' || style === 'shirt' ? 1.99 : 1.93)
     const width = 0.343 + thickness
@@ -211,9 +198,8 @@ function makeMannequin(garments: Garment[], selection: Selection) {
         fabric.map = texture
       }
     }
-    const edge = material(darker(garment.color, 0.76))
     const softEdge = lighter(garment.color, 0.06)
-    const rings: Ring[] = [[3.02, neck + thickness * 0.4, 0.13 + thickness], [2.955, 0.38 + thickness, 0.19 + thickness], [2.87, 0.465 + thickness, 0.224 + thickness], [2.64, 0.425 + thickness, 0.235 + thickness], [2.28, 0.352 + thickness, depth], [2.01, width, depth]]
+    const rings: Ring[] = [[3.025, neck + thickness * 0.4, 0.13 + thickness], [2.998, 0.235 + thickness * 0.6, 0.153 + thickness], [2.95, 0.35 + thickness, 0.19 + thickness], [2.867, 0.433 + thickness, 0.218 + thickness], [2.70, 0.417 + thickness, 0.228 + thickness], [2.47, 0.382 + thickness, 0.222 + thickness], [2.24, 0.347 + thickness, depth], [2.01, width, depth]]
     if (longCoat) {
       // A coat hangs outside the combined volume of both trouser legs; simply
       // extending the waist ellipse would let wide trousers poke through it.
@@ -221,25 +207,28 @@ function makeMannequin(garments: Garment[], selection: Selection) {
       rings.push([1.7, width + 0.06, depth + 0.055], [hemY, width + 0.075, depth + 0.065])
     }
     else rings.push([hemY, width, depth])
-    mesh(shell(rings, gap), fabric, group)
+    mesh(shell(rings, gap, puff ? 0.003 : 0.006), fabric, group)
     ellipseSeam(hemY + 0.015, longCoat ? width + 0.075 : width, longCoat ? depth + 0.065 : depth, softEdge, gap, group)
     if (!hasCollar && style !== 'hoodie') ellipseSeam(3.02, neck + thickness * 0.4, 0.134 + thickness, darker(garment.color, 0.76), gap, group)
     for (const side of [-1, 1]) {
-      const shoulder: Point = [side * (0.447 + thickness * 0.4), 2.864, 0]
-      const elbow: Point = [side * 0.563, 2.25, 0.015]
-      const end: Point = shortSleeve ? [side * 0.51, 2.53, 0.006] : [side * 0.63, 1.74, 0.073]
-      const sleeveRadius = (shortSleeve ? 0.146 : 0.14) + thickness * 0.55
-      ellipsoid([side * (0.432 + thickness * 0.4), 2.827, 0], [sleeveRadius + 0.018, 0.112 + thickness * 0.3, 0.15 + thickness], fabric, group)
-      if (shortSleeve) {
-        segment(shoulder, end, sleeveRadius, 0.136, fabric, group)
-        segment([end[0], end[1] + 0.022, end[2]], end, 0.138, 0.138, edge, group)
-      } else {
-        segment(shoulder, elbow, sleeveRadius, 0.112 + thickness, fabric, group)
-        ellipsoid(elbow, [0.112 + thickness, 0.12, 0.116 + thickness], fabric, group)
-        segment(elbow, end, 0.111 + thickness, 0.081 + thickness * 0.6, fabric, group)
-        segment([side * 0.623, 1.81, 0.065], end, 0.083 + thickness * 0.6, 0.079 + thickness * 0.6, edge, group)
-      }
-      if (hasCollar) {
+      const sleeveRadius = (shortSleeve ? 0.139 : 0.134) + thickness * 0.72
+      const sleeve: SweepPoint[] = [
+        [side * (0.30 + thickness * 0.3), 2.893, 0, 0.065 + thickness * 0.5, 0.10 + thickness],
+        [side * (0.429 + thickness * 0.35), 2.79, 0.003, sleeveRadius, 0.148 + thickness],
+      ]
+      if (shortSleeve) sleeve.push(
+        [side * 0.487, 2.62, 0.013, 0.133 + thickness * 0.7, 0.14 + thickness],
+        [side * 0.517, 2.505, 0.02, 0.127 + thickness * 0.7, 0.132 + thickness],
+      )
+      else sleeve.push(
+        [side * 0.503, 2.55, 0.016, 0.123 + thickness * 0.8, 0.132 + thickness],
+        [side * 0.556, 2.30, 0.038, 0.108 + thickness * 0.8, 0.115 + thickness],
+        [side * 0.589, 2.07, 0.066, 0.105 + thickness * 0.75, 0.108 + thickness],
+        [side * 0.613, 1.82, 0.093, 0.080 + thickness * 0.6, 0.082 + thickness * 0.7],
+        [side * 0.615, 1.765, 0.10, 0.079 + thickness * 0.6, 0.080 + thickness * 0.7],
+      )
+      mesh(sweep(sleeve, puff ? 0.004 : 0.003), fabric, group)
+      if (hasCollar && (!layer || isLayer)) {
         // Folded collar/lapel faces catch the key light at a different angle.
         const lapelMaterial = material(lighter(garment.color, 0.06))
         const outer = isLayer ? 0.30 : 0.25
@@ -295,18 +284,20 @@ function makeMannequin(garments: Garment[], selection: Selection) {
       group.position.set(side * 0.193, 0, 0.07)
       group.rotation.y = side * 0.075
       figure.add(group)
-      const base = mesh(new THREE.CapsuleGeometry(0.108, 0.225, 8, 28), sole, group)
-      base.rotation.x = Math.PI / 2
-      base.position.set(0, 0.06, 0.055)
-      base.scale.set(1.02, 1, 0.39)
-      ellipsoid([0, 0.112, 0.035], [0.104, 0.088, 0.213], upper, group)
-      ellipsoid([0, 0.153, -0.067], [0.096, canvas ? 0.10 : 0.084, 0.101], upper, group)
-      if (canvas) ellipsoid([0, 0.112, 0.174], [0.10, 0.061, 0.077], sole, group)
-      seam([[-0.095, 0.091, 0.14], [-0.103, 0.088, -0.03], [0, 0.09, -0.158], [0.103, 0.088, -0.03], [0.095, 0.091, 0.14]], '#b8b6ad', 0.003, group)
+      mesh(shoeHull(true), sole, group)
+      mesh(shoeHull(), upper, group)
+      if (canvas) {
+        const toe = mesh(shoeHull(false, true), sole, group)
+        toe.position.y = 0.002
+        toe.scale.x = 1.005
+        toe.castShadow = false
+      }
+      seam([[-0.095, 0.068, 0.145], [-0.098, 0.068, -0.025], [0, 0.068, -0.168], [0.098, 0.068, -0.025], [0.095, 0.068, 0.145]], '#b8b6ad', 0.002, group)
       if (!slipon) {
         for (let i = 0; i < 4; i++) {
           const z = -0.038 + i * 0.034
-          seam([[-0.045, 0.195 - i * 0.01, z], [0, 0.20 - i * 0.01, z + 0.013], [0.045, 0.195 - i * 0.01, z]], '#e3dfd6', 0.006, group)
+          const y = [0.224, 0.218, 0.205, 0.188][i]
+          seam([[-0.041, y - 0.007, z], [0, y + 0.003, z + 0.01], [0.041, y - 0.007, z]], '#e3dfd6', 0.004, group)
         }
         const stripeColor = new THREE.Color(shoes.color).getHSL({ h: 0, s: 0, l: 0 }).l > 0.5 ? '#292d29' : '#e7e1d3'
         for (const edge of [-1, 1]) {
@@ -315,7 +306,7 @@ function makeMannequin(garments: Garment[], selection: Selection) {
           } else panel([[edge * 0.105, 0.1, -0.069], [edge * 0.105, 0.143, -0.044], [edge * 0.105, 0.12, 0.101], [edge * 0.105, 0.106, 0.111]], detail, group)
         }
       } else {
-        seam([[-0.071, 0.159, 0.0], [0, 0.195, 0.022], [0.071, 0.159, 0.0]], darker(shoes.color, 0.72), 0.005, group)
+        seam([[-0.071, 0.178, -0.02], [0, 0.224, -0.01], [0.071, 0.178, -0.02]], darker(shoes.color, 0.82), 0.003, group)
       }
     }
   }
@@ -373,18 +364,18 @@ export default function Mannequin({ garments, selection, rotation, zoom, onUnava
     controls.maxPolarAngle = Math.PI * 0.57
     controls.rotateSpeed = 0.55
     controls.update()
-    scene.add(new THREE.HemisphereLight('#fff8eb', '#c6c0b1', 2.8))
-    const key = new THREE.DirectionalLight('#fff7e7', 3.6)
-    key.position.set(-3.5, 6, 4)
+    scene.add(new THREE.HemisphereLight('#fffaf2', '#bcbeb8', 2.4))
+    const key = new THREE.DirectionalLight('#fffaf0', 3.1)
+    key.position.set(-3.8, 7, 5)
     key.castShadow = true
-    key.shadow.mapSize.set(1024, 1024)
+    key.shadow.mapSize.set(2048, 2048)
     key.shadow.camera.left = -2
     key.shadow.camera.right = 2
     key.shadow.camera.top = 4
     key.shadow.camera.bottom = -2
     key.shadow.normalBias = 0.025
     key.shadow.bias = -0.0002
-    key.shadow.radius = 4
+    key.shadow.radius = 6
     scene.add(key)
     const fill = new THREE.DirectionalLight('#e8edff', 1.1)
     fill.position.set(3, 3, 3)
@@ -392,7 +383,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, onUnava
     const rim = new THREE.DirectionalLight('#ffffff', 2.0)
     rim.position.set(2, 4, -3)
     scene.add(rim)
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(12, 12), new THREE.ShadowMaterial({ color: '#61594d', opacity: 0.13 }))
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(12, 12), new THREE.ShadowMaterial({ color: '#61594d', opacity: 0.085 }))
     floor.rotation.x = -Math.PI / 2
     floor.position.y = -0.01
     floor.receiveShadow = true

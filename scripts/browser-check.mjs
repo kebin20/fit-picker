@@ -1,5 +1,5 @@
 import { chromium, expect } from '@playwright/test'
-import { mkdir } from 'node:fs/promises'
+import { mkdir, readFile } from 'node:fs/promises'
 
 const baseURL = process.env.FIT_PICKER_URL || 'http://127.0.0.1:5173/'
 await mkdir('docs/mockups', { recursive: true })
@@ -10,21 +10,25 @@ page.setDefaultTimeout(15000)
 page.on('pageerror', error => errors.push(error.message))
 try {
   await page.goto(baseURL)
-  console.log('Opened prototype; checking 3D controls.')
-  await page.locator('canvas').waitFor()
+  console.log('Opened prototype; checking the default 2D outfit.')
+  await expect(page.locator('.outfit-canvas')).toBeVisible()
+  await expect(page.getByRole('button', { name: '2D outfit', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator('.stage-word')).toHaveCount(0)
+  await expect(page.getByRole('button', { name: 'Flat lay', exact: true })).toHaveCount(0)
   await page.evaluate(() => document.fonts.ready)
   await page.waitForTimeout(500)
   await expect(page.getByRole('heading', { name: /A good day starts/ })).toBeVisible()
   await expect(page.getByText('A LITTLE MORE YOU.', { exact: true })).toHaveCount(0)
   await expect(page.locator('.season-dot')).toHaveCount(0)
   await expect(page.locator('.sidebar-season>button>svg')).toHaveCount(4)
+  await page.getByRole('button', { name: '3D preview', exact: true }).click()
+  await page.locator('canvas').waitFor()
   await page.getByRole('button', { name: 'Rotate right', exact: true }).click()
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click()
   await page.getByRole('button', { name: 'Reset view', exact: true }).click()
   await page.locator('canvas').waitFor()
-  await page.getByRole('button', { name: 'Flat lay', exact: true }).click()
-  await expect(page.locator('.preview-panel .flat-look')).toBeVisible()
-  await page.getByRole('button', { name: '3D view', exact: true }).click()
+  await page.getByRole('button', { name: '2D outfit', exact: true }).click()
+  await expect(page.locator('.preview-panel .outfit-canvas')).toBeVisible()
   for (const category of ['Tops', 'Layers', 'Bottoms', 'Shoes']) {
     await page.getByRole('button', { name: category, exact: true }).click()
     const card = page.locator('.garment-card').nth(category === 'Layers' ? 1 : 0)
@@ -90,10 +94,21 @@ try {
   await page.getByRole('button', { name: 'Try this look', exact: true }).first().click()
   await expect(page.locator('.current-look p')).toContainText('Spring / Summer')
 
+  const garmentBriefs = JSON.parse(await readFile('docs/artwork/garments/catalogue-briefs.json', 'utf8'))
+  const garmentIds = garmentBriefs.atlases.flatMap(atlas => atlas.cells.filter(cell => cell.id).map(cell => cell.id))
+  const garmentSizes = await page.evaluate(async ids => Promise.all(ids.map(async id => {
+    const image = new Image()
+    image.src = `/garments/${id}.webp`
+    await image.decode()
+    return { id, width: image.naturalWidth, height: image.naturalHeight }
+  })), garmentIds)
+  if (garmentSizes.length !== 51 || garmentSizes.some(image => image.width < 100 || image.height < 100)) throw new Error('Missing or low-resolution garment photo')
+  console.log('All 51 photographic garment assets decoded')
+
   // Restore the clean default for comparable, reproducible mockups.
   await page.evaluate(() => localStorage.clear())
   await page.reload()
-  await page.locator('canvas').waitFor()
+  await expect(page.locator('.outfit-canvas')).toBeVisible()
   for (const [name, width, height] of [['desktop', 1440, 1080], ['tablet', 820, 1180], ['mobile', 390, 844]]) {
     await page.setViewportSize({ width, height })
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
@@ -125,7 +140,10 @@ try {
     }
   })
   await fallback.goto(baseURL)
-  await expect(fallback.locator('.preview-panel .flat-look')).toBeVisible()
+  await expect(fallback.locator('.preview-panel .outfit-canvas')).toBeVisible()
+  await fallback.getByRole('button', { name: '3D preview', exact: true }).click()
+  await expect(fallback.getByRole('button', { name: '2D outfit', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  await expect(fallback.getByRole('button', { name: '3D preview', exact: true })).toBeDisabled()
   await expect(fallback.getByRole('button', { name: 'Save look', exact: true })).toBeEnabled()
   await fallback.close()
   const brokenImage = await browser.newPage()
@@ -136,5 +154,5 @@ try {
   await expect(brokenImage.locator('.outfit-photograph')).toHaveCount(0)
   await brokenImage.close()
   if (errors.length) throw new Error(`Browser errors: ${errors.join('; ')}`)
-  console.log('PASS: 3D controls, all clothing slots, save/reload/delete, search, ownership, decoded source guides, 12 high-resolution seasonal images, original guide overview, try/undo, mobile navigation, responsive breakpoints, WebGL and image-error fallbacks; no page errors.')
+  console.log('PASS: default 2D outfit, optional 3D controls, 51 garment photos, all clothing slots, save/reload/delete, search, ownership, decoded source guides, 12 high-resolution seasonal images, original guide overview, try/undo, mobile navigation, responsive breakpoints, WebGL and image-error fallbacks; no page errors.')
 } finally { await browser.close() }

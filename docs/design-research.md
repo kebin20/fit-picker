@@ -43,3 +43,11 @@ The first edit adds twelve new compositions: three per season, using only confir
 Original guide looks now use sharp vector garment overviews instead of magnifying tiny portions of a composite image. The original guides use build-verified image imports with content-hashed production URLs; an unavailable image shows a useful fallback rather than a broken-image icon.
 
 The mannequin uses interpolated garment profiles and continuous curved sleeves, smoother shoulders, a single sculpted head, relaxed hands, curved collars, unified trouser shapes and rounded shoes. It remains an illustrative model, with no claim to fit simulation.
+
+## Photographic wardrobe and composed 2D outfit — November 13, 2026
+
+Further feedback showed that improved procedural geometry still did not provide the natural appearance the owner wanted. The default is now a 2D clothing-only outfit composition, using realistic transparent product photographs. Tops, bottoms and shoes align vertically; an optional layer sits beside the outfit so it does not conceal the chosen shirt. The stage's background slogan has been removed. The prior 3D model is an optional preview rather than the primary experience.
+
+Four photographic asset atlases were created with the built-in ImageGen tool. Their 51 garment images were extracted as separate transparent WebP files and are used consistently across the app. Exact prompts, source-informed briefs, master PNGs, actual extracted image sizes and a contact sheet are retained in `docs/artwork/garments/`. Images represent the catalogue's colours and styles, not verified exact prints or fit. The brown flannel correction takes precedence over inconsistent guide illustrations: it is solid brown, and the earlier generated winter outfit was edited to remove its check.
+
+For a future natural-looking 3D experience, the recommended asset pipeline is a professionally authored, proportionate body with individually fitted garment meshes and realistic fabric materials, loaded using the [Three.js glTF workflow](https://threejs.org/manual/pages/load-gltf.html). Smooth normals alone cannot replace the underlying garment shapes, folds and fit. This is a separate modelling phase rather than another adjustment to the current mannequin.

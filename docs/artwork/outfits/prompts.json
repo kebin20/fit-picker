@@ -33,11 +33,12 @@
   },
   {
     "id": "styled-winter-02",
-    "clothing": "A dark navy crewneck sweatshirt under an OPEN brown long-sleeve flannel shirt with a subtle small dark brown check (not a large tartan). Wide black barrel-leg full-length trousers with gentle curved silhouette. Black LOW-TOP canvas Converse-style sneakers with off-white rubber toe caps and white soles. No coat; indoor winter casual.",
+    "clothing": "Dark navy crewneck sweatshirt under an open SOLID medium warm-brown long-sleeve flannel shirt (#75523a), no stripes/checks/plaid. Wide black barrel pants; black low-top canvas sneakers with off-white rubber toe caps and soles.",
     "tool": "Built-in ImageGen",
     "output": "public/outfits/styled-winter-02.webp",
     "original": "docs/artwork/outfits/styled-winter-02.png",
-    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur."
+    "basePrompt": "Portrait 1024×1536, one adult East Asian male fashion model around 30, slim average build and neat dark hair, neutral expression, full body with both shoes and head fully visible, relaxed standing front three-quarter pose, plain warm off-white photography studio, soft daylight, sharp realistic fabric drape. Match the exact inventory description. No added garments, accessories, props, text, labels, watermarks or collage; no 3D game graphics or blur.",
+    "correction": "User confirmed the flannel is solid brown. Built-in ImageGen edited only the flannel fabric; all other styling, person and scene retained."
   },
   {
     "id": "styled-winter-03",

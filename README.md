@@ -1,17 +1,18 @@
 # Fit Picker
 
-A personal wardrobe studio for Kevin. Build outfits on a stylised 3D mannequin, browse seasonal/occasion suggestions drawn from the supplied style guides, and save favourite combinations on your browser.
+A personal wardrobe studio for Kevin. Assemble outfits with realistic photographic garment cutouts, browse seasonal/occasion suggestions drawn from the supplied style guides, and save favourite combinations on your browser.
 
 [Open the Cloudflare prototype](https://fit-picker.kaikei-app.workers.dev)
 
 ## Prototype
 
 - React, TypeScript and Vite.
-- Three.js procedural mannequin with interchangeable tops, layers, trousers/shorts and shoes, rotation, zoom and reset.
-- Flat outfit view and automatic fallback when WebGL is unavailable.
+- A composed 2D outfit view is the default: the selected top, bottoms and shoes form an outfit, with the optional outer layer alongside.
+- 51 individual transparent product-style garment photographs replace the former SVG drawings throughout the wardrobe, picker, outfit overviews and saved looks.
+- An optional Three.js procedural 3D preview retains clothing swaps, rotation, zoom and reset; it falls back to 2D when WebGL is unavailable.
 - 49 confirmed garment entries, 2 clearly separated suggested sweatshirts, and 54 combinations transcribed from three source images.
 - Seasonal Edit 01: 12 new combinations (three per season), with independent high-resolution styling photographs and why-it-works notes.
-- Separate collections for new styling edits and original guide combinations. Original combinations use crisp garment illustrations instead of enlarged guide crops.
+- Separate collections for new styling edits and original guide combinations. Original combinations use photographic garment overviews instead of enlarged guide crops.
 - Exact season/occasion filtering over confirmed garments; no AI API, accounts or live-weather dependency.
 - Searchable wardrobe, source guide viewer, local saved looks and responsive desktop/tablet/mobile navigation.
 - Original app icon, favicon, touch icon and web app manifest.
@@ -56,7 +57,11 @@ The originals are in `src/assets/guides/` and are imported through `src/data/sou
 
 New seasonal combinations live separately in `src/data/seasonal-outfits.ts`. Edit 01 adds 12 genuinely new combinations, with confirmed, season-appropriate garments and no duplicate compositions. Add future edits with stable IDs and image paths; existing saved looks and source IDs remain unchanged. These images are generated styling illustrations, rather than actual photographs of Kevin or exact garment prints. Full-size WebP assets are in `public/outfits/`, with original generated PNGs and generation briefs in `docs/artwork/outfits/`.
 
-Season and occasion tags are editorial interpretations of the source combinations. The 3D view approximates colour, cut and layering, and is not a sizing or drape simulation. Prints and details are illustrative. The complete original outfit photos are available beside recommendations and the original guides can be opened from the interface.
+Season and occasion tags are editorial interpretations of the source combinations. Garment product images are generated, source-informed representations rather than photographs of the exact owned items; prints and small details remain approximate. The brown flannel is user-confirmed solid brown, with no checks or stripes; its catalogue data, product image, optional 3D appearance and winter outfit image reflect that correction. Original guide images remain available from the interface.
+
+The 2D view illustrates a combination, not garment fit or fabric drape. The optional 3D view remains a simplified silhouette study. A natural 3D implementation would replace procedural primitives with a professionally authored body and fitted clothing meshes, consistent material textures and careful garment layering. Three.js supports loading those assets through its [glTF model workflow](https://threejs.org/manual/pages/load-gltf.html); those custom models are a separate asset-production phase.
+
+Product images are in `public/garments/`. The generation briefs, original transparent image atlases, exact generation prompts and a contact sheet are in `docs/artwork/garments/`. `scripts/prepare-garment-atlases.mjs` extracts separate WebP images and removes disconnected transparency specks outside the garment silhouettes. No API calls are made by the deployed app.
 
 Saved looks use browser local storage and do not sync across devices. Fonts are served by Google Fonts with system fallbacks. This public prototype contains the user-supplied guide images.
 

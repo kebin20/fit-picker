@@ -1,0 +1,308 @@
+[
+  {
+    "id": "navy-shirt",
+    "width": 295,
+    "height": 284,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "brown-flannel",
+    "width": 311,
+    "height": 302,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "ainu-longsleeve",
+    "width": 314,
+    "height": 296,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "rust-tee",
+    "width": 300,
+    "height": 273,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "white-tee",
+    "width": 296,
+    "height": 275,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "cream-graphic-tee",
+    "width": 309,
+    "height": 280,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "navy-sweatshirt",
+    "width": 314,
+    "height": 288,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "offwhite-sweatshirt",
+    "width": 314,
+    "height": 281,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "white-hoodie",
+    "width": 314,
+    "height": 310,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "brown-hoodie",
+    "width": 314,
+    "height": 311,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "navy-overshirt",
+    "width": 314,
+    "height": 303,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "check-overshirt",
+    "width": 314,
+    "height": 305,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "white-graphic-tee",
+    "width": 300,
+    "height": 281,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "black-cat-tee",
+    "width": 304,
+    "height": 281,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "green-tee",
+    "width": 300,
+    "height": 278,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "pink-tee",
+    "width": 302,
+    "height": 279,
+    "atlas": "tops-a"
+  },
+  {
+    "id": "cream-tee",
+    "width": 302,
+    "height": 275,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "ukiyoe-tee",
+    "width": 302,
+    "height": 277,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "yellow-tee",
+    "width": 300,
+    "height": 274,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "navy-tee",
+    "width": 304,
+    "height": 275,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "brown-tee",
+    "width": 296,
+    "height": 275,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "teal-shirt",
+    "width": 304,
+    "height": 290,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "brown-shirt",
+    "width": 305,
+    "height": 286,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "white-shirt",
+    "width": 306,
+    "height": 289,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "burton-tee",
+    "width": 301,
+    "height": 278,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "black-tee",
+    "width": 304,
+    "height": 279,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "white-longsleeve",
+    "width": 291,
+    "height": 281,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "grey-sweatshirt",
+    "width": 304,
+    "height": 282,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "olive-sweatshirt",
+    "width": 306,
+    "height": 277,
+    "atlas": "tops-b"
+  },
+  {
+    "id": "beige-coat",
+    "width": 267,
+    "height": 355,
+    "atlas": "outerwear-shoes"
+  },
+  {
+    "id": "navy-bomber",
+    "width": 340,
+    "height": 322,
+    "atlas": "outerwear-shoes"
+  },
+  {
+    "id": "green-bomber",
+    "width": 338,
+    "height": 322,
+    "atlas": "outerwear-shoes"
+  },
+  {
+    "id": "black-puffer",
+    "width": 350,
+    "height": 324,
+    "atlas": "outerwear-shoes"
+  },
+  {
+    "id": "brown-overshirt",
+    "width": 351,
+    "height": 344,
+    "atlas": "outerwear-shoes"
+  },
+  {
+    "id": "black-rain-jacket",
+    "width": 343,
+    "height": 362,
+    "atlas": "outerwear-shoes"
+  },
+  {
+    "id": "adidas-striped",
+    "width": 345,
+    "height": 209,
+    "atlas": "outerwear-shoes"
+  },
+  {
+    "id": "adidas-black",
+    "width": 350,
+    "height": 208,
+    "atlas": "outerwear-shoes"
+  },
+  {
+    "id": "skechers-white",
+    "width": 351,
+    "height": 238,
+    "atlas": "outerwear-shoes"
+  },
+  {
+    "id": "converse-black",
+    "width": 351,
+    "height": 225,
+    "atlas": "outerwear-shoes"
+  },
+  {
+    "id": "skechers-taupe",
+    "width": 351,
+    "height": 251,
+    "atlas": "outerwear-shoes"
+  },
+  {
+    "id": "white-barrel",
+    "width": 264,
+    "height": 349,
+    "atlas": "bottoms"
+  },
+  {
+    "id": "brown-barrel",
+    "width": 261,
+    "height": 349,
+    "atlas": "bottoms"
+  },
+  {
+    "id": "black-barrel",
+    "width": 269,
+    "height": 349,
+    "atlas": "bottoms"
+  },
+  {
+    "id": "olive-wide",
+    "width": 245,
+    "height": 355,
+    "atlas": "bottoms"
+  },
+  {
+    "id": "grey-slacks",
+    "width": 185,
+    "height": 352,
+    "atlas": "bottoms"
+  },
+  {
+    "id": "cream-pants",
+    "width": 222,
+    "height": 352,
+    "atlas": "bottoms"
+  },
+  {
+    "id": "beige-trousers",
+    "width": 220,
+    "height": 352,
+    "atlas": "bottoms"
+  },
+  {
+    "id": "black-ankle",
+    "width": 189,
+    "height": 333,
+    "atlas": "bottoms"
+  },
+  {
+    "id": "beige-shorts",
+    "width": 335,
+    "height": 286,
+    "atlas": "bottoms"
+  },
+  {
+    "id": "charcoal-shorts",
+    "width": 338,
+    "height": 285,
+    "atlas": "bottoms"
+  },
+  {
+    "id": "black-shorts",
+    "width": 338,
+    "height": 286,
+    "atlas": "bottoms"
+  }
+]

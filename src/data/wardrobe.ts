@@ -18,7 +18,7 @@ function garment(
 // Distinct cuts/prints remain distinct; ambiguous naming is recorded in notes.
 export const garments: Garment[] = [
   garment('navy-shirt', 'Navy short-sleeve shirt', 'tops', 'shirt', '#233344', 'Navy', 'ss', { wearableAs: ['layers'], note: 'Short-sleeve shirt in the core and summer guides; distinct from the updated navy overshirt.' }),
-  garment('brown-flannel', 'Brown flannel shirt', 'tops', 'shirt', '#75523a', 'Brown', 'aw-updated', { wearableAs: ['layers'], seasons: cool, pattern: 'check', note: 'Updated guide calls this “Brown Flannel Shirt (Solid)”; the illustration has a subtle check. Can be worn alone or open.' }),
+  garment('brown-flannel', 'Solid brown flannel shirt', 'tops', 'shirt', '#75523a', 'Brown', 'aw-updated', { wearableAs: ['layers'], seasons: cool, note: 'Confirmed by you as solid brown, with no stripes or checks. Can be worn alone or open as a layer.' }),
   garment('ainu-longsleeve', 'Grey Ainu long-sleeve tee', 'tops', 'longsleeve', '#a7aaa8', 'Grey', 'aw-updated', { seasons: cool, pattern: 'graphic' }),
   garment('rust-tee', 'Rust tee', 'tops', 'tee', '#a44c2e', 'Rust', 'aw-updated'),
   garment('white-tee', 'White tee', 'tops', 'tee', '#f3f0e8', 'White', 'aw-core'),

@@ -79,13 +79,13 @@ const edit01: Outfit[] = [
   styledLook({
     id: 'styled-winter-02',
     name: 'Flannel, staying in',
-    subtitle: 'Brown flannel, navy sweatshirt & black barrel pants',
+    subtitle: 'Solid brown flannel, navy sweatshirt & black barrel pants',
     items: { tops: 'navy-sweatshirt', layers: 'brown-flannel', bottoms: 'black-barrel', shoes: 'converse-black' },
     season: 'Winter',
     occasions: ['Everyday', 'With friends'],
     source: 'aw-updated',
     vibe: 'Indoor get-together',
-    note: 'Navy and black give the brown flannel a quiet backdrop. A sweatshirt under the open flannel works for indoor get-togethers or milder winter days; choose a coat or puffer for extended time in the cold.',
+    note: 'Navy and black give the solid brown flannel a quiet backdrop. A sweatshirt under the open, unpatterned flannel works for indoor get-togethers or milder winter days; choose a coat or puffer for extended time in the cold.',
   }),
   styledLook({
     id: 'styled-winter-03',

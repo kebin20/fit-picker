@@ -1,0 +1,644 @@
+{
+  "version": 1,
+  "purpose": "Source-informed product photography briefs for all 51 wardrobe entries. Images are styling illustrations, not photographs of the exact owned garments.",
+  "global": {
+    "style": "Consistent premium ecommerce product photography, realistic fabric and natural seams, soft broad studio lighting, subtle grounding shadow, no dramatic highlights.",
+    "background": "True transparent alpha background; no baked-in backdrop. Displayed on the app’s pale neutral surface.",
+    "layout": "An exact equal-size invisible rectangular grid. One isolated garment or one matched shoe pair per cell, centered on that cell. No contact between cells and no garment crossing a boundary. No drawn cell borders, labels, numbers, text, branding overlays or ownership badges.",
+    "view": "Clothing shown front-on, laid flat or evenly suspended without any visible hanger, model, body or mannequin. Buttons closed, sleeves symmetrically relaxed and slightly spread. Both trouser legs fully visible. Shoes are a matched pair in one gentle front three-quarter view.",
+    "safeArea": "At least 10% empty space around each cell content. Values widthWithinCell/heightWithinCell are maximum relative extents including garment sleeves; do not crop sleeves, hems or toes. Never enlarge a small graphic to fill the cell.",
+    "graphicsPolicy": "Only garments explicitly described as graphic carry prints. Source-inspired motifs are approximate illustrations, never newly invented exact brand artwork, writing or logo claims. Plain garments must remain completely plain. Brown flannel is user-confirmed SOLID BROWN, no checks, plaid, stripes or grid. The separate check-overshirt is the only plaid garment.",
+    "indexing": "cells are row-major. index is zero-based; row and column are one-based. id:null is a deliberately empty background-only cell.",
+    "outputSuggestion": "Generate enough pixels per cell for sharp product cards: 2048x2048 or larger for 4x4 atlases; 2048x1536 or larger for 4x3 atlases, with exact matching aspect ratio."
+  },
+  "atlases": [
+    {
+      "id": "tops-a",
+      "columns": 4,
+      "rows": 4,
+      "aspectRatio": "1:1",
+      "cells": [
+        {
+          "index": 0,
+          "row": 1,
+          "column": 1,
+          "id": "navy-shirt",
+          "description": "Deep navy short-sleeve button-front shirt, plain solid cotton, small collar, relaxed straight body, one understated chest pocket; no stripes, checks or print.",
+          "colorHex": "#233344",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 1,
+          "row": 1,
+          "column": 2,
+          "id": "brown-flannel",
+          "description": "Solid medium warm-brown long-sleeve flannel button-front shirt, soft brushed cotton, small collar, straight relaxed hem. Absolutely no checks, plaid, stripes, grid lines or contrasting woven pattern.",
+          "colorHex": "#75523a",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.82
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 3,
+          "id": "ainu-longsleeve",
+          "description": "Light grey long-sleeve crew-neck tee, relaxed body, approximate dark blue-grey rectangular Ainu-inspired chest graphic as an illustrative source-inspired motif, no invented writing or exact-design claim.",
+          "colorHex": "#a7aaa8",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.82
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 4,
+          "id": "rust-tee",
+          "description": "Plain burnt-orange rust short-sleeve crew-neck cotton T-shirt, relaxed clean shape, no print, no logos, no chest pocket.",
+          "colorHex": "#a44c2e",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 4,
+          "row": 2,
+          "column": 1,
+          "id": "white-tee",
+          "description": "Plain clean white short-sleeve crew-neck cotton T-shirt, softly structured relaxed fit, no graphic or logo; visibly lighter and cooler than the cream tees.",
+          "colorHex": "#f3f0e8",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 5,
+          "row": 2,
+          "column": 2,
+          "id": "cream-graphic-tee",
+          "description": "Warm ivory-cream short-sleeve crew-neck T-shirt with one approximate muted multicolour rectangular illustrated chest print; source-inspired placeholder composition, no text or invented branded artwork.",
+          "colorHex": "#e8dfcd",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 3,
+          "id": "navy-sweatshirt",
+          "description": "Solid deep navy long-sleeve crew-neck sweatshirt, slightly dropped shoulders, relaxed body, ribbed collar cuffs and hem; no hood, print or logo.",
+          "colorHex": "#243343",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.8
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 4,
+          "id": "offwhite-sweatshirt",
+          "description": "Solid off-white warm cream long-sleeve crew-neck sweatshirt, relaxed body, ribbed collar cuffs and hem; no hood, print or logo, warmer than the white hoodie.",
+          "colorHex": "#e9e1cf",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.8
+        },
+        {
+          "index": 8,
+          "row": 3,
+          "column": 1,
+          "id": "white-hoodie",
+          "description": "Solid white pullover hoodie, hood resting neatly behind neckline, simple drawcords, kangaroo pocket, relaxed long sleeves and ribbed hem, no logo.",
+          "colorHex": "#f1eee7",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.84
+        },
+        {
+          "index": 9,
+          "row": 3,
+          "column": 2,
+          "id": "brown-hoodie",
+          "description": "Solid light taupe-brown pullover hoodie, hood behind neckline, simple drawcords, kangaroo pocket and ribbed cuffs; soft muted brown, not chocolate, no logo.",
+          "colorHex": "#9a826b",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.84
+        },
+        {
+          "index": 10,
+          "row": 3,
+          "column": 3,
+          "id": "navy-overshirt",
+          "description": "Solid dark navy long-sleeve button-front overshirt with collar and discreet chest pocket, slightly boxy relaxed shape; distinct from the short-sleeve navy shirt, no contrasting check pattern.",
+          "colorHex": "#263449",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.82
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 4,
+          "id": "check-overshirt",
+          "description": "Beige-tan long-sleeve overshirt with clear black, cream and muted warm-red intersecting windowpane plaid inspired by the supplied guide; collar and button front. This is the patterned overshirt, not brown flannel.",
+          "colorHex": "#bda078",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.82
+        },
+        {
+          "index": 12,
+          "row": 4,
+          "column": 1,
+          "id": "white-graphic-tee",
+          "description": "White short-sleeve crew-neck cotton T-shirt with a small approximate dark illustrated chest emblem, source-inspired graphic only; front view, no extra back panel or invented lettering.",
+          "colorHex": "#efede5",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 13,
+          "row": 4,
+          "column": 2,
+          "id": "black-cat-tee",
+          "description": "Black short-sleeve crew-neck T-shirt with an approximate muted cream cat-themed chest motif inspired by the guide; no invented text, no claim of reproducing the exact cat-and-coffee artwork.",
+          "colorHex": "#282925",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 14,
+          "row": 4,
+          "column": 3,
+          "id": "green-tee",
+          "description": "Plain muted sage-olive green short-sleeve crew-neck cotton T-shirt, relaxed body and simple hem, no print or logo.",
+          "colorHex": "#68775a",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 15,
+          "row": 4,
+          "column": 4,
+          "id": "pink-tee",
+          "description": "Muted rose-pink short-sleeve crew-neck T-shirt with a small dark generic sports-style chest motif indicating an approximate source graphic; no fabricated lettering or precise-brand reproduction claim.",
+          "colorHex": "#d9919d",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        }
+      ]
+    },
+    {
+      "id": "tops-b",
+      "columns": 4,
+      "rows": 4,
+      "aspectRatio": "1:1",
+      "cells": [
+        {
+          "index": 0,
+          "row": 1,
+          "column": 1,
+          "id": "cream-tee",
+          "description": "Plain warm cream short-sleeve crew-neck cotton T-shirt, relaxed body, no print or logo. Warm ivory tone, clearly separate from the cooler plain white tee.",
+          "colorHex": "#e9e1ce",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 1,
+          "row": 1,
+          "column": 2,
+          "id": "ukiyoe-tee",
+          "description": "Dark mustard-yellow short-sleeve crew-neck T-shirt with an approximate navy-and-cream wave-inspired chest illustration; source-inspired Ukiyoe print placeholder, no invented text, distinct from plain bright yellow tee.",
+          "colorHex": "#cda131",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 3,
+          "id": "yellow-tee",
+          "description": "Plain bright warm yellow short-sleeve crew-neck cotton T-shirt, relaxed body, completely unprinted front, no logo; noticeably brighter than the mustard Ukiyoe graphic tee.",
+          "colorHex": "#e0c127",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 4,
+          "id": "navy-tee",
+          "description": "Plain navy short-sleeve crew-neck cotton T-shirt, relaxed clean silhouette; no buttons, collar, print or logo.",
+          "colorHex": "#273548",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 4,
+          "row": 2,
+          "column": 1,
+          "id": "brown-tee",
+          "description": "Plain medium chocolate-brown short-sleeve crew-neck cotton T-shirt, relaxed body, no collar, buttons, print or logo.",
+          "colorHex": "#69503d",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 5,
+          "row": 2,
+          "column": 2,
+          "id": "teal-shirt",
+          "description": "Solid muted teal short-sleeve button-front shirt with small collar and relaxed straight hem; lightweight cotton, no print or logo, front buttons neatly closed for product photography.",
+          "colorHex": "#2c6b75",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 3,
+          "id": "brown-shirt",
+          "description": "Solid warm-brown short-sleeve button-front shirt with small collar, lightweight smooth fabric and relaxed straight hem. Distinct from the long-sleeve brushed solid brown flannel; no checks or stripes.",
+          "colorHex": "#78533d",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 4,
+          "id": "white-shirt",
+          "description": "Solid white short-sleeve button-front shirt, small collar, lightweight cotton, relaxed straight hem and clean front; no print or logo.",
+          "colorHex": "#eeede6",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 8,
+          "row": 3,
+          "column": 1,
+          "id": "burton-tee",
+          "description": "Black short-sleeve crew-neck T-shirt with an approximate large pale circular mountain-like chest emblem inspired by the source guide; generic illustrative print, no invented brand text or exact-design claim.",
+          "colorHex": "#252826",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 9,
+          "row": 3,
+          "column": 2,
+          "id": "black-tee",
+          "description": "Plain black short-sleeve crew-neck cotton T-shirt, relaxed clean body, completely unprinted front, no logo or chest motif.",
+          "colorHex": "#2c2e2c",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.76,
+          "heightWithinCell": 0.74
+        },
+        {
+          "index": 10,
+          "row": 3,
+          "column": 3,
+          "id": "white-longsleeve",
+          "description": "Plain very light white long-sleeve crew-neck cotton tee, relaxed thin cotton body, simple cuffs, no large graphic; clearly lighter and thinner than a sweatshirt.",
+          "colorHex": "#edede8",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.82
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 4,
+          "id": "grey-sweatshirt",
+          "description": "Suggested piece: plain medium-light grey long-sleeve crew-neck sweatshirt with ribbed collar cuffs and hem, relaxed fit; no hood, print or logo. Product image only; no ownership badge.",
+          "colorHex": "#a9aaa8",
+          "ownership": "recommended",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.8
+        },
+        {
+          "index": 12,
+          "row": 4,
+          "column": 1,
+          "id": "olive-sweatshirt",
+          "description": "Suggested piece: plain muted olive-green long-sleeve crew-neck sweatshirt with ribbed collar cuffs and hem, relaxed fit; no hood, print or logo. Product image only; no ownership badge.",
+          "colorHex": "#626747",
+          "ownership": "recommended",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.8
+        },
+        {
+          "index": 13,
+          "row": 4,
+          "column": 2,
+          "id": null,
+          "description": "Empty cell: background only, no object, text, symbol or border."
+        },
+        {
+          "index": 14,
+          "row": 4,
+          "column": 3,
+          "id": null,
+          "description": "Empty cell: background only, no object, text, symbol or border."
+        },
+        {
+          "index": 15,
+          "row": 4,
+          "column": 4,
+          "id": null,
+          "description": "Empty cell: background only, no object, text, symbol or border."
+        }
+      ]
+    },
+    {
+      "id": "outerwear-shoes",
+      "columns": 4,
+      "rows": 3,
+      "aspectRatio": "4:3",
+      "cells": [
+        {
+          "index": 0,
+          "row": 1,
+          "column": 1,
+          "id": "beige-coat",
+          "description": "Solid warm beige single-breasted knee-length coat, notched lapels, simple dark buttons, two understated side pockets, relaxed straight cut. Front-on, coat alone, no shirt peeking through.",
+          "colorHex": "#bda988",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.58,
+          "heightWithinCell": 0.86
+        },
+        {
+          "index": 1,
+          "row": 1,
+          "column": 2,
+          "id": "navy-bomber",
+          "description": "Solid navy lightweight bomber jacket with neat stand collar, central zip, ribbed cuffs and hem, understated pockets, relaxed waist-length shape; no graphics or contrasting panels.",
+          "colorHex": "#263446",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.78
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 3,
+          "id": "green-bomber",
+          "description": "Solid muted olive-green lightweight bomber jacket, stand collar, central zip, ribbed cuffs and hem, simple pockets; no hood, graphic or contrasting panels.",
+          "colorHex": "#616b43",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.78
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 4,
+          "id": "black-puffer",
+          "description": "Black waist-to-hip-length puffer jacket with horizontal quilted baffles, padded stand collar, central zip and subtle pockets; softly matte fabric, no visible branding.",
+          "colorHex": "#2c2d2c",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.8
+        },
+        {
+          "index": 4,
+          "row": 2,
+          "column": 1,
+          "id": "brown-overshirt",
+          "description": "Solid medium warm tan-brown long-sleeve overshirt, small collar, button front and simple chest pocket, slightly structured relaxed cut. Lighter tan than the solid brown flannel; no plaid or stripes.",
+          "colorHex": "#84664b",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.82
+        },
+        {
+          "index": 5,
+          "row": 2,
+          "column": 2,
+          "id": "black-rain-jacket",
+          "description": "Plain matte black lightweight hooded rain jacket, central zip, simple practical pockets, slightly longer hip-length hem, minimal seam detailing; no quilted baffles or visible branding.",
+          "colorHex": "#252a29",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.78,
+          "heightWithinCell": 0.84
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 3,
+          "id": "adidas-striped",
+          "description": "One matched pair of low white leather sneakers with three clean black side stripes and white soles, neatly tied white laces; gentle front three-quarter view showing toe shape and side stripes.",
+          "colorHex": "#eeeee7",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.82,
+          "heightWithinCell": 0.48
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 4,
+          "id": "adidas-black",
+          "description": "One matched pair of all-black low athletic sneakers, black uppers, black subtle side stripes, black laces and black soles. Gentle front three-quarter view, no white outsole or extra colour.",
+          "colorHex": "#282b29",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.82,
+          "heightWithinCell": 0.48
+        },
+        {
+          "index": 8,
+          "row": 3,
+          "column": 1,
+          "id": "skechers-white",
+          "description": "One matched pair of all-white low comfort sneakers, white smooth mesh/leather-like uppers, white laces and rounded cushioned white soles; gentle front three-quarter view, no black stripes.",
+          "colorHex": "#eeefea",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.82,
+          "heightWithinCell": 0.48
+        },
+        {
+          "index": 9,
+          "row": 3,
+          "column": 2,
+          "id": "converse-black",
+          "description": "One matched pair of black low-top canvas Converse-style sneakers, white rubber toe caps, white laces, cream-white rubber soles with fine dark trim; gentle front three-quarter view. Low tops only, never high tops.",
+          "colorHex": "#292e2c",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.82,
+          "heightWithinCell": 0.48
+        },
+        {
+          "index": 10,
+          "row": 3,
+          "column": 3,
+          "id": "skechers-taupe",
+          "description": "One matched pair of light taupe-brown low comfort slip-in sneakers, muted beige-taupe textile uppers, discreet elastic-lace-like front detail and light neutral cushioned soles; gentle front three-quarter view, not leather loafers.",
+          "colorHex": "#a28e73",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.82,
+          "heightWithinCell": 0.48
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 4,
+          "id": null,
+          "description": "Empty cell: background only, no object, text, symbol or border."
+        }
+      ]
+    },
+    {
+      "id": "bottoms",
+      "columns": 4,
+      "rows": 3,
+      "aspectRatio": "4:3",
+      "cells": [
+        {
+          "index": 0,
+          "row": 1,
+          "column": 1,
+          "id": "white-barrel",
+          "description": "White wide barrel-leg trousers, softly bowed roomy legs tapering gently at ankles, subtle front pleats and waistband. Entire pair front-on; pale neutral white, not beige or cream.",
+          "colorHex": "#e9e5d9",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.6,
+          "heightWithinCell": 0.86
+        },
+        {
+          "index": 1,
+          "row": 1,
+          "column": 2,
+          "id": "brown-barrel",
+          "description": "Medium earth-brown wide barrel-leg trousers, softly bowed roomy legs with gentle ankle taper, subtle front pleats and waistband. Entire pair front-on; wide cut, not slim slacks.",
+          "colorHex": "#735e49",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.6,
+          "heightWithinCell": 0.86
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 3,
+          "id": "black-barrel",
+          "description": "Black wide barrel-leg trousers, noticeably voluminous softly bowed legs tapering near ankles, subtle front pleats and waistband. Entire pair front-on; broad shape distinct from black slim ankle trousers.",
+          "colorHex": "#30322e",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.6,
+          "heightWithinCell": 0.86
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 4,
+          "id": "olive-wide",
+          "description": "Muted olive-green chef-style wide trousers, relaxed roomy straight legs, easy gathered waistband, long full-length hem; entire pair front-on, no cargo pockets or invented utility straps.",
+          "colorHex": "#6c714a",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.6,
+          "heightWithinCell": 0.86
+        },
+        {
+          "index": 4,
+          "row": 2,
+          "column": 1,
+          "id": "grey-slacks",
+          "description": "Medium neutral grey tailored slacks, clean slim-to-tapered full-length legs, front crease, subtle front pleats and fitted waistband; entire pair front-on, distinctly narrower than barrel pants.",
+          "colorHex": "#777a74",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.5,
+          "heightWithinCell": 0.86
+        },
+        {
+          "index": 5,
+          "row": 2,
+          "column": 2,
+          "id": "cream-pants",
+          "description": "Warm cream relaxed full-length trousers, softly roomy straight legs and simple waistband, entire pair front-on. Warmer and slightly deeper than white barrel trousers, no pronounced barrel curve.",
+          "colorHex": "#d9cdb4",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.56,
+          "heightWithinCell": 0.86
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 3,
+          "id": "beige-trousers",
+          "description": "Light sandy beige relaxed full-length trousers, neat waistband and easy straight-to-gently-tapered legs, entire pair front-on. Deeper tan than cream pants, lighter than brown barrel pants.",
+          "colorHex": "#c9b894",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.54,
+          "heightWithinCell": 0.86
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 4,
+          "id": "black-ankle",
+          "description": "Dark black-charcoal ankle-length trousers, clean slim tapered legs and plain waistband; entire pair front-on. Narrow cropped cut, distinctly less volume and shorter hem than black barrel pants.",
+          "colorHex": "#363935",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.49,
+          "heightWithinCell": 0.82
+        },
+        {
+          "index": 8,
+          "row": 3,
+          "column": 1,
+          "id": "beige-shorts",
+          "description": "Sandy beige tailored casual shorts, relaxed straight legs ending above knee, simple waistband and understated slanted pockets; entire pair front-on, no cargo pockets or pattern.",
+          "colorHex": "#cbbd9d",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.72,
+          "heightWithinCell": 0.58
+        },
+        {
+          "index": 9,
+          "row": 3,
+          "column": 2,
+          "id": "charcoal-shorts",
+          "description": "Medium-dark charcoal-grey casual shorts, relaxed straight legs ending above knee, simple waistband and pockets; entire pair front-on, visibly grey rather than black.",
+          "colorHex": "#575c56",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.72,
+          "heightWithinCell": 0.58
+        },
+        {
+          "index": 10,
+          "row": 3,
+          "column": 3,
+          "id": "black-shorts",
+          "description": "Plain black casual shorts, relaxed straight legs ending above knee, simple waistband and pockets; entire pair front-on, deeper black than charcoal shorts, no pattern.",
+          "colorHex": "#2d322e",
+          "ownership": "confirmed",
+          "widthWithinCell": 0.72,
+          "heightWithinCell": 0.58
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 4,
+          "id": null,
+          "description": "Empty cell: background only, no object, text, symbol or border."
+        }
+      ]
+    }
+  ]
+}

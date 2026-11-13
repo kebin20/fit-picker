@@ -67,4 +67,12 @@ describe('source catalogue integrity', () => {
     expect(garments.find(piece => piece.id === 'navy-sweatshirt')?.ownership).toBe('confirmed')
     expect(garments.filter(piece => piece.ownership === 'recommended').map(piece => piece.id).sort()).toEqual(['grey-sweatshirt', 'olive-sweatshirt'])
   })
+
+  it('keeps the user-confirmed solid brown flannel separate from the check overshirt', () => {
+    const flannel = garments.find(piece => piece.id === 'brown-flannel')!
+    expect(flannel.name).toBe('Solid brown flannel shirt')
+    expect(flannel.pattern).toBeUndefined()
+    expect(flannel.note).toContain('solid brown, with no stripes or checks')
+    expect(garments.find(piece => piece.id === 'check-overshirt')!.pattern).toBe('check')
+  })
 })

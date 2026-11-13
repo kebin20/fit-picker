@@ -240,3 +240,4 @@
   .outfit-canvas__caption li { font-size: 8px; }
   .outfit-canvas__caption-title { font-size: 7px; }
 }
+.outfit-canvas--compact{padding:8px}.outfit-canvas--compact .outfit-canvas__arrangement{min-height:0}.outfit-canvas--compact .outfit-canvas__caption{display:none}.outfit-canvas--compact .outfit-canvas__layer-label,.outfit-canvas--compact .outfit-canvas__layer-name{display:none}

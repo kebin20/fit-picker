@@ -53,7 +53,7 @@ describe('seasonal styling edit', () => {
     for (const look of seasonalOutfits) {
       expect(look.origin).toBe('styled')
       expect(look.sourceIndex).toBe(-1)
-      expect(look.image).toBe(`/outfits/${look.id}.webp`)
+      if (look.image) expect(look.image).toBe(`/outfits/${look.id}.webp`)
       expect(look.sourceLabel).toMatch(new RegExp(`^Styled from your wardrobe · ${look.seasons[0]} · Edit \\d+$`))
       expect(look.note).toBeTruthy()
     }
@@ -67,12 +67,24 @@ describe('seasonal styling edit', () => {
   })
 
   it('ships a real WebP asset for every styling image instead of an unresolved URL', () => {
-    for (const look of seasonalOutfits) {
+    for (const look of seasonalOutfits.filter(look => look.image)) {
       const file = fileURLToPath(new URL(`../../public${look.image}`, import.meta.url))
       expect(statSync(file).size, `${look.id}: empty image`).toBeGreaterThan(10_000)
       const bytes = readFileSync(file)
       expect(bytes.toString('ascii', 0, 4), `${look.id}: not a WebP container`).toBe('RIFF')
       expect(bytes.toString('ascii', 8, 12), `${look.id}: invalid WebP file`).toBe('WEBP')
     }
+  })
+
+  it('adds 24 genuinely new combinations per season with several choices for every occasion', () => {
+    const edit = seasonalOutfits.filter(look => look.sourceLabel.endsWith('Edit 02'))
+    expect(edit).toHaveLength(96)
+    for (const season of seasons) {
+      expect(edit.filter(look => look.seasons.includes(season))).toHaveLength(24)
+      for (const occasion of ['Everyday', 'Dinner', 'Date night', 'With friends', 'Outdoors'] as const) {
+        expect(recommendOutfits(edit, garments, season, occasion).length, `${season} / ${occasion}`).toBeGreaterThanOrEqual(4)
+      }
+    }
+    expect(edit.every(look => !look.image)).toBe(true)
   })
 })

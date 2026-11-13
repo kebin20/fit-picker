@@ -9,10 +9,12 @@ A personal wardrobe studio for Kevin. Assemble outfits with realistic photograph
 - React, TypeScript and Vite.
 - A composed 2D outfit view is the default: the selected top, bottoms and shoes form an outfit, with the optional outer layer alongside.
 - 51 individual transparent product-style garment photographs replace the former SVG drawings throughout the wardrobe, picker, outfit overviews and saved looks.
-- An optional Three.js procedural 3D preview retains clothing swaps, rotation, zoom and reset; it falls back to 2D when WebGL is unavailable.
+- The optional Three.js 3D preview loads a fitted human body, hair and separate clothing models through `GLTFLoader`, with clothing swaps, rotation, zoom and reset. Model/WebGL failures return to 2D.
 - 49 confirmed garment entries, 2 clearly separated suggested sweatshirts, and 54 combinations transcribed from three source images.
 - Seasonal Edit 01: 12 new combinations (three per season), with independent high-resolution styling photographs and why-it-works notes.
+- Seasonal Edit 02: 96 additional combinations (24 per season), previewed from their exact garment-photo selections. Every season/occasion has multiple choices; all compositions are distinct from the existing guides and edit.
 - Separate collections for new styling edits and original guide combinations. Original combinations use photographic garment overviews instead of enlarged guide crops.
+- Recommendation filters live under “Right for the occasion”. They change the suggested looks only; the outfit builder shows the confirmed wardrobe independently. Wardrobe browsing has its own season filter.
 - Exact season/occasion filtering over confirmed garments; no AI API, accounts or live-weather dependency.
 - Searchable wardrobe, source guide viewer, local saved looks and responsive desktop/tablet/mobile navigation.
 - Original app icon, favicon, touch icon and web app manifest.
@@ -55,11 +57,23 @@ Wrangler uploads `dist/` as static assets using `wrangler.jsonc`, with SPA fallb
 
 The originals are in `src/assets/guides/` and are imported through `src/data/source-guides.ts`, so missing files fail the build and production uses versioned image URLs. Catalogue and original outfit records live in `src/data/wardrobe.ts`; IDs preserve each guide’s outfit order. Overlapping pieces are deduplicated conservatively, with uncertainty notes visible in My wardrobe. The updated Autumn/Winter collection takes priority for shared items. Grey and olive sweatshirts are recommendations from the older guide, not confirmed belongings, so the engine excludes them. One source combination containing an unconfirmed sweatshirt remains in the data for provenance.
 
-New seasonal combinations live separately in `src/data/seasonal-outfits.ts`. Edit 01 adds 12 genuinely new combinations, with confirmed, season-appropriate garments and no duplicate compositions. Add future edits with stable IDs and image paths; existing saved looks and source IDs remain unchanged. These images are generated styling illustrations, rather than actual photographs of Kevin or exact garment prints. Full-size WebP assets are in `public/outfits/`, with original generated PNGs and generation briefs in `docs/artwork/outfits/`.
+New seasonal combinations live in `src/data/seasonal-outfits.ts` and `src/data/seasonal-edit-02.ts`. Edit 01 contains 12 combinations with generated model images; Edit 02 adds 96 curated garment/palette combinations using the photographic 2D composition, so new looks do not require a separate AI photograph. Every combination uses confirmed, season-appropriate pieces and has a stable ID. The original guide records and saved-look IDs remain unchanged. Model images are styling illustrations, rather than actual photographs of Kevin or exact garment prints. Full-size WebP assets are in `public/outfits/`, with original generated PNGs and generation briefs in `docs/artwork/outfits/`.
 
 Season and occasion tags are editorial interpretations of the source combinations. Garment product images are generated, source-informed representations rather than photographs of the exact owned items; prints and small details remain approximate. The brown flannel is user-confirmed solid brown, with no checks or stripes; its catalogue data, product image, optional 3D appearance and winter outfit image reflect that correction. Original guide images remain available from the interface.
 
-The 2D view illustrates a combination, not garment fit or fabric drape. The optional 3D view remains a simplified silhouette study. A natural 3D implementation would replace procedural primitives with a professionally authored body and fitted clothing meshes, consistent material textures and careful garment layering. Three.js supports loading those assets through its [glTF model workflow](https://threejs.org/manual/pages/load-gltf.html); those custom models are a separate asset-production phase.
+The 2D view illustrates a combination, not garment fit or fabric drape. The 3D view now uses authored CC0 human and fitted garment mesh data from MakeHuman / CharacterCreator through the [Three.js glTF workflow](https://threejs.org/manual/pages/load-gltf.html). The old procedural mannequin is removed. The generic body is not Kevin’s likeness or measurements; clothing templates approximate cuts and several wardrobe styles share a model. Exact brands, prints, puffer construction and shoe shapes still require item-specific modelling. This is a working glTF asset pipeline, not a physical cloth or sizing simulation.
+
+### Rebuild the glTF assets
+
+With the dev server running:
+
+```sh
+node scripts/prepare-avatar-assets.mjs
+```
+
+The script downloads exported CC0 DATA from pinned source commit `852e48f316b90a0937234886630e4fb4cdfd1f78` into ignored `.cache/avatar-source/`. A browser-side build helper applies an adult male morph and relaxed pose, bakes skin/morph data, embeds textures capped at 1024 px, and writes `public/models/*.glb` plus a provenance manifest. It does not import the source project’s GPL application/build code. Source/licence details and silhouette limitations are recorded in [the model notice](public/models/NOTICE.md).
+
+Runtime templates and coverage zones are resolved in `src/lib/avatar-assets.ts`. `avatar-scene.ts` clones the cached glTF data, hides covered faces, applies wardrobe colours, and derives short sleeves / hood-free sweaters / a knee-length coat from the fitted meshes. Mesh and material instances are disposed when selections change; shared template textures remain in a bounded asset cache.
 
 Product images are in `public/garments/`. The generation briefs, original transparent image atlases, exact generation prompts and a contact sheet are in `docs/artwork/garments/`. `scripts/prepare-garment-atlases.mjs` extracts separate WebP images and removes disconnected transparency specks outside the garment silhouettes. No API calls are made by the deployed app.
 

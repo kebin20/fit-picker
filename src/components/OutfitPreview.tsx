@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import type { Outfit } from '../types'
 import { garments } from '../data/wardrobe'
-import GarmentArt from './GarmentArt'
+import OutfitCanvas from './OutfitCanvas'
 
-const byId = new Map(garments.map(g => [g.id, g]))
-
-/** New edits use individual full-size assets; guide looks stay sharp as vectors. */
+/** Every new combination can be previewed directly from its exact garment photos. */
 export default function OutfitPreview({ outfit }: { outfit: Outfit }) {
   const [failedSource, setFailedSource] = useState<string | null>(null)
   if (outfit.image && failedSource !== outfit.image) return <img
@@ -16,11 +14,7 @@ export default function OutfitPreview({ outfit }: { outfit: Outfit }) {
     decoding="async"
     onError={() => setFailedSource(outfit.image!)}
   />
-  return <div className="outfit-flat-preview" role="img" aria-label={`${outfit.name}: ${outfit.subtitle}`}>
-    {Object.entries(outfit.items).map(([slot, id]) => {
-      const garment = byId.get(id)
-      return garment ? <div key={slot} className={`preview-garment preview-${slot}`}><GarmentArt garment={garment}/></div> : null
-    })}
-    {outfit.image && <small className="preview-fallback-label">Outfit overview</small>}
+  return <div className="outfit-flat-preview outfit-flat-preview--composed" role="group" aria-label={`${outfit.name}: ${outfit.subtitle}`}>
+    <OutfitCanvas selection={outfit.items} garments={garments} compact/>
   </div>
 }

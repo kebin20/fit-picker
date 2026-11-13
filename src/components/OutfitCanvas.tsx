@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Category, Garment, Selection } from '../types'
 import './outfit-canvas.css'
 
 interface Props {
   selection: Selection
   garments: Garment[]
+  compact?: boolean
 }
 
 const pieceLabels: Record<Category, string> = {
@@ -31,7 +32,9 @@ function ProductPhoto({ garment, className = '' }: { garment: Garment; className
 /** A composed clothing-only outfit, using the same photographic product assets
  * as the wardrobe. The optional outer layer sits beside the base outfit so a
  * closed jacket never conceals the selected shirt. */
-export default function OutfitCanvas({ selection, garments }: Props) {
+export default function OutfitCanvas({ selection, garments, compact = false }: Props) {
+  const arrangement = useRef<HTMLDivElement>(null)
+  const assembly = useRef<HTMLDivElement>(null)
   const get = (category: Category) => garments.find(garment => garment.id === selection[category])
   const top = get('tops')
   const layer = get('layers')
@@ -41,11 +44,27 @@ export default function OutfitCanvas({ selection, garments }: Props) {
     .map(category => ({ category, garment: get(category) }))
     .filter((piece): piece is { category: Category; garment: Garment } => Boolean(piece.garment))
 
+  useEffect(() => {
+    const container = arrangement.current
+    const content = assembly.current
+    if (!container || !content) return
+    const resize = () => {
+      const width = layer ? 344 : 210
+      const height = bottoms?.style === 'shorts' ? 365 : 390
+      const scale = Math.min(1, Math.max(.15, (container.clientWidth - 12) / width), Math.max(.15, (container.clientHeight - 12) / height))
+      content.style.transform = `translate(-50%, -50%) scale(${scale})`
+    }
+    const observer = new ResizeObserver(resize)
+    observer.observe(container)
+    resize()
+    return () => observer.disconnect()
+  }, [Boolean(layer), bottoms?.style, compact, selected.length])
+
   if (!selected.length) return <div className="outfit-canvas outfit-canvas--empty"><p>Your outfit starts with one piece.</p><span>Choose a top, bottoms and shoes to bring it together.</span></div>
 
-  return <figure className={`outfit-canvas${layer ? ' outfit-canvas--layered' : ''}${bottoms?.style === 'shorts' ? ' outfit-canvas--shorts' : ''}`} aria-label="Your selected outfit in 2D">
-    <div className="outfit-canvas__arrangement">
-      <div className="outfit-canvas__assembly">
+  return <figure className={`outfit-canvas${compact ? ' outfit-canvas--compact' : ''}${layer ? ' outfit-canvas--layered' : ''}${bottoms?.style === 'shorts' ? ' outfit-canvas--shorts' : ''}`} aria-label="Your selected outfit in 2D">
+    <div className="outfit-canvas__arrangement" ref={arrangement}>
+      <div className="outfit-canvas__assembly" ref={assembly}>
         <div className="outfit-canvas__base">
           {shoes && <ProductPhoto key={shoes.id} garment={shoes} className="outfit-canvas__shoes"/>}
           {bottoms && <ProductPhoto key={bottoms.id} garment={bottoms} className="outfit-canvas__bottoms"/>}

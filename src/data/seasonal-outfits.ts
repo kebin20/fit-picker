@@ -1,4 +1,6 @@
 import type { Occasion, Outfit, Season } from '../types'
+import { outfits as guideOutfits } from './wardrobe'
+import { createSeasonalEdit02 } from './seasonal-edit-02'
 
 interface StyledBrief {
   id: string
@@ -166,4 +168,4 @@ const edit01: Outfit[] = [
   }),
 ]
 
-export const seasonalOutfits: Outfit[] = [...edit01]
+export const seasonalOutfits: Outfit[] = [...edit01, ...createSeasonalEdit02([...guideOutfits, ...edit01])]

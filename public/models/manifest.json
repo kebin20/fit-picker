@@ -1,0 +1,379 @@
+{
+  "source": "https://github.com/kblood/CharacterCreator/tree/852e48f316b90a0937234886630e4fb4cdfd1f78/output",
+  "sourceCommit": "852e48f316b90a0937234886630e4fb4cdfd1f78",
+  "license": "CC0-1.0",
+  "build": "Adult male morph; relaxed standing pose; static morph/skin bake; embedded textures capped at 1024 px. No upstream application code copied.",
+  "assets": [
+    {
+      "file": "base_body.glb",
+      "bytes": 1676256,
+      "bounds": {
+        "min": [
+          -0.32014328241348267,
+          0.000015089092812559102,
+          -0.10001769661903381
+        ],
+        "max": [
+          0.32014328241348267,
+          1.7291048765182495,
+          0.21060411632061005
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Body",
+          "vertices": 14517,
+          "attributes": [
+            "_cczone",
+            "position",
+            "normal",
+            "uv"
+          ]
+        },
+        {
+          "name": "Eyebrows",
+          "vertices": 124,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ]
+        },
+        {
+          "name": "Eyelashes",
+          "vertices": 250,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ]
+        },
+        {
+          "name": "Eyes_1",
+          "vertices": 360,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ]
+        },
+        {
+          "name": "Eyes_2",
+          "vertices": 232,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ]
+        },
+        {
+          "name": "Eyes_3",
+          "vertices": 524,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ]
+        },
+        {
+          "name": "Teeth",
+          "vertices": 4494,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ]
+        },
+        {
+          "name": "Tongue",
+          "vertices": 253,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "hair_short02.glb",
+      "bytes": 860792,
+      "bounds": {
+        "min": [
+          -0.09031732380390167,
+          1.5378901958465576,
+          -0.05340835079550743
+        ],
+        "max": [
+          0.0838318020105362,
+          1.744470477104187,
+          0.16484519839286804
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Hair_short02",
+          "vertices": 1794,
+          "attributes": [
+            "_cchair",
+            "_ccedge",
+            "position",
+            "normal",
+            "uv"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "clothing_tshirt.glb",
+      "bytes": 90472,
+      "bounds": {
+        "min": [
+          -0.2815166115760803,
+          0.9251165986061096,
+          -0.11020103096961975
+        ],
+        "max": [
+          0.2815166115760803,
+          1.4936667680740356,
+          0.15638431906700134
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Cloth_tshirt",
+          "vertices": 902,
+          "attributes": [
+            "_cczone",
+            "position",
+            "normal",
+            "uv"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "clothing_shirt.glb",
+      "bytes": 121968,
+      "bounds": {
+        "min": [
+          -0.32560995221138,
+          0.8267796635627747,
+          -0.13123302161693573
+        ],
+        "max": [
+          0.33381661772727966,
+          1.511751413345337,
+          0.16307467222213745
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Cloth_shirt",
+          "vertices": 1603,
+          "attributes": [
+            "_cczone",
+            "position",
+            "normal",
+            "uv"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "clothing_hoodie.glb",
+      "bytes": 153844,
+      "bounds": {
+        "min": [
+          -0.33672016859054565,
+          0.8230506777763367,
+          -0.1303713470697403
+        ],
+        "max": [
+          0.33671921491622925,
+          1.5345948934555054,
+          0.16268374025821686
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Cloth_hoodie",
+          "vertices": 1793,
+          "attributes": [
+            "_cccollar",
+            "position",
+            "normal",
+            "uv"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "clothing_jeans.glb",
+      "bytes": 155432,
+      "bounds": {
+        "min": [
+          -0.25112032890319824,
+          0.06388819217681885,
+          -0.1099647581577301
+        ],
+        "max": [
+          0.25665590167045593,
+          0.9952422976493835,
+          0.13686415553092957
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Cloth_jeans",
+          "vertices": 950,
+          "attributes": [
+            "_cczone",
+            "position",
+            "normal",
+            "uv"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "clothing_shorts.glb",
+      "bytes": 86424,
+      "bounds": {
+        "min": [
+          -0.21833306550979614,
+          0.6063538193702698,
+          -0.1099647581577301
+        ],
+        "max": [
+          0.21923498809337616,
+          0.9952422976493835,
+          0.13686415553092957
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Cloth_shorts",
+          "vertices": 503,
+          "attributes": [
+            "_cczone",
+            "position",
+            "normal",
+            "uv"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "clothing_shoes.glb",
+      "bytes": 389528,
+      "bounds": {
+        "min": [
+          -0.2562941908836365,
+          -0.008992585353553295,
+          -0.060454219579696655
+        ],
+        "max": [
+          0.2562662959098816,
+          0.21132317185401917,
+          0.21408727765083313
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Cloth_shoes",
+          "vertices": 1846,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "clothing_jacket.glb",
+      "bytes": 185048,
+      "bounds": {
+        "min": [
+          -0.35074982047080994,
+          0.8152478337287903,
+          -0.1426198035478592
+        ],
+        "max": [
+          0.3507732152938843,
+          1.5199699401855469,
+          0.19505244493484497
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Cloth_jacket",
+          "vertices": 2153,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "clothing_trenchcoat.glb",
+      "bytes": 229260,
+      "bounds": {
+        "min": [
+          -0.34404444694519043,
+          0.0781383290886879,
+          -0.26043567061424255
+        ],
+        "max": [
+          0.3439875543117523,
+          1.5632258653640747,
+          0.24081876873970032
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Cloth_trenchcoat",
+          "vertices": 2584,
+          "attributes": [
+            "_cccollar",
+            "_cloth_pin",
+            "position",
+            "normal",
+            "uv"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "clothing_briefs.glb",
+      "bytes": 50340,
+      "bounds": {
+        "min": [
+          -0.18944689631462097,
+          0.7775759100914001,
+          -0.10200925171375275
+        ],
+        "max": [
+          0.18944689631462097,
+          0.9762591123580933,
+          0.13296517729759216
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Cloth_briefs",
+          "vertices": 538,
+          "attributes": [
+            "_cczone",
+            "position",
+            "normal",
+            "uv"
+          ]
+        }
+      ]
+    }
+  ]
+}

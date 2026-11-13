@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js'
+import { openOvershirt, subdivideCloth, restOvershirt } from '../src/lib/garment-geometry'
 
 function aimBone(scene: THREE.Object3D, name: string, childName: string, direction: THREE.Vector3) {
   const bone = scene.getObjectByName(name)
@@ -15,7 +16,7 @@ function aimBone(scene: THREE.Object3D, name: string, childName: string, directi
   bone.quaternion.copy(parent.multiply(delta.multiply(world)))
 }
 
-export async function bakeAvatarAsset(file: string) {
+export async function bakeAvatarAsset(file: string, variant?: 'overshirt') {
   const gltf = await new GLTFLoader().loadAsync(`/.cache/avatar-source/${file}`)
   const plainGarment = file.startsWith('clothing_')
   const scene = gltf.scene
@@ -42,7 +43,7 @@ export async function bakeAvatarAsset(file: string) {
   scene.traverse(object => {
     const mesh = object as THREE.Mesh
     if (!mesh.isMesh) return
-    const geometry = mesh.geometry.clone()
+    let geometry = mesh.geometry.clone()
     const position = geometry.getAttribute('position')
     const baked = new Float32Array(position.count * 3)
     for (let index = 0; index < position.count; index++) {
@@ -56,6 +57,12 @@ export async function bakeAvatarAsset(file: string) {
     geometry.morphAttributes = {}
     geometry.computeVertexNormals()
     geometry.computeBoundingBox()
+    if (variant === 'overshirt') {
+      const opened = openOvershirt(geometry)
+      const detailed = subdivideCloth(opened)
+      restOvershirt(detailed)
+      geometry.dispose(); opened.dispose(); geometry = detailed
+    }
     const cloneMaterial = (source: THREE.Material) => {
       const material = source.clone() as THREE.MeshStandardMaterial
       if (plainGarment) {
@@ -70,7 +77,7 @@ export async function bakeAvatarAsset(file: string) {
     const product = new THREE.Mesh(geometry, material)
     product.name = mesh.name
     output.add(product)
-    meshes.push({ name: mesh.name, vertices: position.count, attributes: Object.keys(geometry.attributes) })
+    meshes.push({ name: mesh.name, vertices: geometry.getAttribute('position').count, attributes: Object.keys(geometry.attributes) })
   })
   const buffer = await new GLTFExporter().parseAsync(output, { binary: true, maxTextureSize: file.startsWith('hair_') ? 512 : 1024, onlyVisible: true }) as ArrayBuffer
   const bytes = new Uint8Array(buffer)

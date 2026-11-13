@@ -57,3 +57,11 @@ Old/new model assets were rendered at the same mobile quality profile and visual
 ## Useful additions for a single owner
 
 Prioritize export/import backup for saved looks (currently browser-local), a worn/recently-worn marker, a laundry/unavailable toggle per garment, and hiding disliked suggestions. A temperature/rain filter or a short packing list can follow. These can start as local data and do not need social features, multi-user accounts or an AI service running inside the app.
+
+## Natural garment preview — v0.6.0
+
+The oversized field-jacket substitution for overshirts is replaced with a shirt-derived open mesh, with a clipped placket and small offline-baked resting folds. Trouser width and a restrained front crease are adapted once when a selection changes. Short sleeves intersect triangles at the cuff rather than dropping whole faces. None of these operations run on each rendered frame.
+
+The new overshirt is about 0.27 MB, replacing the 0.09 MB jacket request for that outfit. This adds about 0.18 MB when opening a 3D outfit with an overshirt; initial 2D loading is unaffected. Both templates remain available because bombers and puffers still use the jacket. Two shared 128×128 RGBA normal/roughness maps use about 0.17 MB including mipmaps, with no network downloads or per-garment texture copies. MeshPhysicalMaterial enables fabric sheen, which adds shader work per rendered pixel; clearcoat, transmission and other optional physical features remain disabled. The existing phone pixel/shadow caps and rendering on demand remain in place. [Three.js fabric sheen and material cost](https://threejs.org/docs/pages/MeshPhysicalMaterial.html).
+
+These changes improve a stylised preview. More convincing drape requires garment-specific modelling or offline cloth simulation, retopology and baked normal maps exported as compact GLBs; adding a live cloth solver would work against the phone budget. Runtime performance still needs physical-device testing before making frame-rate or battery claims.

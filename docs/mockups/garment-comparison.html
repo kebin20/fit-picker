@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fit Picker — garment preview comparison</title>
+<style>
+  * { box-sizing: border-box }
+  body { margin: 0; padding: 32px; background: #f8f9f4; color: #26372e; font: 16px/1.5 system-ui, sans-serif }
+  main { max-width: 960px; margin: auto }
+  h1 { font-size: 26px; margin: 0 0 6px }
+  p { color: #66735d; margin: 0 0 24px }
+  .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 20px }
+  figure { margin: 0; border: 1px solid #dce2d2; border-radius: 12px; overflow: hidden; background: #edf0e5 }
+  .stage { aspect-ratio: 460/390; overflow: hidden }
+  img { width: 100%; height: 100%; object-fit: cover; object-position: center 27%; display: block }
+  figcaption { padding: 16px 20px; background: #fffef9 }
+  strong { display: block }
+  small { display: block; margin-top: 20px; color: #66735d }
+  @media(max-width: 600px) { .comparison { grid-template-columns: 1fr } body { padding: 20px } }
+</style>
+<main>
+  <h1>A lighter overshirt. More room in the trousers.</h1>
+  <p>Actual phone-width renders of the same outfit, before and after v0.6.0.</p>
+  <div class="comparison">
+    <figure><div class="stage"><img src="garments-before.png" alt="Previous bulky field-jacket substitution and tight trouser template"></div><figcaption><strong>Before</strong>Generic padded jacket and tight jeans template</figcaption></figure>
+    <figure><div class="stage"><img src="garments-after.png" alt="Updated open overshirt, clean seams and eased trousers"></div><figcaption><strong>After</strong>Open overshirt, joined seams and eased trousers</figcaption></figure>
+  </div>
+  <small>Generic stylised fitting templates. Exact garment cuts, prints and physical drape remain approximate.</small>
+</main>
+</html>

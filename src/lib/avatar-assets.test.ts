@@ -43,6 +43,14 @@ describe('fitted glTF model assets', () => {
     expect(avatarGarment(garments.find(piece => piece.id === 'navy-sweatshirt')!, 'tops').kind).toBe('sweater')
   })
 
+  it('gives open shirt layers their own lightweight mesh and matching sleeve coverage', () => {
+    const overshirt = avatarGarment(garments.find(piece => piece.id === 'brown-overshirt')!, 'layers')
+    const short = avatarGarment(garments.find(piece => piece.id === 'navy-shirt')!, 'layers')
+    expect(overshirt).toEqual({ file: 'clothing_overshirt.glb', zone: 512, kind: 'overshirt' })
+    expect(short).toEqual({ file: 'clothing_overshirt.glb', zone: 8, kind: 'overshirt-short' })
+    expect(readFileSync(fileURLToPath(new URL(overshirt.file, modelRoot))).length).toBeLessThan(300_000)
+  })
+
   it('uses the long authored coat model and keeps a knee-length hem', () => {
     const coat = avatarGarment(garments.find(piece => piece.id === 'beige-coat')!, 'layers')
     const jacket = avatarGarment(garments.find(piece => piece.id === 'navy-bomber')!, 'layers')

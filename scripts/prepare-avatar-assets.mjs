@@ -14,17 +14,19 @@ for (const file of [...files, 'clothing.json', 'asset_licenses.json']) {
   }
 }
 const browser = await chromium.launch()
-const manifest = { source: `https://github.com/kblood/CharacterCreator/tree/${commit}/output`, sourceCommit: commit, license: 'CC0-1.0', build: 'Adult male morph; relaxed standing pose; static morph/skin bake; skin textures capped at 1024 px; alpha-preserving hair texture capped at 512 px; unused garment textures removed. No upstream application code copied.', assets: [] }
+const manifest = { source: `https://github.com/kblood/CharacterCreator/tree/${commit}/output`, sourceCommit: commit, license: 'CC0-1.0', build: 'Adult male morph; relaxed standing pose; static morph/skin bake; skin textures capped at 1024 px; alpha-preserving hair texture capped at 512 px; unused garment textures removed. Open overshirt derived from the fitted shirt with clean polygon clipping and baked resting folds. No upstream application code copied.', assets: [] }
 try {
   const page = await browser.newPage()
   const baseURL = process.env.FIT_PICKER_URL || 'http://127.0.0.1:5173/'
   await page.route('**/__avatar_build__', route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>Avatar asset preparation</title>' }))
   await page.goto(new URL('__avatar_build__', baseURL).href)
-  for (const file of files) {
-    const result = await page.evaluate(async file => {
+  const outputs = [...files.map(file => ({ file, source: file })), { file: 'clothing_overshirt.glb', source: 'clothing_shirt.glb', variant: 'overshirt' }]
+  for (const entry of outputs) {
+    const file = entry.file
+    const result = await page.evaluate(async entry => {
       const builder = await import('/scripts/avatar-build-client.ts')
-      return builder.bakeAvatarAsset(file)
-    }, file)
+      return builder.bakeAvatarAsset(entry.source, entry.variant)
+    }, entry)
     await writeFile(`public/models/${file}`, Buffer.from(result.data, 'base64'))
     manifest.assets.push({ file, bytes: result.bytes, bounds: result.bounds, meshes: result.meshes })
     console.log(`${file}: ${result.bytes} bytes, ${result.meshes.length} meshes`)

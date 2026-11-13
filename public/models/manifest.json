@@ -2,7 +2,7 @@
   "source": "https://github.com/kblood/CharacterCreator/tree/852e48f316b90a0937234886630e4fb4cdfd1f78/output",
   "sourceCommit": "852e48f316b90a0937234886630e4fb4cdfd1f78",
   "license": "CC0-1.0",
-  "build": "Adult male morph; relaxed standing pose; static morph/skin bake; skin textures capped at 1024 px; alpha-preserving hair texture capped at 512 px; unused garment textures removed. No upstream application code copied.",
+  "build": "Adult male morph; relaxed standing pose; static morph/skin bake; skin textures capped at 1024 px; alpha-preserving hair texture capped at 512 px; unused garment textures removed. Open overshirt derived from the fitted shirt with clean polygon clipping and baked resting folds. No upstream application code copied.",
   "assets": [
     {
       "file": "base_body.glb",
@@ -371,6 +371,33 @@
             "position",
             "normal",
             "uv"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "clothing_overshirt.glb",
+      "bytes": 270756,
+      "bounds": {
+        "min": [
+          -0.33341342210769653,
+          0.8267796039581299,
+          -0.13863635063171387
+        ],
+        "max": [
+          0.34185490012168884,
+          1.511751413345337,
+          0.16770263016223907
+        ]
+      },
+      "meshes": [
+        {
+          "name": "Cloth_shirt",
+          "vertices": 6269,
+          "attributes": [
+            "position",
+            "uv",
+            "normal"
           ]
         }
       ]

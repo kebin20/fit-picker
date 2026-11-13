@@ -28,7 +28,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, onUnava
     renderer.setClearColor(0xffffff, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
     renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = .9
+    renderer.toneMappingExposure = .85
     renderer.shadowMap.enabled = true
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
     const canvas = renderer.domElement

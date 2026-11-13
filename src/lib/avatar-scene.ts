@@ -1,37 +1,13 @@
 import * as THREE from 'three'
 import { GLTFLoader, type GLTF } from 'three/addons/loaders/GLTFLoader.js'
 import { avatarGarment } from './avatar-assets'
+import { fitTrouserCut, trouserCut, shortenSleeves, smoothTextureSeams } from './garment-geometry'
+import { clothMaterial } from './cloth-material'
 import type { Garment, Selection } from '../types'
 
 const loader = new GLTFLoader()
 const cache = new Map<string, Promise<GLTF>>()
-const weavePixels = new Uint8Array(32 * 32 * 4)
-for (let y = 0; y < 32; y++) for (let x = 0; x < 32; x++) {
-  const offset = (y * 32 + x) * 4
-  const value = (x + y) % 2 ? 130 : 126
-  weavePixels.set([value, value, value, 255], offset)
-}
-const weave = new THREE.DataTexture(weavePixels, 32, 32, THREE.RGBAFormat)
-weave.wrapS = weave.wrapT = THREE.RepeatWrapping
-weave.repeat.set(16, 16)
-weave.needsUpdate = true
 
-function smoothTextureSeams(geometry: THREE.BufferGeometry) {
-  const positions = geometry.getAttribute('position'), normals = geometry.getAttribute('normal')
-  const groups = new Map<string, { vertices: number[]; normal: THREE.Vector3 }>()
-  for (let vertex = 0; vertex < positions.count; vertex++) {
-    const key = [positions.getX(vertex), positions.getY(vertex), positions.getZ(vertex)].map(value => value.toFixed(5)).join('|')
-    const group = groups.get(key) || { vertices: [], normal: new THREE.Vector3() }
-    group.vertices.push(vertex)
-    group.normal.add(new THREE.Vector3(normals.getX(vertex), normals.getY(vertex), normals.getZ(vertex)))
-    groups.set(key, group)
-  }
-  for (const group of groups.values()) {
-    group.normal.normalize()
-    for (const vertex of group.vertices) normals.setXYZ(vertex, group.normal.x, group.normal.y, group.normal.z)
-  }
-  normals.needsUpdate = true
-}
 function asset(file: string) {
   if (!cache.has(file)) cache.set(file, loader.loadAsync(`/models/${file}`).catch(error => { cache.delete(file); throw error }))
   return cache.get(file)!
@@ -74,17 +50,10 @@ function removeHood(geometry: THREE.BufferGeometry) {
 
 function tailor(geometry: THREE.BufferGeometry, kind?: string) {
   if (kind === 'sweater') removeHood(geometry)
-  if (kind === 'shirt-short') {
-    const positions = geometry.getAttribute('position'), index = geometry.getIndex()!
-    const kept: number[] = []
-    for (let face = 0; face < index.count; face += 3) {
-      const vertices = [index.getX(face), index.getX(face + 1), index.getX(face + 2)]
-      const x = vertices.reduce((sum, vertex) => sum + positions.getX(vertex), 0) / 3
-      const y = vertices.reduce((sum, vertex) => sum + positions.getY(vertex), 0) / 3
-      if (Math.abs(x) > .185 && y < 1.21) continue
-      kept.push(...vertices)
-    }
-    geometry.setIndex(kept)
+  if (kind === 'shirt-short' || kind === 'overshirt-short') {
+    const clipped = shortenSleeves(geometry)
+    geometry.dispose()
+    geometry = clipped
   }
   return geometry
 }
@@ -109,7 +78,9 @@ function instantiate(source: THREE.Object3D, options: { garment?: Garment; hideM
     if (!mesh.isMesh) return
     const geometry = tailor(mesh.geometry.clone(), options.kind)
     hideCoveredFaces(geometry, options.hideMask || 0)
+    if (options.kind === 'trousers' && options.garment) fitTrouserCut(geometry, trouserCut(options.garment.id))
     if (options.padding) {
+      smoothTextureSeams(geometry)
       const positions = geometry.getAttribute('position'), normals = geometry.getAttribute('normal')
       for (let vertex = 0; vertex < positions.count; vertex++) {
         positions.setXYZ(vertex, positions.getX(vertex) + normals.getX(vertex) * options.padding, positions.getY(vertex) + normals.getY(vertex) * options.padding, positions.getZ(vertex) + normals.getZ(vertex) * options.padding)
@@ -118,15 +89,19 @@ function instantiate(source: THREE.Object3D, options: { garment?: Garment; hideM
     if (options.kind === 'coat') fitCoatLength(geometry)
     smoothTextureSeams(geometry)
     const cloneMaterial = (input: THREE.Material) => {
+      if (options.garment && options.garment.category !== 'shoes') {
+        const fabric = clothMaterial(options.garment)
+        fabric.name = input.name
+        return fabric
+      }
       const material = input.clone() as THREE.MeshStandardMaterial
       material.envMapIntensity = .45
       if (options.garment && material.color) {
         // Do not transfer the source jeans' faded denim colour into plain slacks.
-        // Retain the authored surface detail as subtle relief, not as a print.
+        // Shoe colours stay neutral; clothing uses the shared fabric material.
         material.normalMap = null
         material.roughnessMap = null
-        material.bumpMap = weave
-        material.bumpScale = .00006
+        material.bumpMap = null
         material.map = null
         material.color.set(options.garment.color)
         material.roughness = options.garment.category === 'shoes' ? .72 : .9
@@ -154,6 +129,8 @@ export async function buildAvatar(garments: Garment[], selection: Selection) {
     return garment ? [{ slot, garment, asset: avatarGarment(garment, slot) }] : []
   })
   const layer = selected.find(piece => piece.slot === 'layers')
+  const top = selected.find(piece => piece.slot === 'tops')
+  const bulkyTop = top && ['hoodie', 'sweatshirt', 'longsleeve'].includes(top.garment.style)
   const files = ['base_body.glb', 'hair_short02.glb', ...selected.map(piece => piece.asset.file)]
   if (!selection.bottoms) files.push('clothing_briefs.glb')
   const loaded = new Map(await Promise.all([...new Set(files)].map(async file => [file, await asset(file)] as const)))
@@ -169,8 +146,10 @@ export async function buildAvatar(garments: Garment[], selection: Selection) {
     root.add(instantiate(loaded.get(piece.asset.file)!.scene, {
       garment: piece.garment,
       kind: piece.asset.kind,
-      padding: piece.slot === 'layers' ? .012 : 0,
-      hideMask: piece.slot === 'tops' && layer ? layer.asset.zone : 0,
+      padding: piece.slot === 'layers'
+        ? (piece.asset.kind.startsWith('overshirt') ? (bulkyTop ? .020 : .006) : .012)
+        : piece.slot === 'tops' && bulkyTop && layer?.asset.kind.startsWith('overshirt') ? -.008 : 0,
+      hideMask: piece.slot === 'tops' && layer && !layer.asset.kind.startsWith('overshirt') ? layer.asset.zone : 0,
     }))
   }
   const scale = 1.8 / (bounds.max.y - bounds.min.y)

@@ -82,7 +82,12 @@ export default function Mannequin({ garments, selection, rotation, zoom, onUnava
       frame = requestAnimationFrame(() => {
         frame = 0
         if (disposed || failed) return
-        try { renderer.render(scene, camera) } catch { fail() }
+        try {
+          renderer.render(scene, camera)
+          canvas.dataset.renderedFrames = String(renderer.info.render.frame)
+          canvas.dataset.triangles = String(renderer.info.render.triangles)
+          canvas.dataset.drawCalls = String(renderer.info.render.calls)
+        } catch { fail() }
       })
     }
     const lost = (event: Event) => { event.preventDefault(); fail() }

@@ -202,6 +202,13 @@ try {
   await expect(missingModel.getByRole('button', { name: '3D preview', exact: true })).toBeDisabled()
   await expect(missingModel.locator('.preview-panel .outfit-canvas')).toBeVisible()
   await missingModel.close()
+  const missingDecoder = await browser.newPage()
+  await missingDecoder.route('**/draco/**', route => route.abort())
+  await missingDecoder.goto(baseURL)
+  await missingDecoder.getByRole('button', { name: '3D preview', exact: true }).click()
+  await expect(missingDecoder.getByRole('button', { name: '3D preview', exact: true })).toBeDisabled()
+  await expect(missingDecoder.locator('.preview-panel .outfit-canvas')).toBeVisible()
+  await missingDecoder.close()
   if (errors.length) throw new Error(`Browser errors: ${errors.join('; ')}`)
   console.log('PASS: default 2D outfit, loaded glTF assets and 3D controls, scoped recommendation filters, 96 additional outfits, 51 garment photos, all clothing slots, save/reload/delete, search, ownership, decoded source guides, 161 responsive model photos, original guide model previews, try/undo, mobile navigation, responsive breakpoints, WebGL and image-error fallbacks; no page errors.')
 } finally { await browser.close() }

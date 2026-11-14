@@ -1,4 +1,5 @@
 import type { Garment } from '../types'
+import garmentModels from '../data/garment-model-manifest.json'
 
 export const avatarSource = {
   name: 'MakeHuman / CharacterCreator CC0 model exports',
@@ -7,22 +8,32 @@ export const avatarSource = {
   url: 'https://github.com/kblood/CharacterCreator/blob/852e48f316b90a0937234886630e4fb4cdfd1f78/LICENSE-NOTES.md',
 }
 
-export interface AvatarGarment { file: string; zone: number; kind: string }
+export interface AvatarGarment { file: string; zone: number; kind: string; baked?: boolean; bodyCoverage?: string }
+const models = new Map((garmentModels.assets as { family: string; file: string; bodyCoverage?: string }[]).map(model => [model.family, model]))
+function fitted(kind: string, zone: number): AvatarGarment {
+  const model = models.get(kind)
+  return { file: model?.file || `garments/${kind}.glb`, kind, zone, baked: true, bodyCoverage: model?.bodyCoverage }
+}
 export function avatarGarment(garment: Garment, slot: string): AvatarGarment {
   const shortSleeves = garment.id === 'navy-shirt' || /short.sleeve/i.test(garment.name) || (garment.seasons.includes('Summer') && !garment.seasons.includes('Winter'))
-  if (slot === 'bottoms') return garment.style === 'shorts'
-    ? { file: 'clothing_shorts.glb', zone: 256, kind: 'shorts' }
-    : { file: 'clothing_jeans.glb', zone: 2, kind: 'trousers' }
+  if (slot === 'bottoms') {
+    if (garment.style === 'shorts') return fitted('shorts', 256)
+    const cut = garment.id.includes('barrel') ? 'barrel' : garment.id === 'olive-wide' ? 'wide' : garment.id === 'grey-slacks' ? 'slim' : garment.id === 'black-ankle' ? 'ankle' : 'regular'
+    return fitted(`trousers-${cut}`, 2)
+  }
   if (slot === 'shoes') return { file: 'clothing_shoes.glb', zone: 1, kind: 'shoes' }
   if (slot === 'layers') {
-    if (garment.style === 'coat') return { file: 'clothing_trenchcoat.glb', zone: 16, kind: 'coat' }
-    if (garment.style === 'shirt' || garment.style === 'overshirt') return { file: 'clothing_overshirt.glb', zone: shortSleeves ? 8 : 512, kind: shortSleeves ? 'overshirt-short' : 'overshirt' }
-    return { file: 'clothing_jacket.glb', zone: 4096, kind: 'jacket' }
+    if (garment.style === 'coat') return fitted('coat', 16)
+    if (garment.style === 'bomber') return fitted('bomber', 4096)
+    if (garment.style === 'puffer') return fitted('puffer', 4096)
+    if (garment.style === 'raincoat') return fitted('rain-jacket', 1024)
+    return fitted(shortSleeves ? 'overshirt-short' : 'overshirt-long', shortSleeves ? 8 : 512)
   }
-  if (garment.style === 'hoodie') return { file: 'clothing_hoodie.glb', zone: 1024, kind: 'hoodie' }
+  if (garment.style === 'hoodie') return fitted('hoodie', 1024)
   if (garment.style === 'shirt' || garment.style === 'overshirt') {
-    return { file: 'clothing_shirt.glb', zone: shortSleeves ? 8 : 512, kind: shortSleeves ? 'shirt-short' : 'shirt' }
+    return fitted(shortSleeves ? 'shirt-short' : 'shirt-long', shortSleeves ? 8 : 512)
   }
-  if (garment.style === 'sweatshirt' || garment.style === 'longsleeve') return { file: 'clothing_hoodie.glb', zone: 512, kind: 'sweater' }
-  return { file: 'clothing_tshirt.glb', zone: 8, kind: 'tee' }
+  if (garment.style === 'sweatshirt') return fitted('sweatshirt', 512)
+  if (garment.style === 'longsleeve') return fitted('longsleeve', 512)
+  return fitted('tee', 8)
 }

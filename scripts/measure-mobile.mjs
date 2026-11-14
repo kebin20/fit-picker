@@ -25,8 +25,9 @@ try {
     models: !initialURLs.some(source => source.includes('/models/') || source.includes('/assets/Mannequin-')),
     guides: !initialURLs.some(source => /\/assets\/(aw-core|aw-updated|ss)-.*\.png/.test(source)),
     outfitPhotos: !initialURLs.some(source => source.includes('/outfits/')),
+    decoder: !initialURLs.some(source => source.includes('/draco/')),
   }
-  if (!baseline) expect(deferred).toEqual({ models: true, guides: true, outfitPhotos: true })
+  if (!baseline) expect(deferred).toEqual({ models: true, guides: true, outfitPhotos: true, decoder: true })
   const photo = page.locator('.outfit-photograph').first()
   await photo.scrollIntoViewIfNeeded()
   await expect(photo).toHaveAttribute('src', /outfits/)
@@ -36,9 +37,12 @@ try {
   await page.getByRole('button', { name: '3D preview', exact: true }).click()
   await expect(page.locator('canvas')).toHaveAttribute('data-model-format', 'gltf', { timeout: 30000 })
   await page.waitForLoadState('networkidle')
-  const canvas = await page.locator('canvas').evaluate(element => ({ width: element.width, height: element.height, cssWidth: element.clientWidth, cssHeight: element.clientHeight }))
+  const canvas = await page.locator('canvas').evaluate(element => ({ width: element.width, height: element.height, cssWidth: element.clientWidth, cssHeight: element.clientHeight, triangles: Number(element.dataset.triangles), drawCalls: Number(element.dataset.drawCalls), renderedFrames: Number(element.dataset.renderedFrames) }))
   if (!baseline) expect(canvas.width / canvas.cssWidth).toBeLessThanOrEqual(1.51)
-  const result = { measuredAt: new Date().toISOString(), url, coldCache: true, device: 'Chromium iPhone 13 emulation; no CPU/network throttling; software WebGL', startup, deferred, responsivePhoto, canvas, afterBrowsingAnd3D: summary() }
+  await page.waitForTimeout(1000)
+  const idleRenders = Number(await page.locator('canvas').getAttribute('data-rendered-frames')) - canvas.renderedFrames
+  if (!baseline) expect(idleRenders).toBe(0)
+  const result = { measuredAt: new Date().toISOString(), url, coldCache: true, device: 'Chromium iPhone 13 emulation; no CPU/network throttling; software WebGL', startup, deferred, responsivePhoto, canvas, idleRenders, afterBrowsingAnd3D: summary() }
   const output = process.env.FIT_PICKER_METRICS
   if (output) await writeFile(output, JSON.stringify(result, null, 2) + '\n')
   console.log(JSON.stringify(result, null, 2))

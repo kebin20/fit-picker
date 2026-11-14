@@ -1,0 +1,34 @@
+{
+  "testedAt": "2026-11-14T01:27:07.622Z",
+  "url": "http://127.0.0.1:5173/",
+  "garmentFiles": [
+    "bomber.glb",
+    "coat.glb",
+    "hoodie.glb",
+    "longsleeve.glb",
+    "overshirt-long.glb",
+    "overshirt-short.glb",
+    "puffer.glb",
+    "rain-jacket.glb",
+    "shirt-long.glb",
+    "shirt-short.glb",
+    "shorts.glb",
+    "sweatshirt.glb",
+    "tee.glb",
+    "trousers-ankle.glb",
+    "trousers-barrel.glb",
+    "trousers-regular.glb",
+    "trousers-slim.glb",
+    "trousers-wide.glb"
+  ],
+  "layerCombinations": 18,
+  "idleRenders": 0,
+  "phone": {
+    "renderedFrames": "36",
+    "triangles": "47611",
+    "drawCalls": "19",
+    "width": 352,
+    "height": 400
+  },
+  "errors": []
+}

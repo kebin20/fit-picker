@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 import * as THREE from 'three'
 import { garments } from '../data/wardrobe'
 import { avatarGarment } from './avatar-assets'
-import { fitCoatLength, hideCoveredFaces } from './avatar-scene'
+import { hideCoveredFaces, hideLayerFaces } from './avatar-scene'
 
 const modelRoot = new URL('../../public/models/', import.meta.url)
 const parse = (file: string) => {
@@ -40,39 +40,51 @@ describe('fitted glTF model assets', () => {
       }
     }
     expect(avatarGarment(garments.find(piece => piece.id === 'navy-shirt')!, 'tops').kind).toBe('shirt-short')
-    expect(avatarGarment(garments.find(piece => piece.id === 'navy-sweatshirt')!, 'tops').kind).toBe('sweater')
+    expect(avatarGarment(garments.find(piece => piece.id === 'navy-sweatshirt')!, 'tops').kind).toBe('sweatshirt')
   })
 
   it('gives open shirt layers their own lightweight mesh and matching sleeve coverage', () => {
     const overshirt = avatarGarment(garments.find(piece => piece.id === 'brown-overshirt')!, 'layers')
     const short = avatarGarment(garments.find(piece => piece.id === 'navy-shirt')!, 'layers')
-    expect(overshirt).toEqual({ file: 'clothing_overshirt.glb', zone: 512, kind: 'overshirt' })
-    expect(short).toEqual({ file: 'clothing_overshirt.glb', zone: 8, kind: 'overshirt-short' })
+    expect(overshirt).toMatchObject({ file: 'garments/overshirt-long.glb', zone: 512, kind: 'overshirt-long', baked: true })
+    expect(short).toMatchObject({ file: 'garments/overshirt-short.glb', zone: 8, kind: 'overshirt-short', baked: true })
+    expect(overshirt.file).not.toBe(short.file)
     expect(readFileSync(fileURLToPath(new URL(overshirt.file, modelRoot))).length).toBeLessThan(300_000)
   })
 
   it('uses the long authored coat model and keeps a knee-length hem', () => {
     const coat = avatarGarment(garments.find(piece => piece.id === 'beige-coat')!, 'layers')
     const jacket = avatarGarment(garments.find(piece => piece.id === 'navy-bomber')!, 'layers')
-    expect(coat).toEqual({ file: 'clothing_trenchcoat.glb', zone: 16, kind: 'coat' })
+    expect(coat).toMatchObject({ file: 'garments/coat.glb', zone: 16, kind: 'coat', baked: true })
     expect(coat.file).not.toBe(jacket.file)
-    const geometry = new THREE.BufferGeometry()
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute([0, .08, 0, .1, .96, 0, 0, 1.5, 0], 3))
-    fitCoatLength(geometry)
-    const positions = geometry.getAttribute('position')
-    expect(positions.getY(0)).toBeGreaterThan(.48)
-    expect(positions.getY(0)).toBeLessThan(.54)
-    expect(positions.getY(1)).toBeCloseTo(.96)
-    expect(positions.getY(2)).toBeCloseTo(1.5)
-    geometry.dispose()
+    const gltf = parse(coat.file)
+    const minY = Math.min(...gltf.meshes.flatMap((mesh: { primitives: { attributes: { POSITION: number } }[] }) => mesh.primitives.map(part => gltf.accessors[part.attributes.POSITION].min[1])))
+    expect(minY).toBeGreaterThan(.4)
+    expect(minY).toBeLessThan(.56)
+  })
+
+  it('assigns independent constructions to puffer, bomber and rain jacket', () => {
+    const files = ['black-puffer', 'navy-bomber', 'black-rain-jacket'].map(id => avatarGarment(garments.find(piece => piece.id === id)!, 'layers').file)
+    expect(new Set(files).size).toBe(3)
+    expect(files).toEqual(['garments/puffer.glb', 'garments/bomber.glb', 'garments/rain-jacket.glb'])
   })
 
   it('hides covered body faces while retaining boundary faces for garment seams', () => {
     const geometry = new THREE.BufferGeometry()
     geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(18), 3))
-    geometry.setAttribute('_cczone', new THREE.BufferAttribute(new Uint16Array([8, 8, 8, 8, 0, 8]), 1))
+    // The static glTF exporter prefixes custom attribute names a second time.
+    geometry.setAttribute('__cczone', new THREE.BufferAttribute(new Uint16Array([8, 8, 8, 8, 0, 8]), 1))
     geometry.setIndex([0, 1, 2, 3, 4, 5])
     hideCoveredFaces(geometry, 8)
+    expect(Array.from(geometry.getIndex()!.array)).toEqual([3, 4, 5])
+    geometry.dispose()
+  })
+
+  it('removes covered inner fabric while retaining faces at the visible opening', () => {
+    const geometry = new THREE.BufferGeometry()
+    geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(18), 3))
+    geometry.setIndex([0, 1, 2, 3, 4, 5])
+    hideLayerFaces(geometry, new Uint8Array([0b101111]))
     expect(Array.from(geometry.getIndex()!.array)).toEqual([3, 4, 5])
     geometry.dispose()
   })

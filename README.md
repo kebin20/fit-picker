@@ -9,7 +9,7 @@ A personal wardrobe studio for Kevin. Assemble outfits with realistic photograph
 - React, TypeScript and Vite.
 - A composed 2D outfit view is the default: the selected top, bottoms and shoes form an outfit, with the optional outer layer alongside.
 - 51 individual transparent product-style garment photographs replace the former SVG drawings throughout the wardrobe, picker, outfit overviews and saved looks.
-- The optional Three.js 3D preview loads a fitted human body, hair and separate clothing models through `GLTFLoader`, with clothing swaps, rotation, zoom and reset. Model/WebGL failures return to 2D. A persistent Outerwear selector changes/removes the outer layer from any builder tab; the separate coat model has a knee-length hem.
+- The optional Three.js 3D preview loads a fitted human body, hair and separate clothing models through `GLTFLoader`, with clothing swaps, rotation, zoom and reset. Model/WebGL failures return to 2D. A persistent Outerwear selector changes/removes the outer layer from any builder tab. Eighteen garment constructions have offline cloth drape and embedded normal maps: quilted puffer, ribbed bomber, rain shell, knee-length coat, shirts/overshirts, cotton tops and separate trouser cuts.
 - 49 confirmed garment entries, 2 clearly separated suggested sweatshirts, and 54 combinations transcribed from three source images.
 - Seasonal Edit 01: 12 new combinations (three per season), with independent high-resolution styling photographs and why-it-works notes.
 - Seasonal Edit 02: 96 additional combinations (24 per season), each with its own generated full-body model photograph. Every season/occasion has multiple choices; all compositions are distinct from the existing guides and edit.
@@ -18,7 +18,7 @@ A personal wardrobe studio for Kevin. Assemble outfits with realistic photograph
 - Exact season/occasion filtering over confirmed garments; no AI API, accounts or live-weather dependency.
 - Searchable wardrobe, source guide viewer, local saved looks and responsive desktop/tablet/mobile navigation.
 - Original app icon, favicon, touch icon and web app manifest.
-- Responsive 400/800/1024-pixel WebP model images, deferred offscreen garment photos and eager selected pieces. The v0.5 asset optimization reduced the original glTF set by 35.5%; the later open-overshirt mesh adds about 0.27 MB to the library, loaded only for that garment in 3D. Phone previews cap pixel ratio at 1.5 with 1024-pixel shadows. The 3D module remains opt-in and renders on demand.
+- Responsive 400/800/1024-pixel WebP model images, deferred offscreen garment photos and eager selected pieces. The original glTF set was optimized in v0.5; v0.7 adds 18 compressed garment models totalling 2.97 MB, loaded by selection. The default six-model outfit totals 2.46 MB. A locally served Draco decoder loads once when 3D opens. Phone previews cap pixel ratio at 1.5 with 1024-pixel shadows. The 3D module remains opt-in and renders on demand.
 - Cloudflare Workers static-assets configuration. No server/database required.
 
 ## Run locally
@@ -62,21 +62,26 @@ New seasonal combinations live in `src/data/seasonal-outfits.ts` and `src/data/s
 
 Season and occasion tags are editorial interpretations of the source combinations. Garment product images are generated, source-informed representations rather than photographs of the exact owned items; prints and small details remain approximate. The brown flannel is user-confirmed solid brown, with no checks or stripes; its catalogue data, product image, optional 3D appearance and winter outfit image reflect that correction. Original guide images remain available from the interface.
 
-The 2D view illustrates a combination, not garment fit or fabric drape. The 3D view now uses authored CC0 human and fitted garment mesh data from MakeHuman / CharacterCreator through the [Three.js glTF workflow](https://threejs.org/manual/pages/load-gltf.html). The old procedural mannequin is removed. The generic body is not Kevin’s likeness or measurements; clothing templates approximate cuts and several wardrobe styles share a model. Open overshirts now use a separate, thinner shirt-derived mesh with baked resting folds, rather than the bulky field jacket. Clean sleeve cuts, different trouser widths, subtle creases and shared fabric normal/roughness maps improve the preview. Exact brands, prints, puffer construction and shoe shapes still require item-specific modelling. This is a working glTF asset pipeline, not a physical cloth or sizing simulation.
+The 2D view illustrates a combination, not garment fit or fabric drape. The optional 3D view uses an authored CC0 human with separate garment constructions. Blender cloth simulation, tailoring, pocket/collar/cuff geometry and high/low normal baking run offline. The app loads static, Draco-compressed GLBs; it does not run a cloth solver. Eighteen families cover the confirmed wardrobe, with shared cuts for related pieces and colours applied at runtime. These are wardrobe-informed fitting illustrations, not scans, measured personal sizing or exact brand replicas. Product photos and supplied guides remain the item references.
 
-### Rebuild the glTF assets
+### Rebuild the 3D garments
 
-With the dev server running:
+Keep the Vite dev server running, and use Blender **4.5 LTS** for asset authoring. Blender is not needed to run or deploy the app. The original CC0 pose/seed preparation remains available:
 
 ```sh
 node scripts/prepare-avatar-assets.mjs
+FIT_PICKER_BLENDER=/path/to/blender npm run models:build
+npm run models:check
+npm run test:garments
 ```
 
-The script downloads exported CC0 DATA from pinned source commit `852e48f316b90a0937234886630e4fb4cdfd1f78` into ignored `.cache/avatar-source/`. A browser-side build helper applies an adult male morph and relaxed pose, bakes skin/morph data, retains 1024 px skin and 512 px alpha-preserving hair textures, removes unused garment maps, derives an open overshirt with clean polygon clipping and small baked folds, and writes `public/models/*.glb` plus a provenance manifest. It does not import the source project’s GPL application/build code. Source/licence details and silhouette limitations are recorded in [the model notice](public/models/NOTICE.md).
+The first command downloads only exported CC0 DATA from pinned source commit `852e48f316b90a0937234886630e4fb4cdfd1f78`. The garment builder uses those posed seeds, builds separate silhouettes and details, runs a 32-frame cloth solve, bakes normal maps, decimates and compresses the final meshes. Source code from CharacterCreator's GPL application/build pipeline is not copied. The original seed GLBs are retained for reproducible builds; new wardrobe clothing requests use `public/models/garments/`.
 
-[Before/after garment preview](docs/mockups/garment-comparison.png) compares actual renders of the same outfit.
+Editable Blender scenes and temporary maps live in ignored `.cache/garment-build/`. Committed GLBs embed 256-pixel normal maps (512 pixels for the coat and puffer). The complete garment library totals 2,974,808 bytes; individual files range from 88 to 404 KB. See [construction notes and review images](docs/artwork/garments-3d/README.md) and [asset/licence provenance](public/models/NOTICE.md).
 
-Runtime templates and coverage zones are resolved in `src/lib/avatar-assets.ts`. `avatar-scene.ts` clones the cached glTF data, hides covered faces, applies wardrobe colours and small shared fabric maps, fits trouser cuts around each leg, leaves room for thick inner layers, and derives clean short sleeves / hood-free sweaters / a knee-length coat from the fitted meshes. Mesh and material instances are disposed when selections change; shared template textures remain in a bounded asset cache.
+Body masks are baked against the final meshes and checked against the exact body vertex positions. Layer masks retain visible fronts, collars, hoods and cuffs while removing covered inner fabric. The client only applies small bitsets at selection time. `src/lib/avatar-assets.ts` routes items to their construction; material handling preserves each normal bake while applying wardrobe colours. Geometry/material instances are disposed when outfits change. Template textures use a bounded cache, and one decoder worker handles compression. A failed model or decoder returns to 2D.
+
+[Before/after garment comparison](docs/artwork/garments-3d/comparison.png) shows actual renders of the old shared jacket and the new separate outerwear.
 
 ### Prepare responsive outfit photos
 

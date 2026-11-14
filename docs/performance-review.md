@@ -76,3 +76,20 @@ Live verification of source commit `694121a` on 14 November 2026 passed: 33 unit
 | Initial 3D model / module requests | 0 | 0 |
 
 The 53-byte transfer difference includes response headers and is immaterial. The mobile drawing buffer remains 528×600 for a 352×400 CSS-pixel stage. The six model files in the default 3D outfit now total 2,444,644 bytes, up 178,228 bytes from v0.5.0 because the overshirt has its own mesh. The old jacket remains available for other outerwear. Shared fabric maps add no network requests. The seam fix averages displacement directions across coincident UV vertices before applying ease, keeping those edges joined. [Actual render comparison](mockups/garment-comparison.png).
+
+## Garment-specific assets — v0.7.0
+
+Eighteen garment constructions replace shared outerwear and generic top silhouettes. All cloth simulation, tailoring, decimation, normal-map baking and visibility preparation run offline in Blender. The browser receives static meshes and small visibility bitsets. Related wardrobe items share the appropriate construction and use their own colours.
+
+| Geometry assets | v0.6.0 | v0.7.0 |
+| --- | ---: | ---: |
+| Six GLBs for the default outfit | 2,444,644 B | 2,462,100 B |
+| Separate garment constructions | — | 18 |
+| Complete new garment library | — | 2,974,808 B |
+| Individual new garment file | — | 88–404 KB |
+
+Default model bytes increase by 17,456 (0.7%). This comparison excludes the additional shared Draco decoder and deferred JavaScript. The decoder is hosted locally and uses one worker; it loads only on opening compressed 3D clothing. Geometry is compressed, with fewer than 11,000 triangles per garment and embedded 256-pixel normal maps (512 for coat/puffer). All 18 files, their recorded hashes, image dimensions, static bake metadata and budgets are checked by tests. [Three.js compressed glTF loading](https://threejs.org/docs/pages/GLTFLoader.html).
+
+Coverage is baked against the actual exported models. The body vertex ordering and positions are checked against the app's glTF; original anatomical zones preserve hands and head. Layer masks remove hidden inner fabric while retaining openings, collars, hoods and cuffs. Only index filtering runs on selection, with no client raycasts or cloth solver. The previous double-prefixed custom-zone attribute is recognized, so body masking now applies to the actual source asset.
+
+Validation passed for all 18 model files, 18 layered outfits, camera side/back views and phone-width overflow. An idle one-second observation produced no new renders. The complete suite has 39 tests. The full browser suite also passed saved-look persistence, recommendations, source guides and image/model/WebGL/decoder-failure fallbacks. These checks use Chromium and software WebGL; they do not establish physical-phone frame rate or battery use.

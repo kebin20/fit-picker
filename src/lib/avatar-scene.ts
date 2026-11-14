@@ -1,12 +1,35 @@
 import * as THREE from 'three'
 import { GLTFLoader, type GLTF } from 'three/addons/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { avatarGarment } from './avatar-assets'
 import { fitTrouserCut, trouserCut, shortenSleeves, smoothTextureSeams } from './garment-geometry'
 import { clothMaterial } from './cloth-material'
 import type { Garment, Selection } from '../types'
+import layerCoverage from '../data/garment-layer-coverage.json'
 
-const loader = new GLTFLoader()
+const decoder = new DRACOLoader().setDecoderPath('/draco/').setDecoderConfig({ type: 'wasm' }).setWorkerLimit(1)
+const loader = new GLTFLoader().setDRACOLoader(decoder)
 const cache = new Map<string, Promise<GLTF>>()
+const layerMasks = layerCoverage.coverage as Record<string, Record<string, string[]>>
+
+const decodedMasks = new Map<string, Uint8Array>()
+function maskBytes(encoded: string) {
+  if (!decodedMasks.has(encoded)) decodedMasks.set(encoded, Uint8Array.from(atob(encoded), char => char.charCodeAt(0)))
+  return decodedMasks.get(encoded)!
+}
+
+export function hideLayerFaces(geometry: THREE.BufferGeometry, bits?: Uint8Array) {
+  if (!bits) return
+  const index = geometry.getIndex()
+  if (!index) return
+  const covered = (vertex: number) => Boolean(bits[vertex >> 3] & (1 << (vertex & 7)))
+  const kept: number[] = []
+  for (let face = 0; face < index.count; face += 3) {
+    const a = index.getX(face), b = index.getX(face + 1), c = index.getX(face + 2)
+    if (!covered(a) || !covered(b) || !covered(c)) kept.push(a, b, c)
+  }
+  geometry.setIndex(kept)
+}
 
 function asset(file: string) {
   if (!cache.has(file)) cache.set(file, loader.loadAsync(`/models/${file}`).catch(error => { cache.delete(file); throw error }))
@@ -14,14 +37,16 @@ function asset(file: string) {
 }
 
 /** Drop only faces fully inside an authored coverage zone. Keep seam edges. */
-export function hideCoveredFaces(geometry: THREE.BufferGeometry, mask: number) {
-  const zones = geometry.getAttribute('_cczone') || geometry.getAttribute('_CCZONE')
+export function hideCoveredFaces(geometry: THREE.BufferGeometry, mask: number, coverage: Uint8Array[] = []) {
+  const zoneName = Object.keys(geometry.attributes).find(name => name.replace(/^_+/, '').toLowerCase() === 'cczone')
+  const zones = zoneName ? geometry.getAttribute(zoneName) : undefined
   const index = geometry.getIndex()
-  if (!zones || !mask || !index) return
+  if (!zones || (!mask && !coverage.length) || !index) return
   const kept: number[] = []
+  const covered = (vertex: number) => Boolean(zones.getX(vertex) & mask) || coverage.some(bits => Boolean(bits[vertex >> 3] & (1 << (vertex & 7))))
   for (let face = 0; face < index.count; face += 3) {
     const a = index.getX(face), b = index.getX(face + 1), c = index.getX(face + 2)
-    if ((zones.getX(a) & mask) && (zones.getX(b) & mask) && (zones.getX(c) & mask)) continue
+    if (covered(a) && covered(b) && covered(c)) continue
     kept.push(a, b, c)
   }
   geometry.setIndex(kept)
@@ -71,14 +96,16 @@ export function fitCoatLength(geometry: THREE.BufferGeometry) {
   geometry.computeVertexNormals()
 }
 
-function instantiate(source: THREE.Object3D, options: { garment?: Garment; hideMask?: number; kind?: string; padding?: number } = {}) {
+function instantiate(source: THREE.Object3D, options: { garment?: Garment; hideMask?: number; kind?: string; padding?: number; baked?: boolean; coverage?: Uint8Array[]; layerMask?: Uint8Array[] } = {}) {
   const group = new THREE.Group()
+  let primitive = 0
   source.traverse(object => {
     const mesh = object as THREE.Mesh
     if (!mesh.isMesh) return
-    const geometry = tailor(mesh.geometry.clone(), options.kind)
-    hideCoveredFaces(geometry, options.hideMask || 0)
-    if (options.kind === 'trousers' && options.garment) fitTrouserCut(geometry, trouserCut(options.garment.id))
+    const geometry = options.baked ? mesh.geometry.clone() : tailor(mesh.geometry.clone(), options.kind)
+    hideLayerFaces(geometry, options.layerMask?.[primitive++])
+    hideCoveredFaces(geometry, options.hideMask || 0, options.coverage)
+    if (!options.baked && options.kind === 'trousers' && options.garment) fitTrouserCut(geometry, trouserCut(options.garment.id))
     if (options.padding) {
       smoothTextureSeams(geometry)
       const positions = geometry.getAttribute('position'), normals = geometry.getAttribute('normal')
@@ -86,11 +113,11 @@ function instantiate(source: THREE.Object3D, options: { garment?: Garment; hideM
         positions.setXYZ(vertex, positions.getX(vertex) + normals.getX(vertex) * options.padding, positions.getY(vertex) + normals.getY(vertex) * options.padding, positions.getZ(vertex) + normals.getZ(vertex) * options.padding)
       }
     }
-    if (options.kind === 'coat') fitCoatLength(geometry)
-    smoothTextureSeams(geometry)
+    if (!options.baked && options.kind === 'coat') fitCoatLength(geometry)
+    if (!options.baked) smoothTextureSeams(geometry)
     const cloneMaterial = (input: THREE.Material) => {
       if (options.garment && options.garment.category !== 'shoes') {
-        const fabric = clothMaterial(options.garment)
+        const fabric = clothMaterial(options.garment, input)
         fabric.name = input.name
         return fabric
       }
@@ -136,8 +163,9 @@ export async function buildAvatar(garments: Garment[], selection: Selection) {
   const loaded = new Map(await Promise.all([...new Set(files)].map(async file => [file, await asset(file)] as const)))
   const root = new THREE.Group()
   root.name = 'glTF fitted wardrobe avatar'
-  const mask = selected.reduce((bits, piece) => bits | piece.asset.zone, 32)
-  const body = instantiate(loaded.get('base_body.glb')!.scene, { hideMask: mask })
+  const mask = selected.reduce((bits, piece) => piece.asset.bodyCoverage ? bits : bits | piece.asset.zone, 32)
+  const coverage = selected.flatMap(piece => piece.asset.bodyCoverage ? [maskBytes(piece.asset.bodyCoverage)] : [])
+  const body = instantiate(loaded.get('base_body.glb')!.scene, { hideMask: mask, coverage })
   const bounds = new THREE.Box3().setFromObject(body)
   root.add(body)
   root.add(instantiate(loaded.get('hair_short02.glb')!.scene))
@@ -146,8 +174,10 @@ export async function buildAvatar(garments: Garment[], selection: Selection) {
     root.add(instantiate(loaded.get(piece.asset.file)!.scene, {
       garment: piece.garment,
       kind: piece.asset.kind,
+      baked: piece.asset.baked,
+      layerMask: piece.slot === 'tops' && layer ? layerMasks[piece.asset.kind]?.[layer.asset.kind]?.map(maskBytes) : undefined,
       padding: piece.slot === 'layers'
-        ? (piece.asset.kind.startsWith('overshirt') ? (bulkyTop ? .020 : .006) : .012)
+        ? (piece.asset.baked ? (bulkyTop ? .005 : 0) : .012)
         : piece.slot === 'tops' && bulkyTop && layer?.asset.kind.startsWith('overshirt') ? -.008 : 0,
       hideMask: piece.slot === 'tops' && layer && !layer.asset.kind.startsWith('overshirt') ? layer.asset.zone : 0,
     }))

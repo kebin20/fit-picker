@@ -26,18 +26,28 @@ function map(data: Uint8Array) {
 }
 const fibreNormals = map(normals), fibreRoughness = map(roughness)
 
-export function clothMaterial(garment: Garment) {
+export function clothMaterial(garment: Garment, template?: THREE.Material) {
   const shell = garment.style === 'puffer' || garment.style === 'raincoat' || garment.style === 'bomber'
   const brushed = garment.style === 'coat' || garment.style === 'sweatshirt' || garment.style === 'hoodie' || garment.id === 'brown-flannel'
   const color = new THREE.Color(garment.color)
+  const source = template as THREE.MeshStandardMaterial | undefined
+  const role = template?.name.toLowerCase() || ''
+  const metal = role.startsWith('zipper metal')
+  const button = role.startsWith('buttons')
+  if (role.startsWith('rib knit')) color.multiplyScalar(.84)
+  if (role.startsWith('detail fabric')) color.multiplyScalar(.96)
+  if (metal) color.lerp(new THREE.Color('#777c7a'), .45)
+  if (button) color.set(garment.style === 'coat' ? '#614b36' : '#b8ad99')
   return new THREE.MeshPhysicalMaterial({
     color,
-    metalness: 0,
-    roughness: shell ? .75 : .92,
-    roughnessMap: fibreRoughness,
-    normalMap: fibreNormals,
-    normalScale: new THREE.Vector2(.3, .3),
-    sheen: shell ? .08 : brushed ? .45 : .28,
+    metalness: metal ? .65 : 0,
+    roughness: metal ? .42 : button ? .65 : shell ? .75 : .92,
+    roughnessMap: metal || button ? null : fibreRoughness,
+    // Preserve each garment's offline high/low cloth bake. Replacing this with
+    // a shared weave would erase the drape detail that the asset pipeline made.
+    normalMap: metal || button ? null : source?.normalMap || fibreNormals,
+    normalScale: source?.normalMap ? source.normalScale.clone() : new THREE.Vector2(.3, .3),
+    sheen: metal || button ? 0 : shell ? .08 : brushed ? .45 : .28,
     sheenColor: color.clone().lerp(new THREE.Color('#e4e0d4'), .12),
     sheenRoughness: .85,
     specularIntensity: .25,

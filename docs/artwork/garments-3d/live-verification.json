@@ -1,0 +1,20 @@
+{
+  "testedAt": "2026-11-14T01:47:18.219Z",
+  "url": "https://fit-picker.kaikei-app.workers.dev/",
+  "sourceCommit": "2fccb442647cbca9c86c7538843fbf06a53e2b37",
+  "cloudflareVersion": "6a0ba6d9-24ac-4eed-a7b6-cb8a869f4922",
+  "files": [
+    "bomber.glb",
+    "coat.glb",
+    "overshirt-long.glb",
+    "overshirt-short.glb",
+    "puffer.glb",
+    "rain-jacket.glb",
+    "shirt-short.glb",
+    "trousers-slim.glb"
+  ],
+  "outerwearSwitches": 6,
+  "cameraControls": true,
+  "phoneOverflow": false,
+  "errors": []
+}

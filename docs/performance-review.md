@@ -93,3 +93,17 @@ Default model bytes increase by 17,456 (0.7%). This comparison excludes the addi
 Coverage is baked against the actual exported models. The body vertex ordering and positions are checked against the app's glTF; original anatomical zones preserve hands and head. Layer masks remove hidden inner fabric while retaining openings, collars, hoods and cuffs. Only index filtering runs on selection, with no client raycasts or cloth solver. The previous double-prefixed custom-zone attribute is recognized, so body masking now applies to the actual source asset.
 
 Validation passed for all 18 model files, 18 layered outfits, camera side/back views and phone-width overflow. An idle one-second observation produced no new renders. The complete suite has 39 tests. The full browser suite also passed saved-look persistence, recommendations, source guides and image/model/WebGL/decoder-failure fallbacks. These checks use Chromium and software WebGL; they do not establish physical-phone frame rate or battery use.
+
+### Live release verification
+
+Source commit `2fccb442647cbca9c86c7538843fbf06a53e2b37` was deployed as Cloudflare version `6a0ba6d9-24ac-4eed-a7b6-cb8a869f4922`. GitHub CI and live outerwear/camera/phone checks passed. Raw results are in `performance-metrics-v0.7.0.json` and `artwork/garments-3d/live-verification.json`.
+
+| Same cold phone flow | v0.6.0 | v0.7.0 |
+| --- | ---: | ---: |
+| Initial requests | 11 | 11 |
+| Initial transferred bytes | 285,715 | 285,735 |
+| Initial image requests | 5 | 5 |
+| Initial 3D/decoder requests | 0 | 0 |
+| Browse first portrait, then open 3D: total bytes | 3,029,702 | 3,134,189 |
+
+The initial 20-byte difference is immaterial and includes response headers. The complete first browse/3D flow adds about 104.5 KB (3.45%), including the shared decoder and larger deferred code; the startup experience remains about 286 KB. Later garment selections reuse the decoder. The live phone context retained the 1.5 pixel-ratio cap (528×600 drawing buffer for 352×400 CSS pixels), reported 45,746 triangles and 19 draw calls in the default view, and produced zero additional renders in the idle observation. The frame counter also includes one-time environment-map setup, so it is not an animation-frame-rate measurement.

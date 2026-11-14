@@ -23,7 +23,7 @@ it('retains a garment’s baked cloth normals when applying its wardrobe colour'
   source.normalScale.set(.8, .8)
   const material = clothMaterial(garments.find(piece => piece.id === 'brown-flannel')!, source)
   expect(material.normalMap).toBe(baked)
-  expect(material.normalScale.toArray()).toEqual([.8, .8])
+  expect(material.normalScale.toArray()).toEqual([.52, .52])
   expect(material.color.getHexString()).toBe('75523a')
   material.dispose(); source.dispose(); baked.dispose()
 })

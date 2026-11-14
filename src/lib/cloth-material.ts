@@ -46,7 +46,7 @@ export function clothMaterial(garment: Garment, template?: THREE.Material) {
     // Preserve each garment's offline high/low cloth bake. Replacing this with
     // a shared weave would erase the drape detail that the asset pipeline made.
     normalMap: metal || button ? null : source?.normalMap || fibreNormals,
-    normalScale: source?.normalMap ? source.normalScale.clone() : new THREE.Vector2(.3, .3),
+    normalScale: source?.normalMap ? source.normalScale.clone().multiplyScalar(.65) : new THREE.Vector2(.3, .3),
     sheen: metal || button ? 0 : shell ? .08 : brushed ? .45 : .28,
     sheenColor: color.clone().lerp(new THREE.Color('#e4e0d4'), .12),
     sheenRoughness: .85,

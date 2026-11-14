@@ -107,3 +107,9 @@ Source commit `2fccb442647cbca9c86c7538843fbf06a53e2b37` was deployed as Cloudfl
 | Browse first portrait, then open 3D: total bytes | 3,029,702 | 3,134,189 |
 
 The initial 20-byte difference is immaterial and includes response headers. The complete first browse/3D flow adds about 104.5 KB (3.45%), including the shared decoder and larger deferred code; the startup experience remains about 286 KB. Later garment selections reuse the decoder. The live phone context retained the 1.5 pixel-ratio cap (528×600 drawing buffer for 352×400 CSS pixels), reported 45,746 triangles and 19 draw calls in the default view, and produced zero additional renders in the idle observation. The frame counter also includes one-time environment-map setup, so it is not an animation-frame-rate measurement.
+
+## Personal tools — v0.8.0
+
+Offline support is opt-in through “Keep offline”. Fresh online visits do not install or precache the service worker until this is requested. Only the small app shell and up to four photos for each requested outfit are cached; 3D assets and the full outfit-photo library are excluded. Uploaded photos are resized to 640 pixels and limited to 180 KB encoded. Wardrobe arrays are memoized so preference/toast updates do not rebuild the 3D avatar. No new runtime dependency or model asset was added. Baked normal strength is reduced to soften exaggerated wrinkles.
+
+The production build and 41 unit tests pass. The new isolated phone test covers locks, availability, weather, draft restoration, wear recording, rename/update, delete undo, uploaded wardrobe photos, backup/restore and an actual offline reload. Existing browser regression checks also passed.

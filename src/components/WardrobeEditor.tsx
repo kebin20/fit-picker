@@ -1,0 +1,24 @@
+import { useState } from 'react'
+import type { Garment, Category, GarmentStyle, Season } from '../types'
+const choices: Record<Category, GarmentStyle[]> = { tops: ['tee','longsleeve','shirt','sweatshirt','hoodie','overshirt'], layers: ['overshirt','bomber','coat','puffer','raincoat'], bottoms: ['trousers','shorts'], shoes: ['sneakers','canvas','slipons'] }
+export default function WardrobeEditor({ garment, onSave, onClose }: { garment?: Garment; onSave: (g: Garment) => void; onClose: () => void }) {
+ const [value,setValue] = useState<Garment>(garment || { id: `custom-${crypto.randomUUID()}`, name: '', category:'tops', style:'tee',color:'#526149',colorName:'Custom',seasons:['Autumn','Winter','Spring','Summer'],source:'ss',ownership:'confirmed' })
+ const [error,setError] = useState(''); const [busy,setBusy] = useState(false)
+ async function photo(file?: File) { if (!file) return; setBusy(true); try {
+  if (!['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 15000000) throw Error('Choose a JPEG, PNG or WebP under 15 MB.')
+  const bitmap = await createImageBitmap(file); const c = document.createElement('canvas'); const ratio = Math.min(1, 640/Math.max(bitmap.width,bitmap.height)); c.width = Math.round(bitmap.width*ratio); c.height = Math.round(bitmap.height*ratio); c.getContext('2d')!.drawImage(bitmap,0,0,c.width,c.height); bitmap.close()
+  const data = c.toDataURL('image/webp',.75); if (data.length > 180000) throw Error('This photo is too detailed. Try a simpler background.')
+  setValue(v => ({...v,photo:data})); setError('')
+ } catch(e) { setError((e as Error).message) } finally {setBusy(false)} }
+ return <div className="editor-backdrop"><section className="editor-dialog" role="dialog" aria-modal="true" onKeyDown={e=>{if(e.key==='Escape')onClose();if(e.key==='Tab'){const nodes=Array.from(e.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea'));const first=nodes[0],last=nodes[nodes.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus()}}}} aria-label={garment ? 'Edit garment' : 'Add garment'}><button className="editor-close" onClick={onClose} aria-label="Close garment editor">×</button><h2>{garment ? 'Edit your piece' : 'Add a piece'}</h2><form onSubmit={e => {e.preventDefault();onSave(value)}}>
+ <label>Name<input autoFocus required maxLength={100} value={value.name} onChange={e=>setValue({...value,name:e.target.value})}/></label>
+ <label>Category<select disabled={!!garment} value={value.category} onChange={e=>{const category=e.target.value as Category;setValue({...value,category,style:choices[category][0],wearableAs:undefined})}}>{Object.keys(choices).map(c=><option key={c} value={c}>{c === 'layers' ? 'Outerwear' : c}</option>)}</select></label>
+ <label>Garment type<select value={value.style} onChange={e=>setValue({...value,style:e.target.value as GarmentStyle})}>{choices[value.category].map(s=><option key={s}>{s}</option>)}</select></label>
+ <label>Colour<input type="color" value={value.color} onChange={e=>setValue({...value,color:e.target.value})}/></label><label>Colour name<input required maxLength={60} value={value.colorName} onChange={e=>setValue({...value,colorName:e.target.value})}/></label>
+ <fieldset><legend>Seasons</legend>{(['Autumn','Winter','Spring','Summer'] as Season[]).map(s=><label className="check-label" key={s}><input type="checkbox" checked={value.seasons.includes(s)} onChange={e=>setValue({...value,seasons:e.target.checked?[...value.seasons,s]:value.seasons.filter(v=>v!==s)})}/>{s}</label>)}</fieldset>
+ <label>Warmth<select value={value.warmth || 'light'} onChange={e=>setValue({...value,warmth:e.target.value as Garment['warmth']})}><option value="light">Light</option><option value="medium">Medium</option><option value="warm">Warm</option></select></label>
+ <label className="check-label"><input type="checkbox" checked={!!value.waterproof} onChange={e=>setValue({...value,waterproof:e.target.checked})}/>Suitable for rain (your assessment)</label>
+ <label>Fit / fabric notes<textarea maxLength={1000} value={value.note || ''} onChange={e=>setValue({...value,note:e.target.value})}/></label>
+ <label>Your garment photo<input type="file" accept="image/png,image/jpeg,image/webp" onChange={e=>photo(e.target.files?.[0])}/></label>{value.photo&&<><img className="editor-photo" src={value.photo} alt="Your garment"/><button type="button" onClick={()=>setValue({...value,photo:undefined})}>Remove photo</button></>}
+ {error&&<p role="alert">{error}</p>}<p>Choose the closest garment type for the illustrative 3D preview.</p><button className="primary-button" disabled={busy || !value.seasons.length} type="submit">{busy?'Preparing photo…':'Save garment'}</button></form></section></div>
+}

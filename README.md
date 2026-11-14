@@ -108,3 +108,15 @@ Saved looks use browser local storage and do not sync across devices. Fonts are 
 - [Mobile](docs/mockups/mobile.png)
 
 The generated icon master is `public/app-icon-master.png`; production sizes are exported beside it. User-provided reference assets remain attributed to the supplied guides; no third-party design assets were copied from inspiration sites.
+
+## Personal wardrobe tools (v0.8)
+
+Lock selected clothing slots to filter recommendations around them, mark pieces unavailable/in laundry, and record “Wore this today”. Favourites rank first, with fewer matching looks worn within the last 14 days. Hidden suggestions can be restored. Manual temperature/rain controls use broad warmth rules and your garment settings; rain variations replace the outer layer with the confirmed rain jacket and use garment compositions rather than unrelated model photos.
+
+The current draft, filters, locks and preferences persist locally. Saved looks can be renamed/updated without duplicates, and deletion has an undo. Export a JSON backup from Saved looks; importing previews counts and requires an explicit replacement action, with undo available until reload. Backups include garment edits, resized photos, availability and wear history. Import validation and storage rollback protect the existing data. This is manual transfer, not automatic cloud sync.
+
+My wardrobe → Add garment / Edit piece supports photos, colour, garment type, seasons, warmth and notes. Photos are resized to at most 640 px and stored locally (max 180 KB encoded each); a failed storage write reports an error. New garments use the closest illustrative 3D family and can be assembled/saved in the builder. The curated recommendation library remains based on the original wardrobe.
+
+“Keep outfit offline” or Saved looks → “Keep offline” stores that outfit’s garment images. On the first explicit offline request, a service worker caches the small app shell; it does not precache the full photo library or 3D models. Open the app online once before using offline favourites. Custom photos remain in local wardrobe data. Fonts use system fallbacks offline. Wardrobe searches are cleared when entering the studio. Baked wrinkle shading is softened without increasing model size.
+
+Run `node scripts/check-personal.mjs` against the production preview on port 5174 (or set `FIT_PICKER_URL`) for isolated phone tests including actual offline reload, photo editing, backups and personal filters.

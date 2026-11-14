@@ -3,6 +3,9 @@ export type Season = 'Autumn' | 'Winter' | 'Spring' | 'Summer'
 export type Occasion = 'Everyday' | 'Dinner' | 'Date night' | 'With friends' | 'Outdoors'
 export type GarmentStyle = 'tee' | 'longsleeve' | 'shirt' | 'sweatshirt' | 'hoodie' | 'overshirt' | 'bomber' | 'coat' | 'puffer' | 'raincoat' | 'trousers' | 'shorts' | 'sneakers' | 'canvas' | 'slipons'
 export interface Garment {
+  photo?: string
+  warmth?: 'light' | 'medium' | 'warm'
+  waterproof?: boolean
   id: string
   name: string
   category: Category

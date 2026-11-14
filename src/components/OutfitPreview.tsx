@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import type { Outfit } from '../types'
-import { garments } from '../data/wardrobe'
+import type { Outfit, Garment } from '../types'
+import { garments as baseGarments } from '../data/wardrobe'
 import OutfitCanvas from './OutfitCanvas'
 import { outfitPhoto } from '../lib/outfit-photos'
 import { useDeferredImage } from '../lib/use-deferred-image'
 
 /** Every new combination can be previewed directly from its exact garment photos. */
-export default function OutfitPreview({ outfit }: { outfit: Outfit }) {
+export default function OutfitPreview({ outfit, garments = baseGarments }: { outfit: Outfit; garments?: Garment[] }) {
   const [failedSource, setFailedSource] = useState<string | null>(null)
   const photo = outfitPhoto(outfit)
   const { ref, ready } = useDeferredImage(photo?.src)

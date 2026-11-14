@@ -17,11 +17,12 @@ const pieceLabels: Record<Category, string> = {
 
 function ProductPhoto({ garment, className = '', lazy = false }: { garment: Garment; className?: string; lazy?: boolean }) {
   const [unavailable, setUnavailable] = useState(false)
+  useEffect(() => setUnavailable(false), [garment.photo, garment.id])
   return unavailable
     ? <span className={`outfit-canvas__photo-unavailable ${className}`}>{garment.name}<small>Photo unavailable</small></span>
     : <img
         className={`outfit-canvas__photo ${className}`}
-        src={`/garments/${garment.id}.webp`}
+        src={garment.photo || `/garments/${garment.id}.webp`}
         alt={garment.name}
         loading={lazy ? 'lazy' : 'eager'}
         decoding="async"

@@ -1,0 +1,35 @@
+{
+  "measuredAt": "2026-11-14T05:09:59.418Z",
+  "url": "https://fit-picker.kaikei-app.workers.dev/",
+  "coldCache": true,
+  "device": "Chromium iPhone 13 emulation; no CPU/network throttling; software WebGL",
+  "startup": {
+    "requests": 11,
+    "bytes": 292214,
+    "imageRequests": 5,
+    "imageBytes": 117340
+  },
+  "deferred": {
+    "models": true,
+    "guides": true,
+    "outfitPhotos": true,
+    "decoder": true
+  },
+  "responsivePhoto": "https://fit-picker.kaikei-app.workers.dev/outfits/800/styled-autumn-01.webp",
+  "canvas": {
+    "width": 528,
+    "height": 600,
+    "cssWidth": 352,
+    "cssHeight": 400,
+    "triangles": 45746,
+    "drawCalls": 19,
+    "renderedFrames": 37
+  },
+  "idleRenders": 0,
+  "afterBrowsingAnd3D": {
+    "requests": 22,
+    "bytes": 3078148,
+    "imageRequests": 7,
+    "imageBytes": 181900
+  }
+}

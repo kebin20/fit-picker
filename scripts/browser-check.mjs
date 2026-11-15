@@ -125,10 +125,11 @@ try {
   await expect(page.locator('.current-look p')).toContainText('Spring / Summer')
 
   const garmentBriefs = JSON.parse(await readFile('docs/artwork/garments/catalogue-briefs.json', 'utf8'))
-  const garmentIds = garmentBriefs.atlases.flatMap(atlas => atlas.cells.filter(cell => cell.id).map(cell => cell.id))
-  const garmentSizes = await page.evaluate(async ids => Promise.all(ids.map(async id => {
+  const imageSizes = JSON.parse(await readFile('docs/artwork/garments/image-sizes.json', 'utf8'))
+  const garmentIds = garmentBriefs.atlases.flatMap(atlas => atlas.cells.filter(cell => cell.id).map(cell => ({id:cell.id,src:imageSizes.find(image=>image.id===cell.id)?.file || `/garments/${cell.id}.webp`})))
+  const garmentSizes = await page.evaluate(async ids => Promise.all(ids.map(async ({id,src}) => {
     const image = new Image()
-    image.src = `/garments/${id}.webp`
+    image.src = src
     await image.decode()
     return { id, width: image.naturalWidth, height: image.naturalHeight }
   })), garmentIds)
@@ -210,5 +211,5 @@ try {
   await expect(missingDecoder.locator('.preview-panel .outfit-canvas')).toBeVisible()
   await missingDecoder.close()
   if (errors.length) throw new Error(`Browser errors: ${errors.join('; ')}`)
-  console.log('PASS: default 2D outfit, loaded glTF assets and 3D controls, scoped recommendation filters, 96 additional outfits, 51 garment photos, all clothing slots, save/reload/delete, search, ownership, decoded source guides, 161 responsive model photos, original guide model previews, try/undo, mobile navigation, responsive breakpoints, WebGL and image-error fallbacks; no page errors.')
+  console.log('PASS: default 2D outfit, loaded glTF assets and 3D controls, scoped recommendation filters, 96 additional outfits, 51 garment photos, all clothing slots, save/reload/delete, search, ownership, decoded source guides, 150 selectable combinations and archived responsive model photos, original guide model previews, try/undo, mobile navigation, responsive breakpoints, WebGL and image-error fallbacks; no page errors.')
 } finally { await browser.close() }

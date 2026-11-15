@@ -10,3 +10,8 @@ dist/
 *.tsbuildinfo
 test-results/
 playwright-report/
+# Local generation masters and downloaded product references; ship optimized assets.
+docs/artwork/garments/corrections/*-master.png
+docs/artwork/garments/corrections/prints/*-master.png
+docs/artwork/garments/references/*.jpg
+docs/artwork/garments/references/*.png

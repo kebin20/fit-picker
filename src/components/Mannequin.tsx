@@ -5,10 +5,10 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
 import { buildAvatar, disposeAvatar } from '../lib/avatar-scene'
 import type { Garment, Selection } from '../types'
 
-interface Props { garments: Garment[]; selection: Selection; rotation: number; zoom: number; onUnavailable?: () => void }
-interface Stage { scene: THREE.Scene; camera: THREE.PerspectiveCamera; renderer: THREE.WebGLRenderer; model?: THREE.Group; render: () => void }
+interface Props { garments: Garment[]; selection: Selection; rotation: number; zoom: number; viewRevision: number; onUnavailable?: () => void }
+interface Stage { scene: THREE.Scene; camera: THREE.PerspectiveCamera; controls: OrbitControls; renderer: THREE.WebGLRenderer; model?: THREE.Group; render: () => void }
 
-export default function Mannequin({ garments, selection, rotation, zoom, onUnavailable }: Props) {
+export default function Mannequin({ garments, selection, rotation, zoom, viewRevision, onUnavailable }: Props) {
   const host = useRef<HTMLDivElement>(null)
   const stage = useRef<Stage | null>(null)
   const unavailable = useRef(onUnavailable)
@@ -54,6 +54,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, onUnava
     controls.maxPolarAngle = Math.PI * .57
     controls.rotateSpeed = .55
     controls.update()
+    controls.saveState()
     scene.add(new THREE.HemisphereLight('#fff9ee', '#b9c4b2', .7))
     const key = new THREE.DirectionalLight('#fff5e6', 1.7)
     key.position.set(-3, 5, 4)
@@ -104,7 +105,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, onUnava
     }
     const observer = new ResizeObserver(resize)
     observer.observe(container)
-    stage.current = { scene, camera, renderer, render }
+    stage.current = { scene, camera, controls, renderer, render }
     resize()
     return () => {
       disposed = true
@@ -135,6 +136,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, onUnava
       current.renderer.domElement.setAttribute('aria-label', `Loaded glTF avatar wearing ${names.join(', ')}. Use the rotate and zoom controls to change the view.`)
       current.renderer.domElement.dataset.modelFormat = 'gltf'
       current.renderer.domElement.dataset.loadedModels = String(model.userData.files.length)
+      current.renderer.domElement.dataset.garmentPrints = model.userData.prints.join(',')
       setLoading(false)
       current.render()
     }).catch(error => { if (!cancelled) { console.warn('Fitted avatar could not load', error); unavailable.current?.() } })
@@ -149,6 +151,15 @@ export default function Mannequin({ garments, selection, rotation, zoom, onUnava
     current.camera.updateProjectionMatrix()
     current.render()
   }, [rotation, zoom])
+
+  useEffect(() => {
+    const current = stage.current
+    if (!current) return
+    current.controls.reset()
+    current.camera.zoom = pose.current.zoom
+    current.camera.updateProjectionMatrix()
+    current.render()
+  }, [viewRevision])
 
   return <div className="gltf-avatar" style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}><div ref={host} style={{ position: 'absolute', inset: 0 }}/>{loading && <div className="avatar-loading" role="status"><span className="avatar-loading-dot"/>Fitting your selected pieces…</div>}</div>
 }

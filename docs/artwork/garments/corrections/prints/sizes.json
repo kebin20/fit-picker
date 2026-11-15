@@ -1,0 +1,50 @@
+[
+  {
+    "id": "pink-tee-front",
+    "width": 512,
+    "height": 135,
+    "bytes": 17218
+  },
+  {
+    "id": "black-cat-tee-front",
+    "width": 512,
+    "height": 496,
+    "bytes": 71726
+  },
+  {
+    "id": "white-graphic-tee-front",
+    "width": 405,
+    "height": 405,
+    "bytes": 20844
+  },
+  {
+    "id": "white-graphic-tee-back",
+    "width": 423,
+    "height": 512,
+    "bytes": 55526
+  },
+  {
+    "id": "ukiyoe-tee-front",
+    "width": 387,
+    "height": 275,
+    "bytes": 18912
+  },
+  {
+    "id": "ukiyoe-tee-back",
+    "width": 512,
+    "height": 426,
+    "bytes": 86014
+  },
+  {
+    "id": "burton-tee-front",
+    "width": 77,
+    "height": 512,
+    "bytes": 15598
+  },
+  {
+    "id": "black-tee-front",
+    "width": 512,
+    "height": 469,
+    "bytes": 40842
+  }
+]

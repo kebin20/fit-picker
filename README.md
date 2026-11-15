@@ -8,12 +8,12 @@ A personal wardrobe studio for Kevin. Assemble outfits with realistic photograph
 
 - React, TypeScript and Vite.
 - A composed 2D outfit view is the default: the selected top, bottoms and shoes form an outfit, with the optional outer layer alongside.
-- 51 individual transparent product-style garment photographs replace the former SVG drawings throughout the wardrobe, picker, outfit overviews and saved looks.
+- 49 active transparent product-style garment photographs replace the former SVG drawings throughout the wardrobe, picker, outfit overviews and saved looks.
 - The optional Three.js 3D preview loads a fitted human body, hair and separate clothing models through `GLTFLoader`, with clothing swaps, rotation, zoom and reset. Model/WebGL failures return to 2D. A persistent Outerwear selector changes/removes the outer layer from any builder tab. Eighteen garment constructions have offline cloth drape and embedded normal maps: quilted puffer, ribbed bomber, rain shell, knee-length coat, shirts/overshirts, cotton tops and separate trouser cuts.
-- 49 confirmed garment entries, 2 clearly separated suggested sweatshirts, and 54 combinations transcribed from three source images.
+- 47 confirmed garment entries, 2 clearly separated suggested sweatshirts, 2 unowned archive records, and 54 original combinations transcribed from three source images.
 - Seasonal Edit 01: 12 new combinations (three per season), with independent high-resolution styling photographs and why-it-works notes.
 - Seasonal Edit 02: 96 additional combinations (24 per season), each with its own generated full-body model photograph. Every season/occasion has multiple choices; all compositions are distinct from the existing guides and edit.
-- 161 model photographs cover every selectable combination: 108 seasonal edits and 53 original guide looks. The source-only look containing an unconfirmed sweatshirt remains excluded. Original guide PNGs are preserved in the source viewer.
+- The library retains 161 model photographs. After the ownership corrections, 150 combinations are selectable: 99 seasonal edits and 51 original guide looks. The grey-sweatshirt suggestion and eleven white-shirt looks remain excluded; their source records and historical photos are preserved. Original guide PNGs are preserved in the source viewer.
 - Recommendation filters live under “Right for the occasion”. They change the suggested looks only; the outfit builder shows the confirmed wardrobe independently. Wardrobe browsing has its own season filter.
 - Exact season/occasion filtering over confirmed garments; no AI API, accounts or live-weather dependency.
 - Searchable wardrobe, source guide viewer, local saved looks and responsive desktop/tablet/mobile navigation.
@@ -128,3 +128,9 @@ The studio subheading and sidebar wardrobe-message card have been removed. Main 
 Outfit/saved cards use a single column on phones, the builder stacks on narrower tablets, and garment names have more room to wrap. Form fields use at least 16 px text. The backup file picker also fits narrow phones. Responsive model-image sizes follow the wider phone cards; image loading and the optional 3D module remain deferred.
 
 Verification: 41 unit tests and the production build passed; the browser regression passed; studio, wardrobe and saved pages were checked at 320, 390, 588, 787, 820, 960, 1024, 1176, 1440 and 1920 px with no horizontal page overflow or visible text below 12 px. Desktop/tablet/phone mockups above show the updated interface. These are Chromium checks, not a full accessibility audit or a physical-device test.
+
+## Wardrobe corrections and both-side previews (v0.9.0)
+
+The cream graphic tee and white collared shirt are excluded as unowned. Colour captions have been removed from wardrobe images. Six tee designs now follow the user’s corrections and product references. My wardrobe and the 2D builder offer front/back views for the white graphic and yellow fox tees. The optional 3D avatar has matching front/back prints and camera presets. Older saved looks remain available and can be repaired by choosing a replacement piece.
+
+[Assets, exact generation prompts, source references and verification](docs/artwork/garments/corrections/README.md) document the changes. Product cutouts are capped at 640 px, optional 3D print maps at 512 px; back photos and print textures remain deferred. Full-body recommendation portraits remain styling illustrations and were not regenerated in this update.

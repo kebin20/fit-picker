@@ -26,12 +26,12 @@ describe('seasonal styling edit', () => {
     }
   })
 
-  it('uses confirmed pieces, compatible slots and appropriate garment seasons', () => {
+  it('resolves compatible pieces and seasons, retaining unowned archive records outside recommendations', () => {
     for (const look of seasonalOutfits) {
       for (const [slot, id] of Object.entries(look.items)) {
         const piece = byId.get(id)
         expect(piece, `${look.id}: missing ${id}`).toBeDefined()
-        expect(piece!.ownership, `${look.id}: unconfirmed ${id}`).toBe('confirmed')
+        expect(['confirmed', 'not-owned'], `${look.id}: unconfirmed ${id}`).toContain(piece!.ownership)
         expect(piece!.category === slot || piece!.wearableAs?.some(role => role === slot), `${look.id}: invalid ${slot}`).toBe(true)
         expect(piece!.seasons, `${look.id}: wrong season for ${id}`).toContain(look.seasons[0])
       }

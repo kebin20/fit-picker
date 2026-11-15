@@ -1,4 +1,5 @@
 import type { Garment, Selection, Season, Occasion, Category } from '../types'
+import { garmentPhoto } from './garment-photos'
 export interface Wear { date: string; items: Selection }
 export interface Personal { draft?: Selection; season?: Season; occasion?: Occasion; locks: Category[]; unavailable: string[]; history: Wear[]; pinned: string[]; hidden: string[]; edits: Garment[]; temperature: string; rain: boolean }
 export const personalKey = 'fit-picker:personal:v1'
@@ -39,6 +40,6 @@ export function weatherSuitable(items: Garment[], temperature: string, rain: boo
 }
 export function localDay() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}` }
 export function offlineLook(items: Selection, garments: Garment[]) {
- const urls = Object.values(items).map(id => garments.find(g => g.id === id)).filter((g): g is Garment => !!g && !g.photo).map(g => `/garments/${g.id}.webp`)
+ const urls = Object.values(items).map(id => garments.find(g => g.id === id)).filter((g): g is Garment => !!g && !g.photo && g.ownership === 'confirmed').map(g => garmentPhoto(g))
  return navigator.serviceWorker?.register('/sw.js').then(async()=>{try{localStorage.setItem('fit-picker:offline','1')}catch{}const registration=await new Promise<ServiceWorkerRegistration>((resolve,reject)=>{const timer=window.setTimeout(()=>reject(Error('Offline storage could not be prepared.')),15000);navigator.serviceWorker.ready.then(r=>{clearTimeout(timer);resolve(r)},e=>{clearTimeout(timer);reject(e)})});registration.active?.postMessage({ type: 'CACHE_LOOK', urls })})
 }

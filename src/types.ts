@@ -17,7 +17,7 @@ export interface Garment {
   source: 'aw-core' | 'aw-updated' | 'ss'
   note?: string
   pattern?: 'check' | 'graphic' | 'stripes'
-  ownership?: 'confirmed' | 'recommended'
+  ownership?: 'confirmed' | 'recommended' | 'not-owned'
 }
 export interface Outfit {
   origin?: 'guide' | 'styled'

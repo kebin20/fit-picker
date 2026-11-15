@@ -1,0 +1,63 @@
+{
+  "date": "2026-11-16",
+  "tool": "Built-in image_gen",
+  "assets": [
+    {
+      "id": "pink-tee",
+      "prompt": "Use case: precise-object-edit. Asset: transparent product photo for a personal wardrobe app, square 1024px. Edit the supplied pink tee only: remove the dark running-person logo completely and replace it with the exact lowercase word \"adidas\" in flowing white cursive script across the centre chest. White connected handwritten lettering, moderately sized, no trefoil, no stripes, no additional symbols. Preserve dusty muted pink cotton, shirt shape, neck ribbing, soft natural fabric texture and folds, symmetrical front view, isolated garment only. Preserve transparent alpha background. No model, hanger, labels, colour names, watermark or text outside the garment.",
+      "inputs": [
+        "public/garments/pink-tee.webp"
+      ]
+    },
+    {
+      "id": "black-cat-tee",
+      "prompt": "Use case: background-extraction. Asset: transparent product photograph for a personal wardrobe app, square 1024px. Isolate exactly the black tee in this reference as a clean front-facing garment cutout with genuine transparent background. Preserve its black cotton texture, short sleeves, silhouette and EXACT cat-and-coffee front print: pink cursive \"Coffee\", the rectangular white cartoon cat and cup panel and its small speech bubble. Do not replace with a different cat. Match the reference print scale and placement. Remove only the external white backdrop and heavy cast shadow. Garment edges softly antialiased, at least 6% transparent margin. No person, hanger, labels or extra lettering outside the garment.",
+      "inputs": [
+        "docs/artwork/garments/references/black-cat-reference.jpg"
+      ]
+    },
+    {
+      "id": "white-graphic-tee-back",
+      "prompt": "Use case: precise-object-edit. Asset: transparent BACK product photo of a white graphic tee, square 1024px. Remove the wearer entirely and show the SAME white T-shirt from the back, flat, evenly suspended, symmetric sleeves, full hem visible, no hanger. Retain and accurately reproduce the supplied back graphic: handwritten black \"#Meow Monday\" heading, thin rectangular frame, dark teal-haired person wearing red cap and headphones, teal cat at left, muted red accents, small caption under frame. Do not put the artwork on the front or invent mountains. Same graphic scale and upper-back placement, soft white cotton folds and realistic seams. Real transparent alpha background with at least 6% margins, no shadows or text outside garment.",
+      "inputs": [
+        "docs/artwork/garments/references/white-graphic-back-reference.jpg"
+      ]
+    },
+    {
+      "id": "ukiyoe-tee",
+      "prompt": "Use case: background-extraction. Asset: FRONT transparent product photograph of UNIQLO mustard yellow Ukiyo-e Animals tee, square 1024px. Image1 is the exact flat front product; image2 supports real colour/texture only. Isolate image1 shirt as a natural symmetric front view. Preserve mustard ochre slub cotton, crew neck and left chest patch pocket (viewer right), with ONLY the tiny running fox just above that pocket. NO large chest graphic, waves, tsunami or back artwork on the front. Remove all external grey backdrop. Preserve small printed neck label inside collar. Genuine transparent alpha background and 6% margin around sleeves/hem. No people, hangers, extra writing, colour labels or watermark.",
+      "inputs": [
+        "docs/artwork/garments/references/ukiyoe-product-reference.jpg",
+        "docs/artwork/garments/references/ukiyoe-model-front-reference.jpg"
+      ]
+    },
+    {
+      "id": "ukiyoe-tee-back",
+      "prompt": "Use case: precise-object-edit. Asset: BACK transparent product photo of mustard yellow UNIQLO Ukiyo-e Animals tee, square 1024px. Remove the model and display only the SAME short-sleeved shirt as a symmetric flat back garment cutout, full sleeves and hem visible. Preserve mustard ochre slub cotton and reproduce this exact upper-back illustration: cream upright walking fox with long tail carrying a green pole with bundled pale yellow-green gourd shapes over its shoulder, pink Japanese inscription panels and pink round motif, subtle green accents. Match the modest print scale/placement of the reference. No waves, no tsunami, no mountain. Soft realistic cotton folds, genuine transparent alpha background, 6% margin, no person, hanger, shadow or external text.",
+      "inputs": [
+        "docs/artwork/garments/references/ukiyoe-front-reference.jpg"
+      ]
+    },
+    {
+      "id": "white-graphic-tee",
+      "prompt": "Use case: precise-object-edit. Asset: FRONT transparent product photo of a white graphic tee for a personal wardrobe app, square 1024px. Edit the supplied white T-shirt front: REMOVE the mountain and trees graphic completely. Replace it with a SMALL subtle circular dark chest mark at the same left chest position (viewer right), suggesting a circular text logo at thumbnail scale, but no invented readable wording because the exact words are unknown. Keep this mark small (about 6cm real width); do not place the large back print on the front. Preserve the exact white cotton, relaxed short sleeve cut, realistic folds and ribbed collar, symmetric front-on garment only. Genuine transparent alpha background. No model, hanger, colour labels, watermark or writing outside the shirt.",
+      "inputs": [
+        "public/garments/white-graphic-tee.webp"
+      ]
+    },
+    {
+      "id": "burton-tee",
+      "prompt": "Use case: background-extraction. Asset: transparent front product photo, square 1024px. Isolate exactly the black Burton T-shirt in this reference with genuine transparent alpha background, no external white backdrop. Preserve black cotton, realistic texture, silhouette, collar and EXACT FIVE small vertical symbols on the viewer-right side of the chest/body: pale stacked-line glyph at top, outlined S, pale key-like glyph, outlined K, pale X at bottom. Preserve their small size, spacing, alignment and colours. Do not add mountain or forest artwork. Keep garment edges clean, at least 6% transparent margin around sleeves and hem. No model, hanger, watermark or external text.",
+      "inputs": [
+        "docs/artwork/garments/references/burton-reference.png"
+      ]
+    },
+    {
+      "id": "black-tee",
+      "prompt": "Use case: precise-object-edit. Asset: transparent front product photo, square 1024px. Preserve this exact black cotton short-sleeve T-shirt shape, neckline, soft fabric texture, folds and colour. Add ONLY a SMALL square chest graphic on the upper viewer-right chest: a thin off-white square with a simple off-white mountain drawing inside and small uppercase word \"BURTON\" along its lower edge. About 6cm wide on a real tee, understated chest patch size, not a large centre graphic. No other design, no giant mountains, no forest, no stripes. Same genuine transparent alpha background, no model/hanger or lettering outside garment.",
+      "inputs": [
+        "public/garments/black-tee.webp"
+      ]
+    }
+  ]
+}

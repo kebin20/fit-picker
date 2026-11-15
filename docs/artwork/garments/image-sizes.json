@@ -73,15 +73,17 @@
   },
   {
     "id": "white-graphic-tee",
-    "width": 300,
-    "height": 281,
-    "atlas": "tops-a"
+    "width": 640,
+    "height": 634,
+    "atlas": "correction-v2",
+    "file": "/garments/white-graphic-tee-v2.webp"
   },
   {
     "id": "black-cat-tee",
-    "width": 304,
-    "height": 281,
-    "atlas": "tops-a"
+    "width": 627,
+    "height": 640,
+    "atlas": "correction-v2",
+    "file": "/garments/black-cat-tee-v2.webp"
   },
   {
     "id": "green-tee",
@@ -91,9 +93,10 @@
   },
   {
     "id": "pink-tee",
-    "width": 302,
-    "height": 279,
-    "atlas": "tops-a"
+    "width": 640,
+    "height": 635,
+    "atlas": "correction-v2",
+    "file": "/garments/pink-tee-v2.webp"
   },
   {
     "id": "cream-tee",
@@ -103,9 +106,10 @@
   },
   {
     "id": "ukiyoe-tee",
-    "width": 302,
-    "height": 277,
-    "atlas": "tops-b"
+    "width": 640,
+    "height": 598,
+    "atlas": "correction-v2",
+    "file": "/garments/ukiyoe-tee-v2.webp"
   },
   {
     "id": "yellow-tee",
@@ -145,15 +149,17 @@
   },
   {
     "id": "burton-tee",
-    "width": 301,
-    "height": 278,
-    "atlas": "tops-b"
+    "width": 627,
+    "height": 640,
+    "atlas": "correction-v2",
+    "file": "/garments/burton-tee-v2.webp"
   },
   {
     "id": "black-tee",
-    "width": 304,
-    "height": 279,
-    "atlas": "tops-b"
+    "width": 640,
+    "height": 588,
+    "atlas": "correction-v2",
+    "file": "/garments/black-tee-v2.webp"
   },
   {
     "id": "white-longsleeve",
@@ -304,5 +310,19 @@
     "width": 338,
     "height": 286,
     "atlas": "bottoms"
+  },
+  {
+    "id": "white-graphic-tee-back",
+    "width": 628,
+    "height": 640,
+    "atlas": "correction-v2",
+    "file": "/garments/white-graphic-tee-back-v2.webp"
+  },
+  {
+    "id": "ukiyoe-tee-back",
+    "width": 640,
+    "height": 630,
+    "atlas": "correction-v2",
+    "file": "/garments/ukiyoe-tee-back-v2.webp"
   }
 ]

@@ -4,6 +4,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { avatarGarment } from './avatar-assets'
 import { fitTrouserCut, trouserCut, shortenSleeves, smoothTextureSeams } from './garment-geometry'
 import { clothMaterial } from './cloth-material'
+import { addGarmentPrints } from './garment-prints'
 import type { Garment, Selection } from '../types'
 import layerCoverage from '../data/garment-layer-coverage.json'
 
@@ -171,7 +172,7 @@ export async function buildAvatar(garments: Garment[], selection: Selection) {
   root.add(instantiate(loaded.get('hair_short02.glb')!.scene))
   if (!selection.bottoms) root.add(instantiate(loaded.get('clothing_briefs.glb')!.scene))
   for (const piece of selected) {
-    root.add(instantiate(loaded.get(piece.asset.file)!.scene, {
+    const clothing = instantiate(loaded.get(piece.asset.file)!.scene, {
       garment: piece.garment,
       kind: piece.asset.kind,
       baked: piece.asset.baked,
@@ -180,7 +181,12 @@ export async function buildAvatar(garments: Garment[], selection: Selection) {
         ? (piece.asset.baked ? (bulkyTop ? .005 : 0) : .012)
         : piece.slot === 'tops' && bulkyTop && layer?.asset.kind.startsWith('overshirt') ? -.008 : 0,
       hideMask: piece.slot === 'tops' && layer && !layer.asset.kind.startsWith('overshirt') ? layer.asset.zone : 0,
-    }))
+    })
+    if (piece.asset.kind === 'tee') {
+      try { await addGarmentPrints(clothing, piece.garment) }
+      catch { /* The fitting silhouette remains usable if a print is offline. */ }
+    }
+    root.add(clothing)
   }
   const scale = 1.8 / (bounds.max.y - bounds.min.y)
   root.scale.setScalar(scale)
@@ -188,6 +194,8 @@ export async function buildAvatar(garments: Garment[], selection: Selection) {
   root.userData.assetFormat = 'glTF 2.0'
   root.userData.licensedSource = 'MakeHuman / CharacterCreator CC0 exports'
   root.userData.files = files
+  root.userData.prints = [] as string[]
+  root.traverse(object => { if (object.userData.garmentPrint) root.userData.prints.push(object.userData.garmentPrint) })
   return root
 }
 

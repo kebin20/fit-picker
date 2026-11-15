@@ -9,11 +9,13 @@ import manifest from './outfit-photo-manifest.json'
 
 const owned = new Set(garments.filter(piece => piece.ownership === 'confirmed').map(piece => piece.id))
 const selectable = [...seasonalOutfits, ...outfits].filter(look => Object.values(look.items).every(id => owned.has(id)))
+const archivedPhotos = [...seasonalOutfits, ...outfits].filter(look => Object.values(look.items).every(id => garments.some(g => g.id === id && g.ownership !== 'recommended')))
 
 describe('complete model-photo library', () => {
   it('covers every selectable new and original guide combination', () => {
-    expect(selectable).toHaveLength(161)
-    expect(Object.keys(manifest).sort()).toEqual(selectable.map(look => look.id).sort())
+    expect(selectable).toHaveLength(150)
+    // Preserve original IDs/photos as historical assets when ownership changes.
+    expect(Object.keys(manifest).sort()).toEqual(archivedPhotos.map(look => look.id).sort())
     for (const look of selectable) expect(outfitPhoto(look), look.id).toBeDefined()
     const sourceOnly = outfits.find(look => look.id === 'aw-core-8')!
     expect(outfitPhoto(sourceOnly)).toBeUndefined()

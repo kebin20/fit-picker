@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Category, Garment, Selection } from '../types'
 import './outfit-canvas.css'
+import { garmentPhoto } from '../lib/garment-photos'
 
 interface Props {
   selection: Selection
   garments: Garment[]
   compact?: boolean
+  side?: 'front' | 'back'
 }
 
 const pieceLabels: Record<Category, string> = {
@@ -15,15 +17,15 @@ const pieceLabels: Record<Category, string> = {
   shoes: 'Shoes',
 }
 
-function ProductPhoto({ garment, className = '', lazy = false }: { garment: Garment; className?: string; lazy?: boolean }) {
+function ProductPhoto({ garment, className = '', lazy = false, side = 'front' }: { garment: Garment; className?: string; lazy?: boolean; side?: 'front' | 'back' }) {
   const [unavailable, setUnavailable] = useState(false)
-  useEffect(() => setUnavailable(false), [garment.photo, garment.id])
+  useEffect(() => setUnavailable(false), [garment.photo, garment.id, side])
   return unavailable
     ? <span className={`outfit-canvas__photo-unavailable ${className}`}>{garment.name}<small>Photo unavailable</small></span>
     : <img
         className={`outfit-canvas__photo ${className}`}
-        src={garment.photo || `/garments/${garment.id}.webp`}
-        alt={garment.name}
+        src={garmentPhoto(garment, side)}
+        alt={`${garment.name}${side === 'back' ? ' (back)' : ''}`}
         loading={lazy ? 'lazy' : 'eager'}
         decoding="async"
         draggable={false}
@@ -34,7 +36,7 @@ function ProductPhoto({ garment, className = '', lazy = false }: { garment: Garm
 /** A composed clothing-only outfit, using the same photographic product assets
  * as the wardrobe. The optional outer layer sits beside the base outfit so a
  * closed jacket never conceals the selected shirt. */
-export default function OutfitCanvas({ selection, garments, compact = false }: Props) {
+export default function OutfitCanvas({ selection, garments, compact = false, side = 'front' }: Props) {
   const arrangement = useRef<HTMLDivElement>(null)
   const assembly = useRef<HTMLDivElement>(null)
   const get = (category: Category) => garments.find(garment => garment.id === selection[category])
@@ -71,7 +73,7 @@ export default function OutfitCanvas({ selection, garments, compact = false }: P
         <div className="outfit-canvas__base">
           {shoes && <ProductPhoto key={shoes.id} garment={shoes} lazy={compact} className="outfit-canvas__shoes"/>}
           {bottoms && <ProductPhoto key={bottoms.id} garment={bottoms} lazy={compact} className="outfit-canvas__bottoms"/>}
-          {top && <ProductPhoto key={top.id} garment={top} lazy={compact} className="outfit-canvas__top"/>}
+          {top && <ProductPhoto key={top.id} garment={top} side={side} lazy={compact} className="outfit-canvas__top"/>}
         </div>
         {layer && <div className="outfit-canvas__layer">
           <span className="outfit-canvas__layer-label">The finishing layer</span>

@@ -1,18 +1,19 @@
 import { useState } from 'react'
 import type { Garment } from '../types'
 import { useDeferredImage } from '../lib/use-deferred-image'
+import { garmentPhoto } from '../lib/garment-photos'
 
 /** Source-inspired product photographs, shared by every wardrobe surface. */
-export default function GarmentArt({ garment, className = '' }: { garment: Garment; className?: string }) {
+export default function GarmentArt({ garment, className = '', side = 'front' }: { garment: Garment; className?: string; side?: 'front' | 'back' }) {
   const [failedId, setFailedId] = useState<string | null>(null)
-  const source = garment.photo || `/garments/${garment.id}.webp`
+  const source = garmentPhoto(garment, side)
   const { ref, ready } = useDeferredImage(source)
   if (failedId === source) return <span className={`garment-art garment-photo-unavailable ${className}`} role="img" aria-label={garment.name}>Photo unavailable</span>
   return <img
     className={`garment-art garment-photograph ${className}`}
     ref={ref}
     src={ready ? source : undefined}
-    alt={garment.name}
+    alt={`${garment.name}${side === 'back' ? ' (back)' : ''}`}
     loading="lazy"
     decoding="async"
     draggable={false}

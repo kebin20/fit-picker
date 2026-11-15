@@ -1,0 +1,54 @@
+{
+  "tool": "Built-in image_gen",
+  "date": "2026-11-16",
+  "assets": [
+    {
+      "id": "pink-tee-front",
+      "ref": "docs/artwork/garments/corrections/pink-tee-master.png",
+      "detail": "Only the white connected cursive lowercase word \"adidas\" exactly as printed on the pink tee. No pink cotton.",
+      "prompt": "Use case: precise-object-edit. Asset: flat transparent print/decal texture for a 3D wardrobe garment, square 1024px. Supporting input is a product photograph. Extract or accurately recreate ONLY the following printed artwork as crisp flat ink, front-on with no perspective or cloth deformation: Only the white connected cursive lowercase word \"adidas\" exactly as printed on the pink tee. No pink cotton. Genuine transparent alpha background outside the ink/artwork, NOT a solid white or black background. Centre the complete art with transparent margins. No garment silhouette, model, folds, fabric texture, shadows, watermark or extra writing."
+    },
+    {
+      "id": "black-cat-tee-front",
+      "ref": "docs/artwork/garments/corrections/black-cat-tee-master.png",
+      "detail": "The exact full pink Coffee script and rectangular cat-and-coffee cartoon panel, speech bubble \"IS FOR EVERYBODY\", grey panel included. No black cotton.",
+      "prompt": "Use case: precise-object-edit. Asset: flat transparent print/decal texture for a 3D wardrobe garment, square 1024px. Supporting input is a product photograph. Extract or accurately recreate ONLY the following printed artwork as crisp flat ink, front-on with no perspective or cloth deformation: The exact full pink Coffee script and rectangular cat-and-coffee cartoon panel, speech bubble \"IS FOR EVERYBODY\", grey panel included. No black cotton. Genuine transparent alpha background outside the ink/artwork, NOT a solid white or black background. Centre the complete art with transparent margins. No garment silhouette, model, folds, fabric texture, shadows, watermark or extra writing."
+    },
+    {
+      "id": "white-graphic-tee-front",
+      "ref": "docs/artwork/garments/corrections/white-graphic-tee-master.png",
+      "detail": "Only the very small dark circular chest mark. Exact wording is unknown: use a circle of tiny short dark strokes suggesting the letter ring at thumbnail size, NO invented readable words. No white cotton.",
+      "prompt": "Use case: precise-object-edit. Asset: flat transparent print/decal texture for a 3D wardrobe garment, square 1024px. Supporting input is a product photograph. Extract or accurately recreate ONLY the following printed artwork as crisp flat ink, front-on with no perspective or cloth deformation: Only the very small dark circular chest mark. Exact wording is unknown: use a circle of tiny short dark strokes suggesting the letter ring at thumbnail size, NO invented readable words. No white cotton. Genuine transparent alpha background outside the ink/artwork, NOT a solid white or black background. Centre the complete art with transparent margins. No garment silhouette, model, folds, fabric texture, shadows, watermark or extra writing."
+    },
+    {
+      "id": "white-graphic-tee-back",
+      "ref": "docs/artwork/garments/corrections/white-graphic-tee-back-master.png",
+      "detail": "The exact full back artwork: #Meow Monday handwritten heading, thin black rectangular frame, teal-haired person in a red cap/headphones and teal cat, tiny lower caption. Retain white areas inside the illustration frame; no surrounding white cotton.",
+      "prompt": "Use case: precise-object-edit. Asset: flat transparent print/decal texture for a 3D wardrobe garment, square 1024px. Supporting input is a product photograph. Extract or accurately recreate ONLY the following printed artwork as crisp flat ink, front-on with no perspective or cloth deformation: The exact full back artwork: #Meow Monday handwritten heading, thin black rectangular frame, teal-haired person in a red cap/headphones and teal cat, tiny lower caption. Retain white areas inside the illustration frame; no surrounding white cotton. Genuine transparent alpha background outside the ink/artwork, NOT a solid white or black background. Centre the complete art with transparent margins. No garment silhouette, model, folds, fabric texture, shadows, watermark or extra writing."
+    },
+    {
+      "id": "ukiyoe-tee-front",
+      "ref": "docs/artwork/garments/corrections/ukiyoe-tee-master.png",
+      "detail": "Only the tiny running fox above the front pocket, in its exact colours, slim black outline, tiny orange body and white raised tail. No pocket, yellow cotton, lettering or other symbols.",
+      "prompt": "Use case: precise-object-edit. Asset: flat transparent print/decal texture for a 3D wardrobe garment, square 1024px. Supporting input is a product photograph. Extract or accurately recreate ONLY the following printed artwork as crisp flat ink, front-on with no perspective or cloth deformation: Only the tiny running fox above the front pocket, in its exact colours, slim black outline, tiny orange body and white raised tail. No pocket, yellow cotton, lettering or other symbols. Genuine transparent alpha background outside the ink/artwork, NOT a solid white or black background. Centre the complete art with transparent margins. No garment silhouette, model, folds, fabric texture, shadows, watermark or extra writing."
+    },
+    {
+      "id": "ukiyoe-tee-back",
+      "ref": "docs/artwork/garments/corrections/ukiyoe-tee-back-master.png",
+      "detail": "Only the full back woodblock fox illustration and its pink inscription panels and round pink motif. Cream upright walking fox, long tail, green pole with pale yellow-green bundle over shoulder. Preserve design and colours exactly, no yellow cotton.",
+      "prompt": "Use case: precise-object-edit. Asset: flat transparent print/decal texture for a 3D wardrobe garment, square 1024px. Supporting input is a product photograph. Extract or accurately recreate ONLY the following printed artwork as crisp flat ink, front-on with no perspective or cloth deformation: Only the full back woodblock fox illustration and its pink inscription panels and round pink motif. Cream upright walking fox, long tail, green pole with pale yellow-green bundle over shoulder. Preserve design and colours exactly, no yellow cotton. Genuine transparent alpha background outside the ink/artwork, NOT a solid white or black background. Centre the complete art with transparent margins. No garment silhouette, model, folds, fabric texture, shadows, watermark or extra writing."
+    },
+    {
+      "id": "burton-tee-front",
+      "ref": "docs/artwork/garments/references/burton-reference.png",
+      "detail": "Only the FIVE small symbols stacked in one vertical column: pale stacked-line glyph, outlined S, pale key-like glyph, outlined K, pale X. Preserve exact design, spacing, colours and thin outlines. No shirt, no neck label, no mountain art.",
+      "prompt": "Use case: precise-object-edit. Asset: flat transparent print/decal texture for a 3D wardrobe garment, square 1024px. Supporting input is a product photograph. Extract or accurately recreate ONLY the following printed artwork as crisp flat ink, front-on with no perspective or cloth deformation: Only the FIVE small symbols stacked in one vertical column: pale stacked-line glyph, outlined S, pale key-like glyph, outlined K, pale X. Preserve exact design, spacing, colours and thin outlines. No shirt, no neck label, no mountain art. Genuine transparent alpha background outside the ink/artwork, NOT a solid white or black background. Centre the complete art with transparent margins. No garment silhouette, model, folds, fabric texture, shadows, watermark or extra writing."
+    },
+    {
+      "id": "black-tee-front",
+      "ref": "public/garments/black-tee.webp",
+      "detail": "A small off-white square chest emblem containing a simple off-white mountain drawing with the exact uppercase word BURTON along its lower edge, sparse linework on a TRANSPARENT interior. This is the user-described chest emblem for this black tee. No black cotton.",
+      "prompt": "Use case: precise-object-edit. Asset: flat transparent print/decal texture for a 3D wardrobe garment, square 1024px. Supporting input is a product photograph. Extract or accurately recreate ONLY the following printed artwork as crisp flat ink, front-on with no perspective or cloth deformation: A small off-white square chest emblem containing a simple off-white mountain drawing with the exact uppercase word BURTON along its lower edge, sparse linework on a TRANSPARENT interior. This is the user-described chest emblem for this black tee. No black cotton. Genuine transparent alpha background outside the ink/artwork, NOT a solid white or black background. Centre the complete art with transparent margins. No garment silhouette, model, folds, fabric texture, shadows, watermark or extra writing."
+    }
+  ]
+}

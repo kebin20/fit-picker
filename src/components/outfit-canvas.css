@@ -112,12 +112,13 @@
 .outfit-canvas__layer-label {
   position: relative;
   display: block;
-  font-size: 7px;
+  /* Counter the photo assembly's scale so its annotations stay readable. */
+  font-size: calc(12px / var(--outfit-scale, 1));
   font-weight: 600;
-  letter-spacing: 1.15px;
+  letter-spacing: .04em;
   text-transform: uppercase;
-  color: #87917e;
-  white-space: nowrap;
+  color:#53614f;
+  text-align: center;
   padding-bottom: 4px;
 }
 
@@ -134,9 +135,9 @@
   max-width: 130px;
   margin-top: -7px;
   text-align: center;
-  font-size: 8px;
+  font-size: calc(14px / var(--outfit-scale, 1));
   line-height: 1.55;
-  color: #6b7764;
+  color:#53614f;
 }
 
 .outfit-canvas__caption {
@@ -148,11 +149,11 @@
 .outfit-canvas__caption-title {
   display: block;
   margin-bottom: 7px;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 650;
-  letter-spacing: 1.25px;
+  letter-spacing: .08em;
   text-transform: uppercase;
-  color: #8a947f;
+  color:#53614f;
 }
 
 .outfit-canvas__caption ul {
@@ -169,13 +170,13 @@
   align-items: baseline;
   gap: 5px;
   min-width: 0;
-  font-size: 8px;
+  font-size: 14px;
   line-height: 1.5;
-  color: #626f5b;
+  color:#53614f;
 }
 
 .outfit-canvas__piece-label {
-  color: #8c9685;
+  color:#53614f;
 }
 
 .outfit-canvas__swatch {
@@ -192,15 +193,15 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 9px;
+  font-size:13px;
   line-height: 1.6;
-  color: #65745e;
+  color:#53614f;
 }
 
 .outfit-canvas__photo-unavailable small {
   display: block;
-  font-size: 7px;
-  color: #8c9685;
+  font-size:12px;
+  color:#53614f;
 }
 
 .outfit-canvas--empty {
@@ -211,16 +212,16 @@
 }
 
 .outfit-canvas--empty p {
-  font-size: 17px;
+  font-size:17px;
   margin-bottom: 10px;
   color: #4a5c42;
 }
 
 .outfit-canvas--empty > span {
   max-width: 240px;
-  font-size: 11px;
+  font-size:14px;
   line-height: 1.8;
-  color: #8c9685;
+  color:#53614f;
 }
 
 @container (max-height: 330px) {
@@ -237,7 +238,7 @@
 
 @media (max-width: 700px) {
   .outfit-canvas { padding: 5px 16px 10px; }
-  .outfit-canvas__caption li { font-size: 8px; }
-  .outfit-canvas__caption-title { font-size: 7px; }
+  .outfit-canvas__caption li { font-size:14px; }
+  .outfit-canvas__caption-title { font-size:12px; }
 }
 .outfit-canvas--compact{padding:8px}.outfit-canvas--compact .outfit-canvas__arrangement{min-height:0}.outfit-canvas--compact .outfit-canvas__caption{display:none}.outfit-canvas--compact .outfit-canvas__layer-label,.outfit-canvas--compact .outfit-canvas__layer-name{display:none}

@@ -120,3 +120,11 @@ My wardrobe → Add garment / Edit piece supports photos, colour, garment type, 
 “Keep outfit offline” or Saved looks → “Keep offline” stores that outfit’s garment images. On the first explicit offline request, a service worker caches the small app shell; it does not precache the full photo library or 3D models. Open the app online once before using offline favourites. Custom photos remain in local wardrobe data. Fonts use system fallbacks offline. Wardrobe searches are cleared when entering the studio. Baked wrinkle shading is softened without increasing model size.
 
 Run `node scripts/check-personal.mjs` against the production preview on port 5174 (or set `FIT_PICKER_URL`) for isolated phone tests including actual offline reload, photo editing, backups and personal filters.
+
+## Readability update (v0.8.1)
+
+The studio subheading and sidebar wardrobe-message card have been removed. Main labels and controls use 16 px text, supporting copy uses 14–15 px, and small metadata has a 12 px floor. Muted text is darker, with more line spacing and less tracking on uppercase labels. The 2D outfit annotations retain their readable size when the garment composition scales.
+
+Outfit/saved cards use a single column on phones, the builder stacks on narrower tablets, and garment names have more room to wrap. Form fields use at least 16 px text. The backup file picker also fits narrow phones. Responsive model-image sizes follow the wider phone cards; image loading and the optional 3D module remain deferred.
+
+Verification: 41 unit tests and the production build passed; the browser regression passed; studio, wardrobe and saved pages were checked at 320, 390, 588, 787, 820, 960, 1024, 1176, 1440 and 1920 px with no horizontal page overflow or visible text below 12 px. Desktop/tablet/phone mockups above show the updated interface. These are Chromium checks, not a full accessibility audit or a physical-device test.

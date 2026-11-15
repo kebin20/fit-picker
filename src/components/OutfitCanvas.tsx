@@ -54,6 +54,7 @@ export default function OutfitCanvas({ selection, garments, compact = false }: P
       const width = layer ? 344 : 210
       const height = bottoms?.style === 'shorts' ? 365 : 390
       const scale = Math.min(1, Math.max(.15, (container.clientWidth - 12) / width), Math.max(.15, (container.clientHeight - 12) / height))
+      content.style.setProperty('--outfit-scale', String(scale))
       content.style.transform = `translate(-50%, -50%) scale(${scale})`
     }
     const observer = new ResizeObserver(resize)

@@ -37,7 +37,7 @@ export function clothMaterial(garment: Garment, template?: THREE.Material) {
   if (role.startsWith('rib knit')) color.multiplyScalar(.84)
   if (role.startsWith('detail fabric')) color.multiplyScalar(.96)
   if (metal) color.lerp(new THREE.Color('#777c7a'), .45)
-  if (button) color.set(garment.style === 'coat' ? '#614b36' : '#b8ad99')
+  if (button) color.copy(new THREE.Color(garment.color)).multiplyScalar(.45)
   return new THREE.MeshPhysicalMaterial({
     color,
     metalness: metal ? .65 : 0,
@@ -47,7 +47,7 @@ export function clothMaterial(garment: Garment, template?: THREE.Material) {
     // a shared weave would erase the drape detail that the asset pipeline made.
     normalMap: metal || button ? null : source?.normalMap || fibreNormals,
     normalScale: source?.normalMap ? source.normalScale.clone().multiplyScalar(.65) : new THREE.Vector2(.3, .3),
-    sheen: metal || button ? 0 : shell ? .08 : brushed ? .45 : .28,
+    sheen: metal || button ? 0 : shell ? .08 : brushed ? .25 : .12,
     sheenColor: color.clone().lerp(new THREE.Color('#e4e0d4'), .12),
     sheenRoughness: .85,
     specularIntensity: .25,

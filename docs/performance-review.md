@@ -117,3 +117,26 @@ The production build and 41 unit tests pass. The new isolated phone test covers 
 Live v0.8 verification passed for source `76196c15830945b6237b1c4db258bc5deb36051b`, Cloudflare version `1d5c429e-e0ce-43d8-b87f-eca5d6bcaca3`. The complete personal browser flow passed on production, including changing a saved outfit without duplicates, rejecting an unknown-garment backup without replacing data, uploaded photos, and offline favourites after a real offline reload. GitHub CI passed.
 
 Cold phone startup measured **11 requests / 292,214 bytes**, versus 285,735 bytes in v0.7 (about 6.5 KB additional). Models, decoder, original guides and outfit portraits remain deferred. The drawing buffer remains 528×600 for 352×400 CSS pixels; the idle observation produced zero renders. Raw measurements are in `performance-metrics-v0.8.0.json`. Resource counts use Chromium iPhone emulation with software WebGL and do not measure physical phone battery life or frame rate.
+
+## Prepared studio photos — v0.12.0
+
+The default pilot model photo is a single 91,746-byte WebP containing all three
+angles. Switching front/side/back repositions the same decoded image and needs
+no extra network request. Existing single-view portraits keep their responsive
+400/800/full variants. No WebGL renderer, glTF file or Draco decoder is requested
+until the user selects 3D. No new runtime dependency is added. The production
+entry is 333.75 KB (101.98 KB gzip); 3D remains a separate lazy chunk.
+
+Opt-in offline saving now caches up to four selected garment images plus the
+single prepared model image. It does not precache the whole portrait library.
+Direct image navigation is kept separate from app-shell caching. A fast image
+failure reset race found in WebKit was fixed in the shared image hook.
+
+Verification: 71 unit tests, the production build, the complete app/browser
+regressions, eight new Chromium/WebKit photo layout cases and 22 existing
+responsive scenarios passed. The latter include small iPhones, iPad portrait
+and landscape, home-indicator/notch fixtures, short viewports and reachable
+dialog actions. Footer text remains reachable above the bottom navigation.
+The 3D resize check retained phone DPR 1.5 / 1024-pixel shadows, desktop DPR 2 /
+2048-pixel shadows, and zero renders during its idle observation. These are
+automated browser checks, not measurements on a physical iPhone.

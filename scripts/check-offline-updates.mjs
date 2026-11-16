@@ -39,20 +39,26 @@ try{
  for(const mode of ['interrupted','spa-fallback']){
   release=mode
   await page.reload()
-  await expect(page.locator('.preview-panel .outfit-canvas')).toBeVisible()
+  await expect(page.locator('.preview-panel .studio-photo')).toBeVisible()
   expect(await cachedHTML()).toBe(originalHTML)
   await context.setOffline(true);await page.reload()
-  await expect(page.locator('.preview-panel .outfit-canvas')).toBeVisible()
+  await expect(page.locator('.preview-panel .studio-photo')).toBeVisible()
   await context.setOffline(false)
  }
  release='complete'
  await page.reload()
  await expect.poll(cachedHTML).toBe(nextHTML)
  await context.setOffline(true);await page.reload()
- await expect(page.locator('.preview-panel .outfit-canvas')).toBeVisible()
- const decoded=await page.locator('.preview-panel .outfit-canvas img').evaluateAll(async images=>{await Promise.all(images.map(img=>img.decode()));return images.every(img=>img.naturalWidth>0)})
+ await expect(page.locator('.preview-panel .studio-photo')).toBeVisible()
+ const decoded=await page.locator('.preview-panel .studio-photo img').evaluateAll(async images=>{await Promise.all(images.map(img=>img.decode()));return images.every(img=>img.naturalWidth>0)})
  expect(decoded).toBe(true)
  const keys=await page.evaluate(async()=>await(await caches.open('fit-picker-offline-v1')).keys().then(keys=>keys.map(key=>new URL(key.url).pathname)))
  expect(keys.some(key=>key.startsWith('/models/')||key.includes('Mannequin-')||key.startsWith('/outfits/'))).toBe(false)
- console.log('PASS offline updates: interrupted download and SPA fallback retain a bootable previous shell; complete update works offline; cached garment photos survive; 3D/portrait library not cached.')
+ expect(keys).toContain('/previews/navy-after-hours-quality-v1.webp')
+ const directImage = await page.goto(new URL('/previews/navy-after-hours-quality-v1.webp',url).href)
+ expect(directImage.headers()['content-type']).toMatch(/^image\/webp/i)
+ await page.goto(url)
+ await expect(page.locator('.preview-panel .studio-photo')).toBeVisible()
+ expect(await cachedHTML()).toBe(nextHTML)
+ console.log('PASS offline updates: interrupted releases retain bootable shell; cached outfit/model photos survive; 3D and unrequested portraits are not cached.')
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve))}

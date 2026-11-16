@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { GLTFLoader, type GLTF } from 'three/addons/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { avatarGarment } from './avatar-assets'
-import { fitTrouserCut, trouserCut, shortenSleeves, smoothTextureSeams } from './garment-geometry'
+import { fitTrouserCut, trouserCut, shortenSleeves, smoothTextureSeams, innerShirtOpening } from './garment-geometry'
 import { clothMaterial } from './cloth-material'
 import { addGarmentPrints } from './garment-prints'
 import { addChestPocket } from './garment-pocket'
@@ -98,13 +98,14 @@ export function fitCoatLength(geometry: THREE.BufferGeometry) {
   geometry.computeVertexNormals()
 }
 
-function instantiate(source: THREE.Object3D, options: { garment?: Garment; hideMask?: number; kind?: string; padding?: number; baked?: boolean; coverage?: Uint8Array[]; layerMask?: Uint8Array[] } = {}) {
+function instantiate(source: THREE.Object3D, options: { garment?: Garment; hideMask?: number; kind?: string; padding?: number; baked?: boolean; coverage?: Uint8Array[]; layerMask?: Uint8Array[]; openShirt?: boolean } = {}) {
   const group = new THREE.Group()
   let primitive = 0
   source.traverse(object => {
     const mesh = object as THREE.Mesh
     if (!mesh.isMesh) return
-    const geometry = options.baked ? mesh.geometry.clone() : tailor(mesh.geometry.clone(), options.kind)
+    let geometry = options.baked ? mesh.geometry.clone() : tailor(mesh.geometry.clone(), options.kind)
+    if (options.openShirt) { const clipped = innerShirtOpening(geometry); geometry.dispose(); geometry = clipped }
     hideLayerFaces(geometry, options.layerMask?.[primitive++])
     hideCoveredFaces(geometry, options.hideMask || 0, options.coverage)
     if (!options.baked && options.kind === 'trousers' && options.garment) fitTrouserCut(geometry, trouserCut(options.garment.id))
@@ -177,7 +178,8 @@ export async function buildAvatar(garments: Garment[], selection: Selection) {
       garment: piece.garment,
       kind: piece.asset.kind,
       baked: piece.asset.baked,
-      layerMask: piece.slot === 'tops' && layer ? layerMasks[piece.asset.kind]?.[layer.asset.kind]?.map(maskBytes) : undefined,
+      openShirt: piece.slot === 'tops' && piece.garment.style === 'shirt' && layer?.asset.kind === 'overshirt-long',
+      layerMask: piece.slot === 'tops' && layer && !(piece.garment.style === 'shirt' && layer.asset.kind === 'overshirt-long') ? layerMasks[piece.asset.kind]?.[layer.asset.kind]?.map(maskBytes) : undefined,
       padding: piece.slot === 'layers'
         ? (piece.asset.baked ? (bulkyTop ? .005 : 0) : .012)
         : piece.slot === 'tops' && bulkyTop && layer?.asset.kind.startsWith('overshirt') ? -.008 : 0,

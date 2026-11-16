@@ -76,6 +76,22 @@ export function openOvershirt(source: THREE.BufferGeometry) {
   })
 }
 
+/** Complement the authored long overshirt's opening with exact intersections.
+ * A vertex-only coverage mask leaves visible inner-shirt triangles protruding
+ * across the seam. Keep its collar and the fabric inside the real opening.
+ */
+export function innerShirtOpening(source: THREE.BufferGeometry) {
+  // An overlap allowance keeps the lining/skin behind curled seam edges hidden.
+  const gap = (v: Vertex) => .060 + Math.max(0, 1.30 - v.p.y) * .025
+  return clipGeometry(source, poly => {
+    const belowCollar = clip(poly, v => 1.425 - v.p.y)
+    const opening = (panel: Vertex[]) => clip(clip(clip(panel, v => gap(v) - v.p.x), v => gap(v) + v.p.x), v => v.p.z - .035)
+    return [clip(poly, v => v.p.y - 1.425),
+      opening(clip(belowCollar, v => 1.30 - v.p.y)),
+      opening(clip(belowCollar, v => v.p.y - 1.30))]
+  })
+}
+
 /** Intersect sleeve triangles at the cuff instead of deleting whole triangles.
  * Keep the central torso below the cuff plane. Used by both shirt templates. */
 export function shortenSleeves(source: THREE.BufferGeometry) {

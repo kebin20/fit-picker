@@ -1,5 +1,12 @@
 # Fitted avatar asset notice
 
+v0.12 keeps the existing CC0 body and hair. The long overshirt was rebuilt with
+one chest patch pocket and a re-tailored front opening after its offline cloth
+bake. The navy inner shirt uses intersected opening geometry instead of coarse
+coverage triangles at that seam. Body/inner-layer masks and file hashes were
+regenerated for the exported overshirt. These fixes do not constitute a new
+photorealistic character or a measured reconstruction of the owned garments.
+
 The character, hair and clothing model DATA are **CC0-1.0** exports from Kasper Olesen's CharacterCreator project, derived from MakeHuman CC0 system assets.
 
 - Source: https://github.com/kblood/CharacterCreator/tree/852e48f316b90a0937234886630e4fb4cdfd1f78/output

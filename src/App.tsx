@@ -6,6 +6,7 @@ import { garments as baseGarments, outfits } from './data/wardrobe'
 import { recommendOutfits } from './lib/recommendations'
 import GarmentArt from './components/GarmentArt'
 import OutfitCanvas from './components/OutfitCanvas'
+import StudioPhoto from './components/StudioPhoto'
 import OutfitPreview from './components/OutfitPreview'
 import WardrobeEditor from './components/WardrobeEditor'
 import WardrobePhoto from './components/WardrobePhoto'
@@ -20,6 +21,8 @@ import { validateBackup } from './lib/backup'
 import { upsertSavedLook, type SavedLook } from './lib/saved-looks'
 import { useAppViewport } from './lib/use-app-viewport'
 import { rankOutfits } from './lib/rank-outfits'
+import { studioPhoto, type PhotoAngle } from './lib/studio-photos'
+import { useImageFailure } from './lib/use-image-failure'
 
 const allOutfits = [...seasonalOutfits, ...outfits]
 const seasonIcons = { Autumn: Leaf, Winter: Snowflake, Spring: Flower2, Summer: Sun }
@@ -59,7 +62,8 @@ export default function App() {
   const [zoom, setZoom] = useState(1)
   const [viewRevision, setViewRevision] = useState(0)
   const [outfitSide, setOutfitSide] = useState<'front' | 'back'>('front')
-  const [mode, setMode] = useState<'3d' | '2d'>('2d')
+  const [preferredMode, setMode] = useState<'photo' | '3d' | '2d'>('photo')
+  const [photoAngle, setPhotoAngle] = useState<PhotoAngle>('front')
   const [webgl, setWebgl] = useState(true)
   const [saved, setSaved] = useState<SavedLook[]>(() => { try { const entries = JSON.parse(localStorage.getItem(storageKey) || '[]'); return Array.isArray(entries) ? entries.filter(v => v && typeof v.id === 'string' && typeof v.name === 'string' && validSelection(v.items) && Object.values(v.items).every(id=>typeof id === 'string' && byId.has(id))) : [] } catch { return [] } })
   const [search, setSearch] = useState('')
@@ -131,6 +135,10 @@ export default function App() {
     scrollPageTop()
   },[page])
   const matched = allOutfits.find(o => sameOutfit(selection, o))
+  const preparedPhoto = studioPhoto(selection, garments, allOutfits)
+  const photoFailure = useImageFailure(preparedPhoto?.src)
+  const photo = photoFailure.failed ? undefined : preparedPhoto
+  const mode = preferredMode === 'photo' && !photo ? '2d' : preferredMode
   const chosen = categories.flatMap(c => { const g = byId.get(selection[c.id] || ''); return g ? [g] : [] })
   const selectedTop = byId.get(selection.tops || '')
   const topHasBack = !!selectedTop && hasBackPhoto(selectedTop)
@@ -175,7 +183,7 @@ export default function App() {
       setPage('studio'); setModal(null); setNotice('Choose a replacement piece, then update your saved look.')
     } else openModal('save')
   }
-  function cacheLook(items:Selection) {if(!('serviceWorker' in navigator)){setNotice('Offline storage is unavailable in this browser.');return}setNotice('Saving outfit photos for offline use…');offlineLook(items,garments)?.catch(()=>setNotice('Offline storage is unavailable. Try again when connected.'))}
+  function cacheLook(items:Selection) {if(!('serviceWorker' in navigator)){setNotice('Offline storage is unavailable in this browser.');return}setNotice('Saving outfit photos for offline use…');offlineLook(items,garments,studioPhoto(items,garments,allOutfits)?.src)?.catch(()=>setNotice('Offline storage is unavailable. Try again when connected.'))}
   function updateSelection(next: Selection) { setPrevious(selection); setSelection(ownedSelection(next, garments)) }
   function tryOutfit(outfit: Outfit) { updateSelection({ ...outfit.items, ...Object.fromEntries(personal.locks.map(slot=>[slot,selection[slot]])) }); setEditingLook(null); setPage('studio'); setNotice(`Now trying “${outfit.name}”.`); window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }) }
   function selectGarment(garment: Garment, slot: Category = category) {
@@ -226,10 +234,11 @@ export default function App() {
 
         {page === 'studio' && <>
           <section className="studio-grid" aria-label="Outfit builder">
-            <div className="preview-panel"><div className="preview-top"><span><span className="live-dot"/> THE FIT ROOM</span><div className="mode-toggle"><button className={mode === '2d' ? 'active' : ''} onClick={() => setMode('2d')} aria-pressed={mode === '2d'}>2D outfit</button><button className={mode === '3d' ? 'active' : ''} disabled={!webgl || !online} title={!online ? 'Connect to open 3D' : undefined} onClick={() => setMode('3d')} aria-pressed={mode === '3d'}>3D preview</button></div></div>
-              {(mode === '3d' || topHasBack) && <div className="preview-side-controls" role="group" aria-label={mode === '3d' ? 'Model view' : 'Top view'}><span>{mode === '3d' ? 'Model view' : 'Top view'}</span>{(['front', 'back'] as const).map(side => <button key={side} aria-pressed={mode === '2d' ? outfitSide === side : undefined} onClick={() => { setOutfitSide(side); if (mode === '3d') { setRotation(side === 'front' ? 0 : 180); setViewRevision(v => v + 1) } }}>{side === 'front' ? 'Front view' : 'Back view'}</button>)}</div>}
-              <div className="mannequin-area">{mode === '3d' && webgl ? <Suspense fallback={<div className="scene-loading"><Hanger size={28}/><span>Opening your fit room…</span></div>}><Mannequin viewRevision={viewRevision} garments={garments} selection={selection} rotation={rotation} zoom={zoom} onUnavailable={() => { setWebgl(false); setMode('2d'); setNotice('The 3D preview could not load. Your 2D outfit is ready.') }}/></Suspense> : <OutfitCanvas selection={selection} garments={garments} side={topHasBack ? outfitSide : 'front'}/>}{mode === '3d' && <div className="stage-season">YOUR SELECTED PIECES<span> / FITTING PREVIEW</span></div>}</div>
-              <div className="preview-controls"><span className="drag-hint">{mode === '3d' && webgl ? 'Drag to rotate. Make it yours.' : 'Your chosen pieces, styled together.'}</span>{mode === '3d' && webgl && <div className="camera-controls"><button aria-label="Rotate left" onClick={() => setRotation(v => v - 30)}><ChevronLeft size={16}/></button><button aria-label="Reset view" onClick={() => { setRotation(0); setZoom(1); setViewRevision(v => v + 1) }}><RotateCcw size={15}/></button><button aria-label="Rotate right" onClick={() => setRotation(v => v + 30)}><ChevronRight size={16}/></button><span/><button aria-label="Zoom out" disabled={zoom <= .8} onClick={() => setZoom(v => Math.max(.8, v - .1))}><Minus size={15}/></button><button aria-label="Zoom in" disabled={zoom >= 1.3} onClick={() => setZoom(v => Math.min(1.3, v + .1))}><Plus size={15}/></button></div>}</div>
+            <div className="preview-panel"><div className="preview-top"><span><span className="live-dot"/> THE FIT ROOM</span><div className="mode-toggle" role="group" aria-label="Outfit preview"><button className={mode === 'photo' ? 'active' : ''} onClick={() => setMode('photo')} disabled={!photo} title={!photo ? 'No model photo prepared for this combination' : undefined} aria-pressed={mode === 'photo'}>Model photos</button><button className={mode === '2d' ? 'active' : ''} onClick={() => setMode('2d')} aria-pressed={mode === '2d'}>2D outfit</button><button className={mode === '3d' ? 'active' : ''} disabled={!webgl || !online} title={!online ? 'Connect to open 3D' : undefined} onClick={() => setMode('3d')} aria-pressed={mode === '3d'}>3D preview</button></div></div>
+              {mode === 'photo' && photo && <div className="preview-side-controls" role="group" aria-label="Photo angle"><span>Photo angle</span>{photo.angles.map(angle => <button key={angle} aria-pressed={(photo.angles.includes(photoAngle) ? photoAngle : 'front') === angle} onClick={() => setPhotoAngle(angle)}>{angle[0].toUpperCase() + angle.slice(1)} view</button>)}</div>}
+              {(mode === '3d' || (mode === '2d' && topHasBack)) && <div className="preview-side-controls" role="group" aria-label={mode === '3d' ? 'Model view' : 'Top view'}><span>{mode === '3d' ? 'Model view' : 'Top view'}</span>{(['front', 'back'] as const).map(side => <button key={side} aria-pressed={mode === '2d' ? outfitSide === side : undefined} onClick={() => { setOutfitSide(side); if (mode === '3d') { setRotation(side === 'front' ? 0 : 180); setViewRevision(v => v + 1) } }}>{side === 'front' ? 'Front view' : 'Back view'}</button>)}</div>}
+              <div className="mannequin-area">{mode === 'photo' && photo ? <StudioPhoto photo={photo} angle={photoAngle} summary={chosen.map(g => g.name).join(', ')} onError={photoFailure.fail}/> : mode === '3d' && webgl ? <Suspense fallback={<div className="scene-loading"><Hanger size={28}/><span>Opening your fit room…</span></div>}><Mannequin viewRevision={viewRevision} garments={garments} selection={selection} rotation={rotation} zoom={zoom} onUnavailable={() => { setWebgl(false); setMode('2d'); setNotice('The 3D preview could not load. Your 2D outfit is ready.') }}/></Suspense> : <OutfitCanvas selection={selection} garments={garments} side={topHasBack ? outfitSide : 'front'}/>}{mode === '3d' && <div className="stage-season">YOUR SELECTED PIECES<span> / FITTING PREVIEW</span></div>}</div>
+              <div className="preview-controls"><span className="drag-hint">{mode === 'photo' ? 'Prepared outfit image. Change pieces to build another look.' : mode === '3d' && webgl ? 'Drag to rotate. Make it yours.' : preferredMode === 'photo' ? (photoFailure.failed ? 'Photo unavailable. Showing your chosen pieces.' : 'No model photo for this combination yet. Showing your chosen pieces.') : 'Your chosen pieces, styled together.'}</span>{mode === '3d' && webgl && <div className="camera-controls"><button aria-label="Rotate left" onClick={() => setRotation(v => v - 30)}><ChevronLeft size={16}/></button><button aria-label="Reset view" onClick={() => { setRotation(0); setZoom(1); setViewRevision(v => v + 1) }}><RotateCcw size={15}/></button><button aria-label="Rotate right" onClick={() => setRotation(v => v + 30)}><ChevronRight size={16}/></button><span/><button aria-label="Zoom out" disabled={zoom <= .8} onClick={() => setZoom(v => Math.max(.8, v - .1))}><Minus size={15}/></button><button aria-label="Zoom in" disabled={zoom >= 1.3} onClick={() => setZoom(v => Math.min(1.3, v + .1))}><Plus size={15}/></button></div>}</div>
               <div className="current-look"><div><span className="eyebrow">YOUR CURRENT OUTFIT</span><h2>{matched?.name || 'Your own combination'}</h2><p>{matched?.origin === 'styled' ? `${matched.seasons[0]} · Styled from your wardrobe` : matched ? `From your ${matched.source === 'ss' ? 'Spring / Summer' : 'Autumn / Winter'} guide` : 'A personal mix of pieces from your wardrobe'}</p></div><button className="save-button" disabled={!complete} onClick={() => { setLookName(editingLook ? saved.find(l=>l.id===editingLook)?.name || lookName : matched?.name || 'My everyday look'); openModal('save') }}><Bookmark size={16}/><span>{editingLook ? 'Update look' : 'Save look'}</span></button></div>
             </div>
             <div className="picker-panel"><div className="panel-heading"><div><span className="eyebrow">MAKE IT YOURS</span><h2>Build your look<span>.</span></h2></div><span className="count-pill">{chosen.length} pieces</span></div>

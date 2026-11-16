@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import * as THREE from 'three'
-import { fitTrouserCut, openOvershirt, restOvershirt, shortenSleeves, subdivideCloth } from './garment-geometry'
+import { fitTrouserCut, openOvershirt, restOvershirt, shortenSleeves, subdivideCloth, innerShirtOpening } from './garment-geometry'
 
 function shirtPanels() {
   const geometry = new THREE.BufferGeometry()
@@ -30,6 +30,23 @@ function trouserLegs() {
 }
 
 describe('garment fitting geometry', () => {
+  it('intersects inner shirt faces at the outer opening while retaining the collar and UVs', () => {
+    const source = shirtPanels(), inner = innerShirtOpening(source)
+    const positions = inner.getAttribute('position'), uv = inner.getAttribute('uv')
+    let collar = false, opening = false
+    for (let vertex = 0; vertex < positions.count; vertex++) {
+      const y = positions.getY(vertex)
+      if (y < 1.425 - 1e-6) {
+        expect(Math.abs(positions.getX(vertex))).toBeLessThanOrEqual(.060 + Math.max(0, 1.30 - y) * .025 + 1e-6)
+        expect(positions.getZ(vertex)).toBeGreaterThanOrEqual(.035 - 1e-6)
+        opening = true
+      } else collar = true
+      expect(Number.isFinite(uv.getX(vertex)) && Number.isFinite(uv.getY(vertex))).toBe(true)
+    }
+    expect(collar && opening).toBe(true)
+    expect(inner.getIndex()!.count).toBeGreaterThan(0)
+    source.dispose(); inner.dispose()
+  })
   it('cuts sleeves exactly at the cuff while retaining the lower torso', () => {
     const source = shirtPanels(), short = shortenSleeves(source)
     const p = short.getAttribute('position'), index = short.getIndex()!

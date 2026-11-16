@@ -9,6 +9,7 @@ try{
  await page.route('**/garments/navy-shirt.webp',route=>navyBlocked?route.abort():route.continue())
  await page.route('**/guide-previews/aw-core.webp',route=>guidesBlocked?route.abort():route.continue())
  await page.goto(url)
+ await page.getByRole('button',{name:'2D outfit',exact:true}).click()
  await expect(page.locator('.preview-panel .outfit-canvas__photo-unavailable')).toBeVisible()
  const card=page.locator('.outfit-card').first()
  await card.scrollIntoViewIfNeeded()

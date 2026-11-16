@@ -38,7 +38,7 @@ SPECS = {
     'shirt-short': dict(seed='shirt', mass=.20, bend=.35, ease=.018, short=True, buttons=True, pockets=1),
     'shirt-long': dict(seed='shirt', mass=.23, bend=.45, ease=.020, buttons=True, pockets=1),
     'overshirt-short': dict(seed='shirt', mass=.24, bend=.55, ease=.022, short=True, open=True, outer=True, buttons=True, pockets=1),
-    'overshirt-long': dict(seed='shirt', mass=.30, bend=.8, ease=.025, open=True, outer=True, buttons=True, pockets=2),
+    'overshirt-long': dict(seed='shirt', mass=.30, bend=.8, ease=.025, open=True, outer=True, buttons=True, pockets=1),
     'bomber': dict(seed='hoodie', mass=.35, bend=1.2, ease=.033, open=True, outer=True, rib=True, bomber=True, zipper=True, welt=True),
     'puffer': dict(seed='hoodie', mass=.45, bend=2.2, ease=.046, open=True, outer=True, puffer=True, zipper=True, welt=True),
     'rain-jacket': dict(seed='hoodie', mass=.16, bend=.3, ease=.037, open=True, outer=True, hood=True, rain=True, zipper=True, welt=True),
@@ -585,6 +585,11 @@ def build(name, args):
     frames = args.frames or spec.get('frames', 32)
     if frames: simulate(obj, spec, frames)
     shape_detail(obj, spec)
+    if spec.get('open'):
+        # Drape can curl vertices back across the opening. Re-tailor the seam
+        # against its finished silhouette before decimation, so the inner shirt
+        # is seen through a continuous opening rather than torn-looking teeth.
+        open_front(obj, spec)
     high = obj
     low = high.copy(); low.data = high.data.copy(); bpy.context.collection.objects.link(low); low.name = name
     select(low)

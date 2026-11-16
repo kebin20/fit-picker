@@ -1,9 +1,11 @@
-import {useEffect,useState} from 'react'
+import {useEffect,useLayoutEffect,useState} from 'react'
 
 /** Retry a failed image when its source changes or the connection returns. */
 export function useImageFailure(source: string | undefined) {
   const [failedSource,setFailedSource] = useState<string>()
-  useEffect(() => { setFailedSource(undefined) }, [source])
+  // Reset before the browser can dispatch a cached/fast image error. A passive
+  // effect can otherwise erase the failure after onError, leaving a broken img.
+  useLayoutEffect(() => { setFailedSource(undefined) }, [source])
   useEffect(() => {
     const retry = () => setFailedSource(undefined)
     window.addEventListener('online',retry)

@@ -28,7 +28,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
     renderer.setClearColor(0xffffff, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
     renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = .85
+    renderer.toneMappingExposure = .75
     renderer.shadowMap.enabled = true
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
     const canvas = renderer.domElement
@@ -41,6 +41,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
     const room = new RoomEnvironment()
     const environment = pmrem.fromScene(room, .04)
     scene.environment = environment.texture
+    scene.environmentIntensity = .5
     room.dispose()
     pmrem.dispose()
     const camera = new THREE.PerspectiveCamera(32, 1, .05, 20)
@@ -55,8 +56,8 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
     controls.rotateSpeed = .55
     controls.update()
     controls.saveState()
-    scene.add(new THREE.HemisphereLight('#fff9ee', '#b9c4b2', .7))
-    const key = new THREE.DirectionalLight('#fff5e6', 1.7)
+    scene.add(new THREE.HemisphereLight('#ffffff', '#b8b8b2', .55))
+    const key = new THREE.DirectionalLight('#fffaf4', 1.1)
     key.position.set(-3, 5, 4)
     key.castShadow = true
     const shadowSize = phoneQuality() ? 1024 : 2048
@@ -68,7 +69,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
     key.shadow.normalBias = .004
     key.shadow.bias = -.0001
     scene.add(key)
-    const fill = new THREE.DirectionalLight('#e6edff', .45)
+    const fill = new THREE.DirectionalLight('#edf1ff', .35)
     fill.position.set(3, 2, 3)
     scene.add(fill)
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), new THREE.ShadowMaterial({ color: '#68745a', opacity: .16 }))

@@ -145,6 +145,26 @@ input, select, textarea, .search input, .season-select select,
 .preview-side-controls > span { margin-right: auto; }
 .preview-side-controls button { min-height: 44px; padding: 8px 12px; border: 1px solid #c9d2bd; border-radius: 6px; color: #304835; font-size: 15px; }
 .preview-side-controls button[aria-pressed=true] { background: #243e36; border-color: #243e36; color: white; }
+.preview-top .mode-toggle { flex-wrap: wrap; max-width: 100%; }
+.mannequin-area:has(.studio-photo) { height: auto; min-height: 0; max-height: none; flex: none; }
+.preview-side-controls[aria-label="Photo angle"] { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.preview-side-controls[aria-label="Photo angle"] > span { grid-column: 1 / -1; }
+.preview-side-controls[aria-label="Photo angle"] button { padding-inline: 5px; }
+.studio-photo { margin: 16px auto 0; width: min(100%, 370px); }
+.studio-photo__frame { position: relative; overflow: hidden; aspect-ratio: 2 / 3; background: #e9e5e0; }
+.studio-photo__frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.studio-photo--three-views { width: min(100%, 320px); }
+.studio-photo--three-views .studio-photo__frame { aspect-ratio: 1 / 2; }
+.studio-photo--three-views img { position: absolute; top: 0; left: 0; width: 300%; max-width: none; object-fit: fill; }
+.studio-photo--three-views[data-angle=side] img { left: -100%; }
+.studio-photo--three-views[data-angle=back] img { left: -200%; }
+.studio-photo figcaption { padding: 10px 12px; font-size: 13px; color: #53614f; text-align: center; line-height: 1.5; }
+@media (max-width: 700px) {
+  .preview-top .mode-toggle { width: 100%; }
+  .preview-top .mode-toggle button { flex: 1; padding-inline: 6px; }
+  .studio-photo { width: min(100%, 310px); }
+  .studio-photo--three-views { width: min(100%, 280px); }
+}
 
 /* Viewport and fixed-navigation clearance, including iPhone safe areas. */
 :root {

@@ -11,7 +11,10 @@ page.setDefaultTimeout(30000)
 page.on('pageerror', error => errors.push(error.message))
 try {
   await page.goto(baseURL)
-  console.log('Opened prototype; checking the default 2D outfit.')
+  console.log('Opened prototype; checking the default model photo, then the 2D outfit.')
+  await expect(page.locator('.preview-panel .studio-photo')).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Model photos', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  await page.getByRole('button', { name: '2D outfit', exact: true }).click()
   await expect(page.locator('.preview-panel .outfit-canvas')).toBeVisible()
   await expect(page.getByRole('button', { name: '2D outfit', exact: true })).toHaveAttribute('aria-pressed', 'true')
   await expect(page.locator('.stage-word')).toHaveCount(0)
@@ -140,7 +143,7 @@ try {
   // Restore the clean default for comparable, reproducible mockups.
   await page.evaluate(() => localStorage.clear())
   await page.reload()
-  await expect(page.locator('.preview-panel .outfit-canvas')).toBeVisible()
+  await expect(page.locator('.preview-panel .studio-photo')).toBeVisible()
   for (const [name, width, height] of [['desktop', 1440, 1080], ['tablet', 820, 1180], ['mobile', 390, 844]]) {
     await page.setViewportSize({ width, height })
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
@@ -181,7 +184,7 @@ try {
     }
   })
   await fallback.goto(baseURL)
-  await expect(fallback.locator('.preview-panel .outfit-canvas')).toBeVisible()
+  await expect(fallback.locator('.preview-panel .studio-photo')).toBeVisible()
   await fallback.getByRole('button', { name: '3D preview', exact: true }).click()
   await expect(fallback.getByRole('button', { name: '2D outfit', exact: true })).toHaveAttribute('aria-pressed', 'true')
   await expect(fallback.getByRole('button', { name: '3D preview', exact: true })).toBeDisabled()

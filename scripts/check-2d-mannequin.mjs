@@ -11,6 +11,7 @@ for(const [engine,type] of [['chromium',chromium],['webkit',webkit]]){
    const errors=[],requests=[]
    page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>requests.push(r.url()))
    await page.goto(url)
+   await page.getByRole('button',{name:'2D outfit',exact:true}).click()
    const preview=page.locator('.preview-panel'), form=preview.locator('.outfit-canvas')
    const presentation=preview.getByRole('group',{name:'2D presentation'})
    await expect(form).toHaveClass(/outfit-canvas--mannequin/)

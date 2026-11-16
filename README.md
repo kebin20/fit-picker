@@ -156,8 +156,20 @@ The plain brown crew-neck tee is now excluded from the wardrobe, picker and reco
 
 ## 2D mannequin (v0.11.0)
 
-The studio's default 2D view places existing garment photographs on a shaded vector mannequin, including visible hands and bare legs with shorts. Outerwear is worn over the base outfit; “Show base outfit” reveals the selected top without changing the combination. “Pieces” retains the separate garment composition. Back view uncovers the selected top's supplied back photo and labels the hidden outerwear. Coats use a longer silhouette than jackets. This is a proportion illustration, not a fit or drape simulation.
+The optional 2D view places existing garment photographs on a shaded vector mannequin, including visible hands and bare legs with shorts. Outerwear is worn over the base outfit; “Show base outfit” reveals the selected top without changing the combination. “Pieces” retains the separate garment composition. Back view uncovers the selected top's supplied back photo and labels the hidden outerwear. Coats use a longer silhouette than jackets. This is a proportion illustration, not a fit or drape simulation.
 
 The mannequin adds no model/image download, WebGL context or runtime dependency. It uses the same garment photo cache and preserves offline/image-failure recovery. Recommendation fallback cards keep their compact garment layouts. `scripts/check-2d-mannequin.mjs` verifies controls, selection preservation, long coats, back prints, shorts, viewport fit and deferred 3D assets in Chromium and WebKit at 320/390/792/1440 px. Long-page mockups use tiled Chromium captures to avoid software GPU texture limits.
 
 [Phone mannequin](docs/mockups/2d-mannequin-390.png) · [Tablet mannequin](docs/mockups/2d-mannequin-792.png)
+
+## Model photos and optional 3D (v0.12.0)
+
+The studio defaults to a prepared model photo when its exact garment appearance matches the selected combination. The approved “Navy after hours” study has front, side and back views in a single 91,746-byte WebP. Other existing portraits currently supply a front view only. Renaming/recolouring a piece or adding a personal image invalidates an older portrait; an unprepared combination falls back to the selectable 2D garment composition. No photographic view is presented as an interactive 3D model or personal sizing simulation.
+
+The existing interactive glTF avatar remains available on demand. This release repairs inner-shirt spikes at the long overshirt opening, rebuilds that outer garment with a single chest pocket, reduces pale button contrast/fabric sheen, and uses softer neutral lighting. It does **not** deliver a new photorealistic body, hair or complete newly fitted wardrobe. The approved image remains the visual target for that separate authoring work.
+
+All new 3D sourcing must be free and openly licensed. [Free asset evaluation](docs/free-3d-assets.md) records the inspected Blender CC0 bundle and why it is an authoring foundation rather than a finished avatar. Existing CC0 provenance remains in [the avatar notice](docs/licenses/avatar-model-assets.md).
+
+“Keep outfit offline” stores the selected model image along with its garment photos. The rest of the photo library and all 3D files stay uncached until requested. `scripts/check-studio-photos.mjs` covers complete three-angle framing, stale/unprepared-image fallback, unavailable images, initial 3D download deferral and footer clearance in Chromium and WebKit at 320/390/820/1440 px.
+
+[Phone photo preview](docs/mockups/studio-photo-390.png) · [Tablet photo preview](docs/mockups/studio-photo-820.png)

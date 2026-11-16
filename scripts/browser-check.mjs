@@ -1,5 +1,6 @@
 import { chromium, expect } from '@playwright/test'
 import { mkdir, readFile } from 'node:fs/promises'
+import { capturePage } from './lib/capture-page.mjs'
 
 const baseURL = process.env.FIT_PICKER_URL || 'http://127.0.0.1:5173/'
 await mkdir('docs/mockups', { recursive: true })
@@ -152,7 +153,7 @@ try {
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)
     if (overflow) throw new Error(`Horizontal overflow at ${width}px`)
-    await page.screenshot({ path: `docs/mockups/${name}.png`, fullPage: true })
+    await capturePage(page, `docs/mockups/${name}.png`)
     console.log(`${name}: ${width}×${height}, no horizontal overflow, mockup captured`)
   }
   for (const width of [360, 700, 701, 768, 960, 1024, 1920]) {

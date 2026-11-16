@@ -7,7 +7,7 @@ A personal wardrobe studio for Kevin. Assemble outfits with realistic photograph
 ## Prototype
 
 - React, TypeScript and Vite.
-- A composed 2D outfit view is the default: the selected top, bottoms and shoes form an outfit, with the optional outer layer alongside.
+- A lightweight 2D mannequin is the default: photographic tops, bottoms, shoes and outerwear are positioned on a neutral vector display form. Show the base outfit beneath outerwear, or switch to Pieces to inspect individual items. Front/back top photos remain available. Compact recommendation fallbacks keep their clothing-only arrangement. This illustrates proportions, rather than predicting personal sizing or fabric drape.
 - 45 active transparent product-style garment photographs replace the former SVG drawings throughout the wardrobe, picker, outfit overviews and saved looks.
 - The optional Three.js 3D preview loads a fitted human body, hair and separate clothing models through `GLTFLoader`, with clothing swaps, rotation, zoom and reset. Model/WebGL failures return to 2D. A persistent Outerwear selector changes/removes the outer layer from any builder tab. Eighteen garment constructions have offline cloth drape and embedded normal maps: quilted puffer, ribbed bomber, rain shell, knee-length coat, shirts/overshirts, cotton tops and separate trouser cuts.
 - 43 confirmed garment entries, 2 clearly separated suggested sweatshirts, 6 unowned archive records, and 54 original combinations transcribed from three source images.
@@ -153,3 +153,11 @@ Portrait metadata now records the pictured clothing appearance. A later change t
 ## Ownership correction (v0.10.2)
 
 The plain brown crew-neck tee is now excluded from the wardrobe, picker and recommendations, including its original guide outfit (ss-c4). This leaves 43 confirmed pieces and 132 selectable combinations. Older drafts and saved looks retain the other pieces and prompt for a replacement top; older personal edits or backups cannot restore ownership of this tee. Brown collared shirts and outerwear remain separate items.
+
+## 2D mannequin (v0.11.0)
+
+The studio's default 2D view places existing garment photographs on a shaded vector mannequin, including visible hands and bare legs with shorts. Outerwear is worn over the base outfit; “Show base outfit” reveals the selected top without changing the combination. “Pieces” retains the separate garment composition. Back view uncovers the selected top's supplied back photo and labels the hidden outerwear. Coats use a longer silhouette than jackets. This is a proportion illustration, not a fit or drape simulation.
+
+The mannequin adds no model/image download, WebGL context or runtime dependency. It uses the same garment photo cache and preserves offline/image-failure recovery. Recommendation fallback cards keep their compact garment layouts. `scripts/check-2d-mannequin.mjs` verifies controls, selection preservation, long coats, back prints, shorts, viewport fit and deferred 3D assets in Chromium and WebKit at 320/390/792/1440 px. Long-page mockups use tiled Chromium captures to avoid software GPU texture limits.
+
+[Phone mannequin](docs/mockups/2d-mannequin-390.png) · [Tablet mannequin](docs/mockups/2d-mannequin-792.png)

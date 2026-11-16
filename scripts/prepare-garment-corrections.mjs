@@ -1,7 +1,7 @@
 // Prepare generated cutout masters without changing the garment artwork.
 import sharp from 'sharp'
 import { readFile, writeFile } from 'node:fs/promises'
-const ids = ['pink-tee','black-cat-tee','white-graphic-tee','white-graphic-tee-back','ukiyoe-tee','ukiyoe-tee-back','burton-tee','black-tee']
+const ids = ['pink-tee','black-cat-tee','white-graphic-tee','white-graphic-tee-back','ukiyoe-tee','ukiyoe-tee-back','burton-tee','black-tee','cream-tee']
 const sizes = JSON.parse(await readFile('docs/artwork/garments/image-sizes.json','utf8'))
 for (const id of ids) {
   const {data,info} = await sharp(`docs/artwork/garments/corrections/${id}-master.png`).ensureAlpha().raw().toBuffer({resolveWithObject:true})

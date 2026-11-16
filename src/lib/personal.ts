@@ -18,6 +18,7 @@ export function validatePersonal(value: unknown): Personal {
   if (typeof g.colorName !== 'string' || !['aw-core','aw-updated','ss'].includes(g.source) || (g.waterproof !== undefined && typeof g.waterproof !== 'boolean') || (g.wearableAs && (!Array.isArray(g.wearableAs) || !g.wearableAs.every(c=>cats.includes(c))))) throw Error('Invalid garment settings')
   if (g.photo && (typeof g.photo !== 'string' || g.photo.length > 180000 || !/^data:image\/(webp|png|jpeg);base64,[a-zA-Z0-9+/=]+$/.test(g.photo))) throw Error('Invalid garment photo')
   if (g.warmth && !['light','medium','warm'].includes(g.warmth)) throw Error('Invalid warmth')
+  if (g.chestPocket !== undefined && typeof g.chestPocket !== 'boolean') throw Error('Invalid pocket setting')
  }
  if (!Array.isArray(p.history) || p.history.length > 2000 || p.history.some(h => !validSelection(h.items) || !/^\d{4}-\d{2}-\d{2}$/.test(h.date))) throw Error('Invalid wear history')
  if (p.draft && !validSelection(p.draft)) throw Error('Invalid draft')

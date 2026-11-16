@@ -5,6 +5,7 @@ import { avatarGarment } from './avatar-assets'
 import { fitTrouserCut, trouserCut, shortenSleeves, smoothTextureSeams } from './garment-geometry'
 import { clothMaterial } from './cloth-material'
 import { addGarmentPrints } from './garment-prints'
+import { addChestPocket } from './garment-pocket'
 import type { Garment, Selection } from '../types'
 import layerCoverage from '../data/garment-layer-coverage.json'
 
@@ -183,6 +184,7 @@ export async function buildAvatar(garments: Garment[], selection: Selection) {
       hideMask: piece.slot === 'tops' && layer && !layer.asset.kind.startsWith('overshirt') ? layer.asset.zone : 0,
     })
     if (piece.asset.kind === 'tee') {
+      addChestPocket(clothing, piece.garment)
       try { await addGarmentPrints(clothing, piece.garment) }
       catch { /* The fitting silhouette remains usable if a print is offline. */ }
     }
@@ -195,7 +197,9 @@ export async function buildAvatar(garments: Garment[], selection: Selection) {
   root.userData.licensedSource = 'MakeHuman / CharacterCreator CC0 exports'
   root.userData.files = files
   root.userData.prints = [] as string[]
+  root.userData.chestPockets = 0
   root.traverse(object => { if (object.userData.garmentPrint) root.userData.prints.push(object.userData.garmentPrint) })
+  root.traverse(object => { if (object.userData.chestPocket) root.userData.chestPockets++ })
   return root
 }
 

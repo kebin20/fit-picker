@@ -137,6 +137,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
       current.renderer.domElement.dataset.modelFormat = 'gltf'
       current.renderer.domElement.dataset.loadedModels = String(model.userData.files.length)
       current.renderer.domElement.dataset.garmentPrints = model.userData.prints.join(',')
+      current.renderer.domElement.dataset.chestPockets = String(model.userData.chestPockets)
       setLoading(false)
       current.render()
     }).catch(error => { if (!cancelled) { console.warn('Fitted avatar could not load', error); unavailable.current?.() } })

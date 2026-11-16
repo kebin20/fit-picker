@@ -1,7 +1,7 @@
 import type { Garment } from '../types'
 
 // Versioned filenames also replace older copies in offline wardrobes.
-const revised = new Set(['pink-tee', 'black-cat-tee', 'white-graphic-tee', 'ukiyoe-tee', 'burton-tee', 'black-tee'])
+const revised = new Set(['pink-tee', 'black-cat-tee', 'white-graphic-tee', 'ukiyoe-tee', 'burton-tee', 'black-tee', 'cream-tee'])
 const twoSided = new Set(['white-graphic-tee', 'ukiyoe-tee'])
 
 export function garmentPhoto(garment: Garment, side: 'front' | 'back' = 'front') {

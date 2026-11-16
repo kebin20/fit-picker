@@ -1,8 +1,8 @@
-# Wardrobe corrections and front/back previews — v0.9.0
+# Wardrobe corrections and front/back previews — v0.9.1
 
 User corrections from 16 November 2026 override the older guide illustrations.
 
-- Cream graphic tee and white collared shirt are not owned. Both are hidden from the wardrobe, builder and recommendations, including when suggested pieces are enabled. Historical IDs remain available for older saved looks, backups and guide provenance. An old saved look stays saved; opening it clears the removed clothing slot and lets the user replace that piece. Older edits/imports cannot silently re-enable either item.
+- Cream graphic tee, white collared shirt, plain yellow tee, navy crew-neck tee and white long-sleeve tee are not owned. All five are hidden from the wardrobe, builder and recommendations, including when suggested pieces are enabled. Historical IDs remain available for older saved looks, backups and guide provenance. An old saved look stays saved; opening it clears the removed clothing slot and lets the user replace that piece. Older edits/imports cannot silently re-enable either item.
 - Colour captions have been removed from inside the wardrobe images. Suggested-purchase status remains below the corresponding garment name.
 - Pink tee: white cursive adidas lettering, no symbol logo.
 - Black cat tee: supplied Coffee/cat panel on the front.
@@ -12,6 +12,8 @@ User corrections from 16 November 2026 override the older guide illustrations.
 - Other black tee: a small square mountain/BURTON chest mark, as described by the user.
 
 ## Optimized assets
+
+[Cream pocket tee](../../../../public/garments/cream-tee-v2.webp): darker warm cream with a plain chest pocket. Its matching small 3D patch follows the visible tee surface and is omitted where outerwear masks cover it. The [cream-pocket edit prompt](cream-pocket-prompt.json) records the latest correction.
 
 The built-in **image_gen** tool produced the photographic cutouts and transparent ink maps. [Exact cutout prompts](prompts.json) and [exact print-texture prompts](prints/prompts.json) record the inputs and constraints. These are reference-informed representations; small print details and fabric cuts remain illustrative. The white front-logo wording was not supplied, so its ring is only an approximate mark.
 

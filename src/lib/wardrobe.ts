@@ -5,7 +5,13 @@ export function mergeWardrobe(base: Garment[], edits: Garment[]): Garment[] {
   const overrides = new Map(edits.map(piece => [piece.id, piece]))
   const baseIds = new Set(base.map(piece => piece.id))
   return [
-    ...base.map(piece => piece.ownership === 'not-owned' ? piece : overrides.get(piece.id) || piece),
+    ...base.map(piece => {
+      if (piece.ownership === 'not-owned') return piece
+      const edit = overrides.get(piece.id)
+      // Inherit newly confirmed details without losing personal warmth/notes.
+      // A prior edit's original cream default should follow its corrected colour.
+      return { ...piece, ...edit, ...(piece.id === 'cream-tee' && edit?.color === '#e9e1ce' ? { color: piece.color } : {}) }
+    }),
     ...edits.filter(piece => !baseIds.has(piece.id)),
   ]
 }

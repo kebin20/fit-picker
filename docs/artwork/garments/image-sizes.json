@@ -100,9 +100,10 @@
   },
   {
     "id": "cream-tee",
-    "width": 302,
-    "height": 275,
-    "atlas": "tops-b"
+    "width": 640,
+    "height": 577,
+    "atlas": "correction-v2",
+    "file": "/garments/cream-tee-v2.webp"
   },
   {
     "id": "ukiyoe-tee",

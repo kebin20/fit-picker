@@ -8,12 +8,12 @@ A personal wardrobe studio for Kevin. Assemble outfits with realistic photograph
 
 - React, TypeScript and Vite.
 - A composed 2D outfit view is the default: the selected top, bottoms and shoes form an outfit, with the optional outer layer alongside.
-- 49 active transparent product-style garment photographs replace the former SVG drawings throughout the wardrobe, picker, outfit overviews and saved looks.
+- 46 active transparent product-style garment photographs replace the former SVG drawings throughout the wardrobe, picker, outfit overviews and saved looks.
 - The optional Three.js 3D preview loads a fitted human body, hair and separate clothing models through `GLTFLoader`, with clothing swaps, rotation, zoom and reset. Model/WebGL failures return to 2D. A persistent Outerwear selector changes/removes the outer layer from any builder tab. Eighteen garment constructions have offline cloth drape and embedded normal maps: quilted puffer, ribbed bomber, rain shell, knee-length coat, shirts/overshirts, cotton tops and separate trouser cuts.
-- 47 confirmed garment entries, 2 clearly separated suggested sweatshirts, 2 unowned archive records, and 54 original combinations transcribed from three source images.
+- 44 confirmed garment entries, 2 clearly separated suggested sweatshirts, 5 unowned archive records, and 54 original combinations transcribed from three source images.
 - Seasonal Edit 01: 12 new combinations (three per season), with independent high-resolution styling photographs and why-it-works notes.
 - Seasonal Edit 02: 96 additional combinations (24 per season), each with its own generated full-body model photograph. Every season/occasion has multiple choices; all compositions are distinct from the existing guides and edit.
-- The library retains 161 model photographs. After the ownership corrections, 150 combinations are selectable: 99 seasonal edits and 51 original guide looks. The grey-sweatshirt suggestion and eleven white-shirt looks remain excluded; their source records and historical photos are preserved. Original guide PNGs are preserved in the source viewer.
+- The library retains 161 model photographs. After the ownership corrections, 133 combinations are selectable: 91 seasonal edits and 42 original guide looks. Combinations using unowned garments or the suggested grey sweatshirt remain excluded; their source records and historical photos are preserved. Original guide PNGs are preserved in the source viewer.
 - Recommendation filters live under “Right for the occasion”. They change the suggested looks only; the outfit builder shows the confirmed wardrobe independently. Wardrobe browsing has its own season filter.
 - Exact season/occasion filtering over confirmed garments; no AI API, accounts or live-weather dependency.
 - Searchable wardrobe, source guide viewer, local saved looks and responsive desktop/tablet/mobile navigation.
@@ -134,3 +134,7 @@ Verification: 41 unit tests and the production build passed; the browser regress
 The cream graphic tee and white collared shirt are excluded as unowned. Colour captions have been removed from wardrobe images. Six tee designs now follow the user’s corrections and product references. My wardrobe and the 2D builder offer front/back views for the white graphic and yellow fox tees. The optional 3D avatar has matching front/back prints and camera presets. Older saved looks remain available and can be repaired by choosing a replacement piece.
 
 [Assets, exact generation prompts, source references and verification](docs/artwork/garments/corrections/README.md) document the changes. Product cutouts are capped at 640 px, optional 3D print maps at 512 px; back photos and print textures remain deferred. Full-body recommendation portraits remain styling illustrations and were not regenerated in this update.
+
+## Additional ownership corrections (v0.9.1)
+
+The plain yellow tee, navy crew-neck tee and white long-sleeve tee are excluded as unowned, leaving 44 confirmed pieces and 133 compatible outfit combinations. The yellow fox tee, navy collared shirt and navy sweatshirt remain owned. The cream tee has a darker warm cream colour and a chest patch pocket in its optimized photograph and optional 3D construction. Historical saved looks can still be opened and repaired.

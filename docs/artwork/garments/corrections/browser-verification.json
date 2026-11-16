@@ -3,11 +3,14 @@
   "url": "http://127.0.0.1:5174/",
   "removed": [
     "cream-graphic-tee",
-    "white-shirt"
+    "white-shirt",
+    "yellow-tee",
+    "navy-tee",
+    "white-longsleeve"
   ],
-  "owned": 47,
+  "owned": 44,
   "suggested": 2,
-  "selectableOutfits": 150,
+  "selectableOutfits": 133,
   "coldRequests": 11,
   "printsDeferred": true,
   "backPhotosDeferred": true,
@@ -15,6 +18,8 @@
   "frontBack3D": true,
   "idleRenders": 0,
   "legacySavedLookRepaired": true,
+  "creamPocket2D": true,
+  "creamPocket3D": true,
   "responsiveWidths": [
     320,
     390,

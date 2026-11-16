@@ -16,11 +16,11 @@ try{
  const coldRequests=requests.length
  await nav('My wardrobe')
  await expect(page.locator('.wardrobe-art .item-season')).toHaveCount(0)
- await expect(page.locator('.wardrobe-item')).toHaveCount(25)
+ await expect(page.locator('.wardrobe-item')).toHaveCount(22)
  await page.getByRole('checkbox',{name:'Show suggested pieces'}).check()
- await expect(page.locator('.wardrobe-item')).toHaveCount(27)
- for(const id of ['cream-graphic-tee','white-shirt']) await expect(page.locator(`.wardrobe-item[data-garment-id="${id}"]`)).toHaveCount(0)
- for(const id of ['pink-tee','black-cat-tee','white-graphic-tee','ukiyoe-tee','burton-tee','black-tee']){
+ await expect(page.locator('.wardrobe-item')).toHaveCount(24)
+ for(const id of ['cream-graphic-tee','white-shirt','yellow-tee','navy-tee','white-longsleeve']) await expect(page.locator(`.wardrobe-item[data-garment-id="${id}"]`)).toHaveCount(0)
+ for(const id of ['pink-tee','black-cat-tee','white-graphic-tee','ukiyoe-tee','burton-tee','black-tee','cream-tee']){
    const card=page.locator(`.wardrobe-item[data-garment-id="${id}"]`)
    const photo=card.locator('img');await decode(photo)
    await expect(photo).toHaveAttribute('src',`/garments/${id}-v2.webp`)
@@ -61,7 +61,15 @@ try{
   await expect(page.locator('.avatar-loading')).toHaveCount(0,{timeout:45000})
   await expect(canvas).toHaveAttribute('data-garment-prints','front')
  }
+ await page.locator('.garment-card[data-garment-id="cream-tee"]').click()
+ await expect(canvas).toHaveAttribute('aria-label',/Cream pocket tee/,{timeout:45000})
+ await expect(canvas).toHaveAttribute('data-chest-pockets','1')
+ await page.getByRole('button',{name:'Front view',exact:true}).click()
+ await page.locator('.preview-panel').screenshot({path:`${dir}/cream-pocket-3d.png`,style:'.toast,.mobile-nav{visibility:hidden}'})
  await page.getByRole('button',{name:'2D outfit',exact:true}).click()
+ await decode(page.locator('.outfit-canvas__top'))
+ await expect(page.locator('.outfit-canvas__top')).toHaveAttribute('src','/garments/cream-tee-v2.webp')
+ await page.locator('.preview-panel').screenshot({path:`${dir}/cream-pocket-2d.png`,style:'.toast,.mobile-nav{visibility:hidden}'})
  for(const width of [320,390,511,784,820,1176]){
   await page.setViewportSize({width,height:826})
   for(const name of ['Outfit studio','My wardrobe','Saved looks']){
@@ -90,7 +98,7 @@ try{
  expect(await legacy.evaluate(()=>JSON.parse(localStorage.getItem('fit-picker:saved:v1')))).toMatchObject([{id:'old-white-look',items:{tops:'navy-shirt',bottoms:'grey-slacks',shoes:'adidas-black'}}])
  await legacy.close()
  expect(errors).toEqual([])
- const report={date:'2026-11-16',url,removed:['cream-graphic-tee','white-shirt'],owned:47,suggested:2,selectableOutfits:150,coldRequests,printsDeferred:true,backPhotosDeferred:true,frontBack2D:true,frontBack3D:true,idleRenders:0,legacySavedLookRepaired:true,responsiveWidths:[320,390,511,784,820,1176],errors}
+ const report={date:'2026-11-16',url,removed:['cream-graphic-tee','white-shirt','yellow-tee','navy-tee','white-longsleeve'],owned:44,suggested:2,selectableOutfits:133,coldRequests,printsDeferred:true,backPhotosDeferred:true,frontBack2D:true,frontBack3D:true,idleRenders:0,legacySavedLookRepaired:true,creamPocket2D:true,creamPocket3D:true,responsiveWidths:[320,390,511,784,820,1176],errors}
  await writeFile(`${dir}/browser-verification.json`,JSON.stringify(report,null,2)+'\n')
  console.log('PASS',JSON.stringify(report))
 }finally{await browser.close()}

@@ -6,6 +6,7 @@ export interface Garment {
   photo?: string
   warmth?: 'light' | 'medium' | 'warm'
   waterproof?: boolean
+  chestPocket?: boolean
   id: string
   name: string
   category: Category

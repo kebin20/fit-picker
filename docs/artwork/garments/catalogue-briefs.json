@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "purpose": "Source-informed catalogue briefs: 47 confirmed pieces, 2 suggested pieces, 2 unowned historical records. User corrections take precedence over the source guides.",
+  "purpose": "Source-informed catalogue briefs: 44 confirmed pieces, 2 suggested pieces, 5 unowned historical records. User corrections take precedence over the source guides.",
   "global": {
     "style": "Consistent premium ecommerce product photography, realistic fabric and natural seams, soft broad studio lighting, subtle grounding shadow, no dramatic highlights.",
     "background": "True transparent alpha background; no baked-in backdrop. Displayed on the app\u2019s pale neutral surface.",
@@ -207,8 +207,8 @@
           "row": 1,
           "column": 1,
           "id": "cream-tee",
-          "description": "Plain warm cream short-sleeve crew-neck cotton T-shirt, relaxed body, no print or logo. Warm ivory tone, clearly separate from the cooler plain white tee.",
-          "colorHex": "#e9e1ce",
+          "description": "Darker warm cream/oatmeal cotton tee with a matching plain chest patch pocket, no logo or print.",
+          "colorHex": "#d1c2a3",
           "ownership": "confirmed",
           "widthWithinCell": 0.76,
           "heightWithinCell": 0.74
@@ -229,9 +229,9 @@
           "row": 1,
           "column": 3,
           "id": "yellow-tee",
-          "description": "Plain bright warm yellow short-sleeve crew-neck cotton T-shirt, relaxed body, completely unprinted front, no logo; noticeably brighter than the mustard Ukiyoe graphic tee.",
+          "description": "Plain yellow tee is not owned; historical record only, excluded from wardrobe and recommendations.",
           "colorHex": "#e0c127",
-          "ownership": "confirmed",
+          "ownership": "not-owned",
           "widthWithinCell": 0.76,
           "heightWithinCell": 0.74
         },
@@ -240,9 +240,9 @@
           "row": 1,
           "column": 4,
           "id": "navy-tee",
-          "description": "Plain navy short-sleeve crew-neck cotton T-shirt, relaxed clean silhouette; no buttons, collar, print or logo.",
+          "description": "Navy crew-neck tee is not owned; historical record only. Navy collared shirt and sweatshirt are separate owned garments.",
           "colorHex": "#273548",
-          "ownership": "confirmed",
+          "ownership": "not-owned",
           "widthWithinCell": 0.76,
           "heightWithinCell": 0.74
         },
@@ -317,9 +317,9 @@
           "row": 3,
           "column": 3,
           "id": "white-longsleeve",
-          "description": "Plain very light white long-sleeve crew-neck cotton tee, relaxed thin cotton body, simple cuffs, no large graphic; clearly lighter and thinner than a sweatshirt.",
+          "description": "White long-sleeve tee is not owned; historical record only.",
           "colorHex": "#edede8",
-          "ownership": "confirmed",
+          "ownership": "not-owned",
           "widthWithinCell": 0.78,
           "heightWithinCell": 0.82
         },

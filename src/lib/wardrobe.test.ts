@@ -7,7 +7,7 @@ import { garmentPhoto, hasBackPhoto } from './garment-photos'
 
 describe('user wardrobe corrections', () => {
   it('keeps removed items out even when an old edit or backup claims ownership', () => {
-    const removed = ['cream-graphic-tee', 'white-shirt']
+    const removed = ['cream-graphic-tee', 'navy-tee', 'white-longsleeve', 'white-shirt', 'yellow-tee']
     const oldEdits = garments.filter(g => removed.includes(g.id)).map(g => ({ ...g, ownership: 'confirmed' as const }))
     const merged = mergeWardrobe(garments, oldEdits)
     expect(merged.filter(g => g.ownership === 'not-owned').map(g => g.id).sort()).toEqual(removed)
@@ -35,5 +35,15 @@ describe('user wardrobe corrections', () => {
     expect(hasBackPhoto(white)).toBe(true)
     expect(hasBackPhoto(garments.find(g => g.id === 'ukiyoe-tee')!)).toBe(true)
     expect(hasBackPhoto(garments.find(g => g.id === 'navy-shirt')!)).toBe(false)
+  })
+
+  it('inherits the confirmed cream pocket and colour while retaining earlier personal edits', () => {
+    const cream = garments.find(g => g.id === 'cream-tee')!
+    const {chestPocket: _oldDetail, ...old} = cream
+    const updated = mergeWardrobe(garments,[{...old,color:'#e9e1ce',warmth:'medium'}]).find(g=>g.id===cream.id)!
+    expect(updated.chestPocket).toBe(true)
+    expect(updated.color).toBe('#d1c2a3')
+    expect(updated.warmth).toBe('medium')
+    expect(garmentPhoto(updated)).toBe('/garments/cream-tee-v2.webp')
   })
 })

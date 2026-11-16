@@ -5,8 +5,9 @@ export interface Personal { draft?: Selection; season?: Season; occasion?: Occas
 export const personalKey = 'fit-picker:personal:v1'
 export const defaults: Personal = { locks: [], unavailable: [], history: [], pinned: [], hidden: [], edits: [], temperature: '', rain: false }
 const cats = ['tops','layers','bottoms','shoes']; const seasons = ['Autumn','Winter','Spring','Summer']
-const styles = ['tee','longsleeve','shirt','sweatshirt','hoodie','overshirt','bomber','coat','puffer','raincoat','trousers','shorts','sneakers','canvas','slipons']
-export function validSelection(value: unknown): value is Selection { return !!value && typeof value === 'object' && !Array.isArray(value) && Object.entries(value).every(([k,v]) => cats.includes(k) && typeof v === 'string' && v.length < 100) }
+const styles: Record<string, string[]> = { tops: ['tee','longsleeve','shirt','sweatshirt','hoodie','overshirt'], layers: ['overshirt','bomber','coat','puffer','raincoat'], bottoms: ['trousers','shorts'], shoes: ['sneakers','canvas','slipons'] }
+export function validSelection(value: unknown): value is Selection { return !!value && typeof value === 'object' && !Array.isArray(value) && Object.entries(value).every(([k,v]) => cats.includes(k) && typeof v === 'string' && /^[a-z0-9-]{1,100}$/.test(v)) }
+function validDay(value: string) { const date = new Date(`${value}T00:00:00Z`); return /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(date.getTime()) && date.toISOString().slice(0,10) === value }
 export function validatePersonal(value: unknown): Personal {
  if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error('Invalid wardrobe data')
  const p = value as Personal
@@ -14,16 +15,17 @@ export function validatePersonal(value: unknown): Personal {
  if (p.locks.some(c => !cats.includes(c)) || !Array.isArray(p.edits) || p.edits.length > 100) throw Error('Invalid wardrobe')
  if (new Set(p.edits.map(g=>g?.id)).size !== p.edits.length) throw Error('Duplicate garments in backup')
  for (const g of p.edits) {
-  if (!g || typeof g.id !== 'string' || !/^[a-z0-9-]{1,100}$/.test(g.id) || typeof g.name !== 'string' || !g.name.trim() || g.name.length > 100 || !cats.includes(g.category) || !styles.includes(g.style) || !/^#[0-9a-f]{6}$/i.test(g.color) || !Array.isArray(g.seasons) || !g.seasons.length || !g.seasons.every(s => seasons.includes(s)) || (g.note && (typeof g.note !== 'string' || g.note.length > 1000))) throw Error('Invalid garment')
-  if (typeof g.colorName !== 'string' || !['aw-core','aw-updated','ss'].includes(g.source) || (g.waterproof !== undefined && typeof g.waterproof !== 'boolean') || (g.wearableAs && (!Array.isArray(g.wearableAs) || !g.wearableAs.every(c=>cats.includes(c))))) throw Error('Invalid garment settings')
-  if (g.photo && (typeof g.photo !== 'string' || g.photo.length > 180000 || !/^data:image\/(webp|png|jpeg);base64,[a-zA-Z0-9+/=]+$/.test(g.photo))) throw Error('Invalid garment photo')
-  if (g.warmth && !['light','medium','warm'].includes(g.warmth)) throw Error('Invalid warmth')
+  if (!g || typeof g.id !== 'string' || !/^[a-z0-9-]{1,100}$/.test(g.id) || typeof g.name !== 'string' || !g.name.trim() || g.name.length > 100 || !cats.includes(g.category) || !styles[g.category]?.includes(g.style) || !/^#[0-9a-f]{6}$/i.test(g.color) || !Array.isArray(g.seasons) || !g.seasons.length || !g.seasons.every(s => seasons.includes(s)) || (g.note !== undefined && (typeof g.note !== 'string' || g.note.length > 1000))) throw Error('Invalid garment')
+  if (typeof g.colorName !== 'string' || !g.colorName.trim() || g.colorName.length > 60 || !['aw-core','aw-updated','ss'].includes(g.source) || (g.waterproof !== undefined && typeof g.waterproof !== 'boolean') || (g.wearableAs !== undefined && (!Array.isArray(g.wearableAs) || !g.wearableAs.every(c=>cats.includes(c))))) throw Error('Invalid garment settings')
+  if (g.photo !== undefined && (typeof g.photo !== 'string' || g.photo.length > 180000 || !/^data:image\/(webp|png|jpeg);base64,[a-zA-Z0-9+/=]+$/.test(g.photo))) throw Error('Invalid garment photo')
+  if (g.warmth !== undefined && !['light','medium','warm'].includes(g.warmth)) throw Error('Invalid warmth')
+  if (g.pattern !== undefined && !['check','graphic','stripes'].includes(g.pattern)) throw Error('Invalid garment pattern')
   if (g.chestPocket !== undefined && typeof g.chestPocket !== 'boolean') throw Error('Invalid pocket setting')
  }
- if (!Array.isArray(p.history) || p.history.length > 2000 || p.history.some(h => !validSelection(h.items) || !/^\d{4}-\d{2}-\d{2}$/.test(h.date))) throw Error('Invalid wear history')
- if (p.draft && !validSelection(p.draft)) throw Error('Invalid draft')
- if (p.season && !seasons.includes(p.season)) throw Error('Invalid season')
- if (p.occasion && !['Everyday','Dinner','Date night','With friends','Outdoors'].includes(p.occasion)) throw Error('Invalid occasion')
+ if (!Array.isArray(p.history) || p.history.length > 2000 || p.history.some(h => !h || !validSelection(h.items) || typeof h.date !== 'string' || !validDay(h.date))) throw Error('Invalid wear history')
+ if (p.draft !== undefined && !validSelection(p.draft)) throw Error('Invalid draft')
+ if (p.season !== undefined && !seasons.includes(p.season)) throw Error('Invalid season')
+ if (p.occasion !== undefined && !['Everyday','Dinner','Date night','With friends','Outdoors'].includes(p.occasion)) throw Error('Invalid occasion')
  if (typeof p.temperature !== 'string' || (p.temperature !== '' && (!Number.isFinite(Number(p.temperature)) || Number(p.temperature) < -30 || Number(p.temperature) > 50)) || typeof p.rain !== 'boolean') throw Error('Invalid weather preferences')
  return { ...defaults, ...p, edits: p.edits.map(g => ({ ...g, ownership: 'confirmed' })) }
 }

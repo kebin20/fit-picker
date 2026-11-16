@@ -1,18 +1,19 @@
-import { useState } from 'react'
 import type { Outfit, Garment } from '../types'
 import { garments as baseGarments } from '../data/wardrobe'
 import OutfitCanvas from './OutfitCanvas'
 import { outfitPhoto } from '../lib/outfit-photos'
 import { outfitSummary } from '../lib/outfit-appearance'
 import { useDeferredImage } from '../lib/use-deferred-image'
+import { useImageFailure } from '../lib/use-image-failure'
 
 /** Every new combination can be previewed directly from its exact garment photos. */
 export default function OutfitPreview({ outfit, garments = baseGarments }: { outfit: Outfit; garments?: Garment[] }) {
-  const [failedSource, setFailedSource] = useState<string | null>(null)
   const photo = outfitPhoto(outfit, garments)
+  const {failed,fail} = useImageFailure(photo?.src)
   const summary = outfitSummary(outfit, garments)
   const { ref, ready } = useDeferredImage(photo?.src)
-  if (photo && failedSource !== photo.src) return <img
+  if (photo && !failed) return <img
+    key={photo.src}
     className="outfit-photograph"
     ref={ref}
     src={ready ? photo.src : undefined}
@@ -23,7 +24,7 @@ export default function OutfitPreview({ outfit, garments = baseGarments }: { out
     alt={`${outfit.name}: ${summary}. Generated styling illustration.`}
     loading="lazy"
     decoding="async"
-    onError={() => setFailedSource(photo.src)}
+    onError={fail}
   />
   return <div className="outfit-flat-preview outfit-flat-preview--composed" role="group" aria-label={`${outfit.name}: ${summary}`}>
     <OutfitCanvas selection={outfit.items} garments={garments} compact/>

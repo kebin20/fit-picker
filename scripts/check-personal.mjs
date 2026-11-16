@@ -1,8 +1,11 @@
 import {chromium,expect} from '@playwright/test'
-import {readFile} from 'node:fs/promises'
+import {readFile,mkdir,writeFile} from 'node:fs/promises'
 const browser=await chromium.launch()
+let page
+const errors=[]
+const failedRequests=[]
 try{
- const context=await browser.newContext({viewport:{width:390,height:844}});const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message))
+ const context=await browser.newContext({viewport:{width:390,height:844}});page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));page.on('requestfailed',request=>failedRequests.push({url:request.url(),error:request.failure()?.errorText}))
  const url=process.env.FIT_PICKER_URL||'http://127.0.0.1:5174/'
  const nav=name=>page.getByRole('navigation',{name:'Mobile navigation'}).getByRole('button',{name,exact:true}).click()
  await page.goto(url)
@@ -24,4 +27,8 @@ try{
  await page.reload();await context.setOffline(true);await page.reload();await expect(page.getByRole('button',{name:'3D preview',exact:true})).toBeDisabled();await nav('Saved looks');await expect(page.locator('.saved-card')).toHaveCount(1);for(const image of await page.locator('.saved-card img').all()){await image.scrollIntoViewIfNeeded();await expect(image).toHaveAttribute('src',/garments|data:image/)}const broken=await page.locator('.saved-card img').evaluateAll(async imgs=>{await Promise.all(imgs.map(i=>i.decode()));return imgs.some(i=>!i.naturalWidth)});expect(broken).toBe(false)
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);expect(errors).toEqual([])
  console.log('PASS personal: locks, laundry, rain/temperature, draft restore, wear history, rename/update, delete undo, photo wardrobe editor, backup/restore, offline favourites and phone layout')
+}catch(error){
+ await mkdir('test-results',{recursive:true})
+ if(page){await page.screenshot({path:'test-results/personal-failure.png',fullPage:true});await writeFile('test-results/personal-failure.json',JSON.stringify({errors,failedRequests,body:await page.locator('body').innerText(),url:page.url(),offlineState:await page.evaluate(async()=>({controller:navigator.serviceWorker.controller?.scriptURL,html:document.documentElement.outerHTML,cache:await caches.open('fit-picker-offline-v1').then(async cache=>({keys:(await cache.keys()).map(key=>key.url),html:await cache.match('/').then(response=>response?.text())}))})).catch(error=>String(error))},null,2))}
+ throw error
 }finally{await browser.close()}

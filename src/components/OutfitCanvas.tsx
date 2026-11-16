@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import type { Category, Garment, Selection } from '../types'
 import './outfit-canvas.css'
 import { garmentPhoto } from '../lib/garment-photos'
+import { useImageFailure } from '../lib/use-image-failure'
 
 interface Props {
   selection: Selection
@@ -18,18 +19,19 @@ const pieceLabels: Record<Category, string> = {
 }
 
 function ProductPhoto({ garment, className = '', lazy = false, side = 'front' }: { garment: Garment; className?: string; lazy?: boolean; side?: 'front' | 'back' }) {
-  const [unavailable, setUnavailable] = useState(false)
-  useEffect(() => setUnavailable(false), [garment.photo, garment.id, side])
-  return unavailable
+  const source = garmentPhoto(garment,side)
+  const {failed,fail} = useImageFailure(source)
+  return failed
     ? <span className={`outfit-canvas__photo-unavailable ${className}`}>{garment.name}<small>Photo unavailable</small></span>
     : <img
+        key={source}
         className={`outfit-canvas__photo ${className}`}
-        src={garmentPhoto(garment, side)}
+        src={source}
         alt={`${garment.name}${side === 'back' ? ' (back)' : ''}`}
         loading={lazy ? 'lazy' : 'eager'}
         decoding="async"
         draggable={false}
-        onError={() => setUnavailable(true)}
+        onError={fail}
       />
 }
 

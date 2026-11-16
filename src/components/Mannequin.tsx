@@ -23,8 +23,8 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
     let renderer: THREE.WebGLRenderer
     try { renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' }) }
     catch { unavailable.current?.(); return }
-    const mobileQuality = window.matchMedia('(max-width: 700px)').matches
-    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, mobileQuality ? 1.5 : 2))
+    const phoneQuality = () => window.matchMedia('(max-width: 700px)').matches || window.matchMedia('(pointer: coarse) and (max-height: 500px)').matches
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, phoneQuality() ? 1.5 : 2))
     renderer.setClearColor(0xffffff, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
     renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -59,7 +59,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
     const key = new THREE.DirectionalLight('#fff5e6', 1.7)
     key.position.set(-3, 5, 4)
     key.castShadow = true
-    const shadowSize = mobileQuality ? 1024 : 2048
+    const shadowSize = phoneQuality() ? 1024 : 2048
     key.shadow.mapSize.set(shadowSize, shadowSize)
     key.shadow.camera.left = -1.4
     key.shadow.camera.right = 1.4
@@ -97,6 +97,17 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
     const resize = () => {
       const width = container.clientWidth, height = container.clientHeight
       if (!width || !height) return
+      const phone = phoneQuality()
+      const ratio = Math.min(devicePixelRatio || 1, phone ? 1.5 : 2)
+      if (renderer.getPixelRatio() !== ratio) renderer.setPixelRatio(ratio)
+      const shadowResolution = phone ? 1024 : 2048
+      if (key.shadow.mapSize.x !== shadowResolution) {
+        key.shadow.map?.dispose()
+        key.shadow.map = null
+        key.shadow.mapSize.set(shadowResolution, shadowResolution)
+        key.shadow.needsUpdate = true
+      }
+      canvas.dataset.shadowResolution = String(shadowResolution)
       camera.aspect = width / height
       camera.fov = width / height < .6 ? 37 : 32
       camera.updateProjectionMatrix()
@@ -116,7 +127,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
       controls.dispose()
       canvas.removeEventListener('webglcontextlost', lost)
       if (scene.children.length) scene.children.forEach(child => { if (child !== floor && child.type === 'Group') disposeAvatar(child) })
-      floor.geometry.dispose(); floor.material.dispose(); environment.dispose()
+      floor.geometry.dispose(); floor.material.dispose(); environment.dispose(); key.shadow.map?.dispose()
       renderer.dispose(); renderer.forceContextLoss(); canvas.remove()
     }
   }, [])

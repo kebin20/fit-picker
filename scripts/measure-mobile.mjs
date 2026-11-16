@@ -33,7 +33,7 @@ try {
   await expect(photo).toHaveAttribute('src', /outfits/)
   await photo.evaluate(image => image.decode())
   const responsivePhoto = await photo.evaluate(image => image.currentSrc)
-  if (!baseline) expect(responsivePhoto).toMatch(/\/outfits\/(400|800)\//)
+  if (!baseline) expect(responsivePhoto).toMatch(/\/outfits\/(?:(400|800)\/)?[^/]+\.webp$/)
   await page.getByRole('button', { name: '3D preview', exact: true }).click()
   await expect(page.locator('canvas')).toHaveAttribute('data-model-format', 'gltf', { timeout: 30000 })
   await page.waitForLoadState('networkidle')

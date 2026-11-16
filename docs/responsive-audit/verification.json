@@ -1,0 +1,279 @@
+{
+  "url": "http://127.0.0.1:5174/",
+  "results": [
+    {
+      "engine": "chromium",
+      "name": "iphone-se",
+      "width": 320,
+      "height": 568,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "chromium",
+      "name": "iphone-small",
+      "width": 375,
+      "height": 667,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "chromium",
+      "name": "iphone",
+      "width": 390,
+      "height": 844,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "chromium",
+      "name": "iphone-large",
+      "width": 430,
+      "height": 932,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "chromium",
+      "name": "ipad-mini",
+      "width": 768,
+      "height": 1024,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "chromium",
+      "name": "ipad",
+      "width": 820,
+      "height": 1180,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "chromium",
+      "name": "ipad-landscape",
+      "width": 1024,
+      "height": 768,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "chromium",
+      "name": "iphone-landscape",
+      "width": 844,
+      "height": 390,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "chromium",
+      "name": "short-viewport",
+      "width": 390,
+      "height": 320,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "chromium",
+      "name": "home-indicator",
+      "width": 390,
+      "height": 844,
+      "insets": {
+        "bottom": 34,
+        "top": 47,
+        "left": 0,
+        "right": 0
+      },
+      "clearance": true,
+      "dialogSafeArea": true
+    },
+    {
+      "engine": "chromium",
+      "name": "landscape-notch",
+      "width": 844,
+      "height": 390,
+      "insets": {
+        "bottom": 21,
+        "top": 0,
+        "left": 47,
+        "right": 47
+      },
+      "clearance": true,
+      "dialogSafeArea": true
+    },
+    {
+      "engine": "webkit",
+      "name": "iphone-se",
+      "width": 320,
+      "height": 568,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "webkit",
+      "name": "iphone-small",
+      "width": 375,
+      "height": 667,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "webkit",
+      "name": "iphone",
+      "width": 390,
+      "height": 844,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "webkit",
+      "name": "iphone-large",
+      "width": 430,
+      "height": 932,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "webkit",
+      "name": "ipad-mini",
+      "width": 768,
+      "height": 1024,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "webkit",
+      "name": "ipad",
+      "width": 820,
+      "height": 1180,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "webkit",
+      "name": "ipad-landscape",
+      "width": 1024,
+      "height": 768,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "webkit",
+      "name": "iphone-landscape",
+      "width": 844,
+      "height": 390,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "webkit",
+      "name": "short-viewport",
+      "width": 390,
+      "height": 320,
+      "allPagesFit": true,
+      "saveButtonAboveNav": true,
+      "lastWardrobeActionReachable": true,
+      "savedLookActionReachable": true,
+      "dialogActionsReachable": true,
+      "stickyEditorClose": true
+    },
+    {
+      "engine": "webkit",
+      "name": "home-indicator",
+      "width": 390,
+      "height": 844,
+      "insets": {
+        "bottom": 34,
+        "top": 47,
+        "left": 0,
+        "right": 0
+      },
+      "clearance": true,
+      "dialogSafeArea": true
+    },
+    {
+      "engine": "webkit",
+      "name": "landscape-notch",
+      "width": 844,
+      "height": 390,
+      "insets": {
+        "bottom": 21,
+        "top": 0,
+        "left": 47,
+        "right": 47
+      },
+      "clearance": true,
+      "dialogSafeArea": true
+    }
+  ],
+  "errors": [],
+  "limits": "Chromium/WebKit desktop device emulation plus synthetic safe areas. Real iPhone keyboard, home indicator and browser chrome still require a physical-device check."
+}

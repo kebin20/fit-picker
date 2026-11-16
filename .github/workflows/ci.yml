@@ -17,3 +17,12 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npm run test:browser
+        env:
+          FIT_PICKER_REPORT_DIR: test-results/responsive-audit
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-audit
+          path: test-results/

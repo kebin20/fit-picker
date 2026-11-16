@@ -39,11 +39,12 @@ npm run preview
 Browser integration checks and mockup export:
 
 ```sh
-npx playwright install chromium
-node scripts/browser-check.mjs
+npx playwright install chromium webkit
+npm run build
+npm run test:browser
 ```
 
-The default check target is `http://127.0.0.1:5173/`. Set `FIT_PICKER_URL` to test a preview or deployed URL. This verifies clothing selection, camera controls, local save/reload/delete, search, source dialog, seasonal recommendations, undo, mobile navigation, responsive overflow and WebGL fallback, and exports the three mockups.
+The browser suite starts and closes its own production preview on port 5175. Set `FIT_PICKER_URL` to test an existing preview or deployed URL instead. It checks clothing selection, camera controls, saved looks, backup/restore, photo-upload ordering, keyboard focus, offline reload/update recovery, image/model failure fallbacks, and Chromium/WebKit phone/tablet layouts. The responsive checks include actual hit testing above the fixed navbar, short viewports and synthetic safe areas. On Linux, install browser dependencies with `npx playwright install --with-deps chromium webkit`. GitHub Actions runs the same unit/build/browser checks and keeps browser reports as an artifact. The original `node scripts/browser-check.mjs` still runs independently (default port 5173) and exports the three mockups.
 
 ## Deploy to your Cloudflare account
 
@@ -96,6 +97,8 @@ The script preserves the 1024-pixel full images, writes 400/800-pixel WebP varia
 Product images are in `public/garments/`. The generation briefs, original transparent image atlases, exact generation prompts and a contact sheet are in `docs/artwork/garments/`. `scripts/prepare-garment-atlases.mjs` extracts separate WebP images and removes disconnected transparency specks outside the garment silhouettes. No API calls are made by the deployed app.
 
 [Measured performance changes and further recommendations](docs/performance-review.md) and [personal-use feature suggestions](docs/personal-roadmap.md) document the next priorities.
+
+[The v0.10.1 app audit](docs/app-audit-2026-11-16.md) covers phone/tablet navbar clearance, dialog focus/scrolling, saved-look and backup integrity, photo-upload races, offline update recovery and recommendation ranking. [Runtime measurements and remaining performance options](docs/performance-audit-2026-11-16.md) distinguish local resource checks from physical-device performance.
 
 Saved looks use browser local storage and do not sync across devices. Fonts are served by Google Fonts with system fallbacks. This public prototype contains the user-supplied guide images.
 

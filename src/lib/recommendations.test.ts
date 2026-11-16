@@ -25,6 +25,15 @@ describe('recommendOutfits', () => {
     expect(recommendOutfits(outfits, [], 'Summer', 'Dinner')).toEqual([])
   })
 
+  it('rejects edited clothing in an incompatible slot and reusing one physical item twice', () => {
+    const look = outfits.find(look => look.id === 'aw-autumn-2')!
+    const edited = garments.map(g => g.id === 'white-tee' ? {...g, category: 'shoes' as const} : g)
+    expect(recommendOutfits([look], edited, 'Autumn', 'Everyday')).toEqual([])
+    const duplicate = {...look,items:{...look.items,tops:'brown-flannel',layers:'brown-flannel'}}
+    expect(recommendOutfits([duplicate], garments, 'Autumn', 'Everyday')).toEqual([])
+    expect(recommendOutfits([look], garments, 'Autumn', 'Everyday')).toHaveLength(1)
+  })
+
   it('does not equate an unverified piece with a confirmed owned piece', () => {
     const unknown = garments.map(piece => ({ ...piece, ownership: undefined }))
     expect(recommendOutfits(outfits, unknown, 'Summer', 'Everyday')).toEqual([])

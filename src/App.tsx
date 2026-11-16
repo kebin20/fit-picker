@@ -10,6 +10,7 @@ import WardrobeEditor from './components/WardrobeEditor'
 import WardrobePhoto from './components/WardrobePhoto'
 import { mergeWardrobe, ownedSelection } from './lib/wardrobe'
 import { hasBackPhoto } from './lib/garment-photos'
+import { outfitSummary } from './lib/outfit-appearance'
 import { personalKey, readPersonal, validatePersonal, validSelection, weatherSuitable, localDay, offlineLook, type Personal } from './lib/personal'
 import SourceGuideCard from './components/SourceGuideCard'
 import { sourceGuides as sourceInfo } from './data/source-guides'
@@ -129,7 +130,7 @@ export default function App() {
     const label = outfit.origin === 'styled' ? `${outfit.seasons[0].toUpperCase()} · ${outfit.sourceLabel.split(' · ').at(-1)?.toUpperCase()}` : outfit.source === 'ss' ? 'SPRING / SUMMER · GUIDE' : 'AUTUMN / WINTER · GUIDE'
     return <article className="outfit-card" key={outfit.id} data-outfit-id={outfit.id}>
       <div className="outfit-image"><OutfitPreview outfit={outfit} garments={garments}/><span className="look-number">{String(index + 1).padStart(2, '0')}</span><span className="outfit-vibe">{outfit.vibe}</span></div>
-      <div className="outfit-content"><span className="eyebrow">{label}</span><h3>{outfit.name}</h3><p>{outfit.subtitle}</p>{outfit.origin === 'styled' && <p className="outfit-reason">{outfit.note}</p>}<div className="look-swatches">{Object.values(outfit.items).map(id => <span key={id} style={{ background: byId.get(id)?.color }} title={byId.get(id)?.name}/>)}</div><button onClick={() => tryOutfit(outfit)}>Try this look <ArrowRight size={15}/></button><div className="look-actions"><button aria-pressed={personal.pinned.includes(outfit.id)} onClick={()=>toggle('pinned',outfit.id)}>Favourite</button><button onClick={()=>toggle('hidden',outfit.id)}>Hide suggestion</button></div></div>
+      <div className="outfit-content"><span className="eyebrow">{label}</span><h3>{outfit.name}</h3><p>{outfitSummary(outfit, garments)}</p>{outfit.origin === 'styled' && <p className="outfit-reason">{outfit.note}</p>}<div className="look-swatches">{Object.values(outfit.items).map(id => <span key={id} style={{ background: byId.get(id)?.color }} title={byId.get(id)?.name}/>)}</div><button onClick={() => tryOutfit(outfit)}>Try this look <ArrowRight size={15}/></button><div className="look-actions"><button aria-pressed={personal.pinned.includes(outfit.id)} onClick={()=>toggle('pinned',outfit.id)}>Favourite</button><button onClick={()=>toggle('hidden',outfit.id)}>Hide suggestion</button></div></div>
     </article>
   }
   const navigation = <>{([{ id: 'studio', name: 'Outfit studio', icon: Hanger }, { id: 'wardrobe', name: 'My wardrobe', icon: Grid2X2 }, { id: 'saved', name: 'Saved looks', icon: Bookmark }] as const).map(nav => <button key={nav.id} aria-label={nav.name} title={nav.name} onClick={() => { setPage(nav.id); setSearch('') }} className={`nav-item ${page === nav.id ? 'active' : ''}`} aria-current={page === nav.id ? 'page' : undefined}><nav.icon size={19}/><span>{nav.name}</span>{nav.id === 'saved' && saved.length > 0 && <small>{saved.length}</small>}</button>)}</>

@@ -138,3 +138,11 @@ The cream graphic tee and white collared shirt are excluded as unowned. Colour c
 ## Additional ownership corrections (v0.9.1)
 
 The plain yellow tee, navy crew-neck tee and white long-sleeve tee are excluded as unowned, leaving 44 confirmed pieces and 133 compatible outfit combinations. The yellow fox tee, navy collared shirt and navy sweatshirt remain owned. The cream tee has a darker warm cream colour and a chest patch pocket in its optimized photograph and optional 3D construction. Historical saved looks can still be opened and repaired.
+
+## Outfit library refresh (v0.10.0)
+
+All 20 active outfit portraits containing corrected tees have been replaced with reference-informed edits: the darker cream pocket tee, pink cursive adidas tee, Coffee cat tee, circular-front white graphic tee, fox-print yellow tee and both Burton tees. The 133 owned-wardrobe combinations and their stable IDs remain intact. Outfit-card captions resolve current catalogue names.
+
+Portrait metadata now records the pictured clothing appearance. A later change to a garment’s image, colour, cut, pocket or name invalidates that portrait and shows the current garment composition until a matching portrait is prepared. Uploaded personal photos also use the garment composition. Weather/notes do not invalidate a matching portrait. Versioned 400/800/1024 px URLs replace stale cached copies while keeping lazy loading.
+
+[Refreshed model photos, exact prompts, before/after review and verification](docs/artwork/outfits/wardrobe-refresh/README.md). Rebuild revised variants with `node scripts/prepare-refreshed-outfit-photos.mjs` after supplying the local PNG masters. The general photo-preparation script preserves revised portrait entries.

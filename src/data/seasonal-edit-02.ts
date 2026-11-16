@@ -20,7 +20,7 @@ const templates: Record<Season, Template[]> = {
     { title: 'Brown beneath beige', top: 'brown-flannel', layer: 'beige-coat', bottoms: ['black-barrel', 'white-barrel', 'grey-slacks', 'brown-barrel'], smart: true, outdoors: true, reason: 'A solid brown flannel under your beige coat combines soft texture and warm neutrals for winter outings and casual dinners.' },
   ],
   Spring: [
-    { title: 'Teal over cream', top: 'cream-tee', layer: 'teal-shirt', bottoms: ['beige-trousers', 'brown-barrel', 'white-barrel', 'olive-wide'], outdoors: true, reason: 'Wear the teal shirt open over the cream tee. The light inner layer makes this a fresh option for a warm spring afternoon.' },
+    { title: 'Teal over cream', top: 'cream-tee', layer: 'teal-shirt', bottoms: ['beige-trousers', 'brown-barrel', 'white-barrel', 'olive-wide'], outdoors: true, reason: 'Wear the teal shirt open over your darker cream pocket tee. The lightweight inner layer makes this a fresh option for a warm spring afternoon.' },
     { title: 'The white-shirt edit', top: 'white-shirt', bottoms: ['grey-slacks', 'olive-wide', 'cream-pants', 'brown-barrel'], smart: true, outdoors: true, reason: 'A white collared shirt and neutral trousers give a warm spring day a clean finish, ready for lunch or a casual evening.' },
     { title: 'Navy, on navy', top: 'navy-tee', layer: 'navy-bomber', bottoms: ['cream-pants', 'grey-slacks', 'beige-trousers', 'black-ankle'], outdoors: true, reason: 'A tonal navy top and bomber keep the upper half calm. The trousers provide contrast for cooler spring days.' },
     { title: 'The soft spring crew', top: 'offwhite-sweatshirt', bottoms: ['beige-trousers', 'grey-slacks', 'white-barrel', 'olive-wide'], outdoors: true, reason: 'An off-white crewneck and relaxed trousers are comfortable for a mild spring day with simple, clean proportions.' },
@@ -33,7 +33,7 @@ const templates: Record<Season, Template[]> = {
     { title: 'The summer teal shirt', top: 'teal-shirt', bottoms: ['black-shorts', 'beige-shorts', 'grey-slacks', 'black-ankle'], smart: true, outdoors: true, reason: 'Teal supplies the colour while a neutral bottom keeps the outfit simple. An open collar and tidy proportions make it feel easy.' },
     { title: 'Muted green, open plans', top: 'green-tee', bottoms: ['charcoal-shorts', 'black-shorts', 'white-barrel', 'beige-trousers'], outdoors: true, reason: 'Your muted green tee works with quiet neutrals for relaxed summer errands, walks and afternoons with friends.' },
     { title: 'A little summer yellow', top: 'yellow-tee', bottoms: ['beige-shorts', 'charcoal-shorts', 'black-ankle', 'white-barrel'], outdoors: true, reason: 'Let the plain yellow UNIQLO tee be the accent. Neutral bottoms and familiar sneakers keep it grounded.' },
-    { title: 'The pink weekend', top: 'pink-tee', bottoms: ['beige-shorts', 'black-shorts', 'olive-wide', 'grey-slacks'], outdoors: true, reason: 'Muted pink brings a softer accent to your summer wardrobe. The simple trouser or shorts pairing keeps it casual.' },
+    { title: 'The pink weekend', top: 'pink-tee', bottoms: ['beige-shorts', 'black-shorts', 'olive-wide', 'grey-slacks'], outdoors: true, reason: 'Muted pink and white cursive adidas lettering bring a softer accent to your summer wardrobe. The simple trouser or shorts pairing keeps it casual.' },
   ],
 }
 

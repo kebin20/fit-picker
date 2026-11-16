@@ -1,0 +1,314 @@
+{
+  "date": "2026-11-16",
+  "tool": "Built-in image_gen",
+  "revision": "wardrobe-v2",
+  "entries": [
+    {
+      "id": "styled-spring-02",
+      "name": "Teal, take it easy",
+      "items": {
+        "tops": "cream-tee",
+        "layers": "teal-shirt",
+        "bottoms": "black-ankle",
+        "shoes": "converse-black"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Darker warm oatmeal/stone cream cotton (#d1c2a3), NOT pale white. A plain sewn patch pocket on the wearer’s LEFT chest (viewer right), matching cotton with an open top hem, subtle stitching and shaped lower corners. No logo or print. Match the exact supplied current tee cutout. If layered, let the open teal shirt naturally overlap part of the pocket. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: Teal, take it easy; garment IDs: {\"tops\":\"cream-tee\",\"layers\":\"teal-shirt\",\"bottoms\":\"black-ankle\",\"shoes\":\"converse-black\"}.",
+      "inputs": [
+        "public/outfits/styled-spring-02.webp",
+        "public/garments/cream-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/styled-spring-02.png"
+    },
+    {
+      "id": "styled-summer-03",
+      "name": "Light plans",
+      "items": {
+        "tops": "cream-tee",
+        "bottoms": "charcoal-shorts",
+        "shoes": "skechers-taupe"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Darker warm oatmeal/stone cream cotton (#d1c2a3), NOT pale white. A plain sewn patch pocket on the wearer’s LEFT chest (viewer right), matching cotton with an open top hem, subtle stitching and shaped lower corners. No logo or print. Match the exact supplied current tee cutout. If layered, let the open teal shirt naturally overlap part of the pocket. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: Light plans; garment IDs: {\"tops\":\"cream-tee\",\"bottoms\":\"charcoal-shorts\",\"shoes\":\"skechers-taupe\"}.",
+      "inputs": [
+        "public/outfits/styled-summer-03.webp",
+        "public/garments/cream-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/styled-summer-03.png"
+    },
+    {
+      "id": "styled-spring-edit02-01",
+      "name": "Teal over cream · beige",
+      "items": {
+        "tops": "cream-tee",
+        "layers": "teal-shirt",
+        "bottoms": "beige-trousers",
+        "shoes": "adidas-striped"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Darker warm oatmeal/stone cream cotton (#d1c2a3), NOT pale white. A plain sewn patch pocket on the wearer’s LEFT chest (viewer right), matching cotton with an open top hem, subtle stitching and shaped lower corners. No logo or print. Match the exact supplied current tee cutout. If layered, let the open teal shirt naturally overlap part of the pocket. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: Teal over cream · beige; garment IDs: {\"tops\":\"cream-tee\",\"layers\":\"teal-shirt\",\"bottoms\":\"beige-trousers\",\"shoes\":\"adidas-striped\"}.",
+      "inputs": [
+        "public/outfits/styled-spring-edit02-01.webp",
+        "public/garments/cream-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/styled-spring-edit02-01.png"
+    },
+    {
+      "id": "styled-spring-edit02-02",
+      "name": "Teal over cream · brown",
+      "items": {
+        "tops": "cream-tee",
+        "layers": "teal-shirt",
+        "bottoms": "brown-barrel",
+        "shoes": "adidas-black"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Darker warm oatmeal/stone cream cotton (#d1c2a3), NOT pale white. A plain sewn patch pocket on the wearer’s LEFT chest (viewer right), matching cotton with an open top hem, subtle stitching and shaped lower corners. No logo or print. Match the exact supplied current tee cutout. If layered, let the open teal shirt naturally overlap part of the pocket. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: Teal over cream · brown; garment IDs: {\"tops\":\"cream-tee\",\"layers\":\"teal-shirt\",\"bottoms\":\"brown-barrel\",\"shoes\":\"adidas-black\"}.",
+      "inputs": [
+        "public/outfits/styled-spring-edit02-02.webp",
+        "public/garments/cream-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/styled-spring-edit02-02.png"
+    },
+    {
+      "id": "styled-spring-edit02-03",
+      "name": "Teal over cream · white",
+      "items": {
+        "tops": "cream-tee",
+        "layers": "teal-shirt",
+        "bottoms": "white-barrel",
+        "shoes": "converse-black"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Darker warm oatmeal/stone cream cotton (#d1c2a3), NOT pale white. A plain sewn patch pocket on the wearer’s LEFT chest (viewer right), matching cotton with an open top hem, subtle stitching and shaped lower corners. No logo or print. Match the exact supplied current tee cutout. If layered, let the open teal shirt naturally overlap part of the pocket. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: Teal over cream · white; garment IDs: {\"tops\":\"cream-tee\",\"layers\":\"teal-shirt\",\"bottoms\":\"white-barrel\",\"shoes\":\"converse-black\"}.",
+      "inputs": [
+        "public/outfits/styled-spring-edit02-03.webp",
+        "public/garments/cream-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/styled-spring-edit02-03.png"
+    },
+    {
+      "id": "styled-spring-edit02-04",
+      "name": "Teal over cream · olive",
+      "items": {
+        "tops": "cream-tee",
+        "layers": "teal-shirt",
+        "bottoms": "olive-wide",
+        "shoes": "skechers-white"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Darker warm oatmeal/stone cream cotton (#d1c2a3), NOT pale white. A plain sewn patch pocket on the wearer’s LEFT chest (viewer right), matching cotton with an open top hem, subtle stitching and shaped lower corners. No logo or print. Match the exact supplied current tee cutout. If layered, let the open teal shirt naturally overlap part of the pocket. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: Teal over cream · olive; garment IDs: {\"tops\":\"cream-tee\",\"layers\":\"teal-shirt\",\"bottoms\":\"olive-wide\",\"shoes\":\"skechers-white\"}.",
+      "inputs": [
+        "public/outfits/styled-spring-edit02-04.webp",
+        "public/garments/cream-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/styled-spring-edit02-04.png"
+    },
+    {
+      "id": "styled-summer-edit02-21",
+      "name": "The pink weekend · beige",
+      "items": {
+        "tops": "pink-tee",
+        "bottoms": "beige-shorts",
+        "shoes": "adidas-striped"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Muted dusty pink cotton. REMOVE the dark running-person/symbol logo. White flowing connected cursive lowercase \"adidas\" runs horizontally across the centre chest exactly like the supplied current garment. No trefoil, stripes or extra symbols. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: The pink weekend · beige; garment IDs: {\"tops\":\"pink-tee\",\"bottoms\":\"beige-shorts\",\"shoes\":\"adidas-striped\"}.",
+      "inputs": [
+        "public/outfits/styled-summer-edit02-21.webp",
+        "public/garments/pink-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/styled-summer-edit02-21.png"
+    },
+    {
+      "id": "styled-summer-edit02-22",
+      "name": "The pink weekend · black",
+      "items": {
+        "tops": "pink-tee",
+        "bottoms": "black-shorts",
+        "shoes": "adidas-black"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Muted dusty pink cotton. REMOVE the dark running-person/symbol logo. White flowing connected cursive lowercase \"adidas\" runs horizontally across the centre chest exactly like the supplied current garment. No trefoil, stripes or extra symbols. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: The pink weekend · black; garment IDs: {\"tops\":\"pink-tee\",\"bottoms\":\"black-shorts\",\"shoes\":\"adidas-black\"}.",
+      "inputs": [
+        "public/outfits/styled-summer-edit02-22.webp",
+        "public/garments/pink-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/styled-summer-edit02-22.png"
+    },
+    {
+      "id": "styled-summer-edit02-23",
+      "name": "The pink weekend · olive",
+      "items": {
+        "tops": "pink-tee",
+        "bottoms": "olive-wide",
+        "shoes": "converse-black"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Muted dusty pink cotton. REMOVE the dark running-person/symbol logo. White flowing connected cursive lowercase \"adidas\" runs horizontally across the centre chest exactly like the supplied current garment. No trefoil, stripes or extra symbols. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: The pink weekend · olive; garment IDs: {\"tops\":\"pink-tee\",\"bottoms\":\"olive-wide\",\"shoes\":\"converse-black\"}.",
+      "inputs": [
+        "public/outfits/styled-summer-edit02-23.webp",
+        "public/garments/pink-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/styled-summer-edit02-23.png"
+    },
+    {
+      "id": "styled-summer-edit02-24",
+      "name": "The pink weekend · grey",
+      "items": {
+        "tops": "pink-tee",
+        "bottoms": "grey-slacks",
+        "shoes": "skechers-white"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Muted dusty pink cotton. REMOVE the dark running-person/symbol logo. White flowing connected cursive lowercase \"adidas\" runs horizontally across the centre chest exactly like the supplied current garment. No trefoil, stripes or extra symbols. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: The pink weekend · grey; garment IDs: {\"tops\":\"pink-tee\",\"bottoms\":\"grey-slacks\",\"shoes\":\"skechers-white\"}.",
+      "inputs": [
+        "public/outfits/styled-summer-edit02-24.webp",
+        "public/garments/pink-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/styled-summer-edit02-24.png"
+    },
+    {
+      "id": "aw-autumn-6",
+      "name": "A little Ukiyoe",
+      "items": {
+        "tops": "ukiyoe-tee",
+        "bottoms": "brown-barrel",
+        "shoes": "skechers-taupe",
+        "layers": "navy-bomber"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Mustard ochre/yellow slub cotton, UNIQLO Ukiyo-e Animals tee. REMOVE the large wave/tsunami image completely. On the FRONT there is a chest patch pocket on wearer left (viewer right), with only a tiny running fox just above it, matching the reference. The large walking fox print is on the BACK and MUST NOT appear on the front. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: A little Ukiyoe; garment IDs: {\"tops\":\"ukiyoe-tee\",\"bottoms\":\"brown-barrel\",\"shoes\":\"skechers-taupe\",\"layers\":\"navy-bomber\"}.",
+      "inputs": [
+        "public/outfits/aw-autumn-6.webp",
+        "public/garments/ukiyoe-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/aw-autumn-6.png"
+    },
+    {
+      "id": "aw-winter-8",
+      "name": "A graphic under a coat",
+      "items": {
+        "tops": "black-cat-tee",
+        "bottoms": "black-barrel",
+        "shoes": "converse-black",
+        "layers": "beige-coat"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Black cotton. REMOVE the old standalone cat-and-cup drawing. Reproduce the supplied front print: pink cursive Coffee above a rectangular grey/white cat-and-coffee cartoon panel with a speech bubble. Keep the reference scale and central chest placement. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: A graphic under a coat; garment IDs: {\"tops\":\"black-cat-tee\",\"bottoms\":\"black-barrel\",\"shoes\":\"converse-black\",\"layers\":\"beige-coat\"}.",
+      "inputs": [
+        "public/outfits/aw-winter-8.webp",
+        "public/garments/black-cat-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/aw-winter-8.png"
+    },
+    {
+      "id": "ss-r1",
+      "name": "Cat tee, out of office",
+      "items": {
+        "tops": "black-cat-tee",
+        "bottoms": "olive-wide",
+        "shoes": "converse-black"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Black cotton. REMOVE the old standalone cat-and-cup drawing. Reproduce the supplied front print: pink cursive Coffee above a rectangular grey/white cat-and-coffee cartoon panel with a speech bubble. Keep the reference scale and central chest placement. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: Cat tee, out of office; garment IDs: {\"tops\":\"black-cat-tee\",\"bottoms\":\"olive-wide\",\"shoes\":\"converse-black\"}.",
+      "inputs": [
+        "public/outfits/ss-r1.webp",
+        "public/garments/black-cat-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/ss-r1.png"
+    },
+    {
+      "id": "ss-r4",
+      "name": "A softer pop of colour",
+      "items": {
+        "tops": "pink-tee",
+        "bottoms": "charcoal-shorts",
+        "shoes": "adidas-striped"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Muted dusty pink cotton. REMOVE the dark running-person/symbol logo. White flowing connected cursive lowercase \"adidas\" runs horizontally across the centre chest exactly like the supplied current garment. No trefoil, stripes or extra symbols. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: A softer pop of colour; garment IDs: {\"tops\":\"pink-tee\",\"bottoms\":\"charcoal-shorts\",\"shoes\":\"adidas-striped\"}.",
+      "inputs": [
+        "public/outfits/ss-r4.webp",
+        "public/garments/pink-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/ss-r4.png"
+    },
+    {
+      "id": "ss-c1",
+      "name": "Cream on beige",
+      "items": {
+        "tops": "cream-tee",
+        "bottoms": "beige-trousers",
+        "shoes": "adidas-striped"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Darker warm oatmeal/stone cream cotton (#d1c2a3), NOT pale white. A plain sewn patch pocket on the wearer’s LEFT chest (viewer right), matching cotton with an open top hem, subtle stitching and shaped lower corners. No logo or print. Match the exact supplied current tee cutout. If layered, let the open teal shirt naturally overlap part of the pocket. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: Cream on beige; garment IDs: {\"tops\":\"cream-tee\",\"bottoms\":\"beige-trousers\",\"shoes\":\"adidas-striped\"}.",
+      "inputs": [
+        "public/outfits/ss-c1.webp",
+        "public/garments/cream-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/ss-c1.png"
+    },
+    {
+      "id": "ss-f1",
+      "name": "A graphic for the group chat",
+      "items": {
+        "tops": "white-graphic-tee",
+        "bottoms": "olive-wide",
+        "shoes": "converse-black"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: White cotton. REMOVE the old mountain/tree front graphic. Only a SMALL dark circular mark on the wearer’s left chest (viewer right), matching the current garment reference. Exact front wording is unconfirmed, so do not invent readable words. The large #Meow Monday cat/person graphic belongs on the BACK and MUST NOT appear on this front-facing portrait. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: A graphic for the group chat; garment IDs: {\"tops\":\"white-graphic-tee\",\"bottoms\":\"olive-wide\",\"shoes\":\"converse-black\"}.",
+      "inputs": [
+        "public/outfits/ss-f1.webp",
+        "public/garments/white-graphic-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/ss-f1.png"
+    },
+    {
+      "id": "ss-f2",
+      "name": "Burton & olive",
+      "items": {
+        "tops": "burton-tee",
+        "bottoms": "olive-wide",
+        "shoes": "converse-black"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Black cotton. REMOVE the large circular mountain/forest design completely. Match the supplied Burton tee: FIVE small pale symbols in one narrow vertical column on viewer-right chest/body: stacked-line glyph, outlined S, key-like glyph, outlined K, pale X. Match the small scale, spacing and colours; no new large print. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: Burton & olive; garment IDs: {\"tops\":\"burton-tee\",\"bottoms\":\"olive-wide\",\"shoes\":\"converse-black\"}.",
+      "inputs": [
+        "public/outfits/ss-f2.webp",
+        "public/garments/burton-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/ss-f2.png"
+    },
+    {
+      "id": "ss-f4",
+      "name": "Black tee, beige trousers",
+      "items": {
+        "tops": "black-tee",
+        "bottoms": "beige-trousers",
+        "shoes": "converse-black"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Black cotton with a SMALL off-white square mountain-and-BURTON chest mark on the upper wearer-left chest (viewer right), as supplied. It is an understated small chest emblem, not a large central graphic. No additional design. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: Black tee, beige trousers; garment IDs: {\"tops\":\"black-tee\",\"bottoms\":\"beige-trousers\",\"shoes\":\"converse-black\"}.",
+      "inputs": [
+        "public/outfits/ss-f4.webp",
+        "public/garments/black-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/ss-f4.png"
+    },
+    {
+      "id": "ss-h1",
+      "name": "The graphic shorts look",
+      "items": {
+        "tops": "white-graphic-tee",
+        "bottoms": "charcoal-shorts",
+        "shoes": "converse-black"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: White cotton. REMOVE the old mountain/tree front graphic. Only a SMALL dark circular mark on the wearer’s left chest (viewer right), matching the current garment reference. Exact front wording is unconfirmed, so do not invent readable words. The large #Meow Monday cat/person graphic belongs on the BACK and MUST NOT appear on this front-facing portrait. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: The graphic shorts look; garment IDs: {\"tops\":\"white-graphic-tee\",\"bottoms\":\"charcoal-shorts\",\"shoes\":\"converse-black\"}.",
+      "inputs": [
+        "public/outfits/ss-h1.webp",
+        "public/garments/white-graphic-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/ss-h1.png"
+    },
+    {
+      "id": "ss-h4",
+      "name": "Soft summer neutrals",
+      "items": {
+        "tops": "cream-tee",
+        "bottoms": "beige-shorts",
+        "shoes": "skechers-taupe"
+      },
+      "prompt": "Use case: precise-object-edit. Asset: one updated FULL-BODY outfit portrait for a personal wardrobe app, portrait 1024x1536. Image 1 is the EDIT TARGET: the existing model wearing this exact outfit. Image 2 is the CURRENT TEE product reference and defines the corrected garment appearance. Change ONLY the tee to match image 2: Darker warm oatmeal/stone cream cotton (#d1c2a3), NOT pale white. A plain sewn patch pocket on the wearer’s LEFT chest (viewer right), matching cotton with an open top hem, subtle stitching and shaped lower corners. No logo or print. Match the exact supplied current tee cutout. If layered, let the open teal shirt naturally overlap part of the pocket. Preserve the existing model's face, hair, pose, proportions, skin, hand position, plain warm off-white studio background and soft photographic lighting. Preserve ALL other garments, outerwear, trouser/short colour and cut, footwear and the exact outfit combination. Keep head and both shoes fully in frame. The tee must be WORN naturally with folds, not pasted as a flat shirt in front of the person. No additional clothing, accessories, props, borders, watermark, captions, collage or external text. This is one realistic front or gentle front-three-quarter fashion photograph, not a drawing or 3D render. Outfit identity: Soft summer neutrals; garment IDs: {\"tops\":\"cream-tee\",\"bottoms\":\"beige-shorts\",\"shoes\":\"skechers-taupe\"}.",
+      "inputs": [
+        "public/outfits/ss-h4.webp",
+        "public/garments/cream-tee-v2.webp"
+      ],
+      "original": "docs/artwork/outfits/wardrobe-refresh/originals/ss-h4.png"
+    }
+  ]
+}

@@ -114,13 +114,13 @@ const edit01: Outfit[] = [
   styledLook({
     id: 'styled-spring-02',
     name: 'Teal, take it easy',
-    subtitle: 'Teal shirt over cream tee, black ankle trousers & Converse',
+    subtitle: 'Teal shirt over cream pocket tee, black ankle trousers & Converse',
     items: { tops: 'cream-tee', layers: 'teal-shirt', bottoms: 'black-ankle', shoes: 'converse-black' },
     season: 'Spring',
     occasions: ['Everyday', 'With friends', 'Date night'],
     source: 'ss',
     vibe: 'Casual meet-up',
-    note: 'Wear the teal short-sleeve shirt open over a cream tee. Black ankle trousers and low-top Converse balance the colour for a warm spring café date or meet-up.',
+    note: 'Wear the teal short-sleeve shirt open over your darker cream pocket tee. Black ankle trousers and low-top Converse balance the colour for a warm spring café date or meet-up.',
   }),
   styledLook({
     id: 'styled-spring-03',
@@ -158,13 +158,13 @@ const edit01: Outfit[] = [
   styledLook({
     id: 'styled-summer-03',
     name: 'Light plans',
-    subtitle: 'Cream tee, charcoal shorts & taupe slip-ins',
+    subtitle: 'Cream pocket tee, charcoal shorts & taupe slip-ins',
     items: { tops: 'cream-tee', bottoms: 'charcoal-shorts', shoes: 'skechers-taupe' },
     season: 'Summer',
     occasions: ['Everyday', 'With friends', 'Outdoors'],
     source: 'ss',
     vibe: 'Hot-day outing',
-    note: 'A cream tee lifts the charcoal shorts, while taupe slip-ins soften the contrast. A light combination for errands, a casual walk or meeting friends on a hot day.',
+    note: 'Your darker cream pocket tee balances the charcoal shorts, while taupe slip-ins soften the contrast. A light combination for errands, a casual walk or meeting friends on a hot day.',
   }),
 ]
 

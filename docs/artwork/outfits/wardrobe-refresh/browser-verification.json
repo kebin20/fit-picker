@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-16",
+  "url": "http://127.0.0.1:5174/",
+  "activeOutfits": 133,
+  "refreshedPortraits": 20,
+  "checked": [
+    "aw-autumn-6",
+    "aw-winter-8",
+    "ss-c1",
+    "ss-f1",
+    "ss-f2",
+    "ss-f4",
+    "ss-h1",
+    "ss-h4",
+    "ss-r1",
+    "ss-r4",
+    "styled-spring-02",
+    "styled-spring-edit02-01",
+    "styled-spring-edit02-02",
+    "styled-spring-edit02-03",
+    "styled-spring-edit02-04",
+    "styled-summer-03",
+    "styled-summer-edit02-21",
+    "styled-summer-edit02-22",
+    "styled-summer-edit02-23",
+    "styled-summer-edit02-24"
+  ],
+  "liveCaptions": true,
+  "tryLookMatches": true,
+  "stalePortraitFallback": true,
+  "threeDDeferred": true,
+  "responsiveWidths": [
+    390,
+    822,
+    1176
+  ],
+  "errors": []
+}

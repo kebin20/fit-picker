@@ -1,0 +1,509 @@
+[
+  {
+    "id": "styled-spring-02",
+    "items": {
+      "tops": "cream-tee",
+      "layers": "teal-shirt",
+      "bottoms": "black-ankle",
+      "shoes": "converse-black"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 44028
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 9156
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 28134
+      }
+    ]
+  },
+  {
+    "id": "styled-summer-03",
+    "items": {
+      "tops": "cream-tee",
+      "bottoms": "charcoal-shorts",
+      "shoes": "skechers-taupe"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 39362
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 7302
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 23700
+      }
+    ]
+  },
+  {
+    "id": "styled-spring-edit02-01",
+    "items": {
+      "tops": "cream-tee",
+      "layers": "teal-shirt",
+      "bottoms": "beige-trousers",
+      "shoes": "adidas-striped"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 42460
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 8282
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 26646
+      }
+    ]
+  },
+  {
+    "id": "styled-spring-edit02-02",
+    "items": {
+      "tops": "cream-tee",
+      "layers": "teal-shirt",
+      "bottoms": "brown-barrel",
+      "shoes": "adidas-black"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 52020
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 9026
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 29122
+      }
+    ]
+  },
+  {
+    "id": "styled-spring-edit02-03",
+    "items": {
+      "tops": "cream-tee",
+      "layers": "teal-shirt",
+      "bottoms": "white-barrel",
+      "shoes": "converse-black"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 39986
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 8136
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 25774
+      }
+    ]
+  },
+  {
+    "id": "styled-spring-edit02-04",
+    "items": {
+      "tops": "cream-tee",
+      "layers": "teal-shirt",
+      "bottoms": "olive-wide",
+      "shoes": "skechers-white"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 43988
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 8514
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 28216
+      }
+    ]
+  },
+  {
+    "id": "styled-summer-edit02-21",
+    "items": {
+      "tops": "pink-tee",
+      "bottoms": "beige-shorts",
+      "shoes": "adidas-striped"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 45630
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 8126
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 27136
+      }
+    ]
+  },
+  {
+    "id": "styled-summer-edit02-22",
+    "items": {
+      "tops": "pink-tee",
+      "bottoms": "black-shorts",
+      "shoes": "adidas-black"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 43062
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 9080
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 26850
+      }
+    ]
+  },
+  {
+    "id": "styled-summer-edit02-23",
+    "items": {
+      "tops": "pink-tee",
+      "bottoms": "olive-wide",
+      "shoes": "converse-black"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 47334
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 9184
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 29350
+      }
+    ]
+  },
+  {
+    "id": "styled-summer-edit02-24",
+    "items": {
+      "tops": "pink-tee",
+      "bottoms": "grey-slacks",
+      "shoes": "skechers-white"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 48194
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 8424
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 27526
+      }
+    ]
+  },
+  {
+    "id": "aw-autumn-6",
+    "items": {
+      "tops": "ukiyoe-tee",
+      "bottoms": "brown-barrel",
+      "shoes": "skechers-taupe",
+      "layers": "navy-bomber"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 54680
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 10012
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 32188
+      }
+    ]
+  },
+  {
+    "id": "aw-winter-8",
+    "items": {
+      "tops": "black-cat-tee",
+      "bottoms": "black-barrel",
+      "shoes": "converse-black",
+      "layers": "beige-coat"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 55442
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 10236
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 32748
+      }
+    ]
+  },
+  {
+    "id": "ss-r1",
+    "items": {
+      "tops": "black-cat-tee",
+      "bottoms": "olive-wide",
+      "shoes": "converse-black"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 49466
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 9688
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 31556
+      }
+    ]
+  },
+  {
+    "id": "ss-r4",
+    "items": {
+      "tops": "pink-tee",
+      "bottoms": "charcoal-shorts",
+      "shoes": "adidas-striped"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 46448
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 8590
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 27818
+      }
+    ]
+  },
+  {
+    "id": "ss-c1",
+    "items": {
+      "tops": "cream-tee",
+      "bottoms": "beige-trousers",
+      "shoes": "adidas-striped"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 41374
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 7808
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 25440
+      }
+    ]
+  },
+  {
+    "id": "ss-f1",
+    "items": {
+      "tops": "white-graphic-tee",
+      "bottoms": "olive-wide",
+      "shoes": "converse-black"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 41976
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 8426
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 26074
+      }
+    ]
+  },
+  {
+    "id": "ss-f2",
+    "items": {
+      "tops": "burton-tee",
+      "bottoms": "olive-wide",
+      "shoes": "converse-black"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 46922
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 8842
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 28532
+      }
+    ]
+  },
+  {
+    "id": "ss-f4",
+    "items": {
+      "tops": "black-tee",
+      "bottoms": "beige-trousers",
+      "shoes": "converse-black"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 41918
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 8356
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 25878
+      }
+    ]
+  },
+  {
+    "id": "ss-h1",
+    "items": {
+      "tops": "white-graphic-tee",
+      "bottoms": "charcoal-shorts",
+      "shoes": "converse-black"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 42082
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 7906
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 25822
+      }
+    ]
+  },
+  {
+    "id": "ss-h4",
+    "items": {
+      "tops": "cream-tee",
+      "bottoms": "beige-shorts",
+      "shoes": "skechers-taupe"
+    },
+    "sizes": [
+      {
+        "width": 1024,
+        "height": 1536,
+        "bytes": 40738
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "bytes": 7466
+      },
+      {
+        "width": 800,
+        "height": 1200,
+        "bytes": 24520
+      }
+    ]
+  }
+]

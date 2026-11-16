@@ -1,0 +1,29 @@
+{
+  "testedAt": "2026-11-16T23:34:08.927Z",
+  "modelRevision": "studio-v2",
+  "files": [
+    "/models/tailored/body.glb",
+    "/models/tailored/shirt-short.glb",
+    "/models/tailored/overshirt-long.glb",
+    "/models/tailored/trousers-slim.glb",
+    "/models/tailored/sneakers.glb",
+    "/models/tailored/tee.glb",
+    "/models/tailored/longsleeve.glb",
+    "/models/tailored/sweatshirt.glb",
+    "/models/tailored/hoodie.glb",
+    "/models/tailored/shirt-long.glb",
+    "/models/tailored/trousers-shorts.glb",
+    "/models/tailored/trousers-regular.glb",
+    "/models/tailored/trousers-wide.glb",
+    "/models/tailored/trousers-barrel.glb",
+    "/models/tailored/trousers-ankle.glb",
+    "/models/tailored/overshirt-short.glb",
+    "/models/tailored/bomber.glb",
+    "/models/tailored/puffer.glb",
+    "/models/tailored/coat.glb",
+    "/models/tailored/rain-jacket.glb"
+  ],
+  "errors": [],
+  "textureCount": 20,
+  "idleRenders": 0
+}

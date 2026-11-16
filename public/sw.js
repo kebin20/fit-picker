@@ -6,6 +6,7 @@ const validAsset = (response, path) => response?.ok && (path.split('?')[0].endsW
   : /javascript|ecmascript/i.test(response.headers.get('content-type') || ''))
 const validPhoto = response => response?.ok && /^image\/webp/i.test(response.headers.get('content-type') || '')
 const modelPhotoPath = path => path === '/previews/navy-after-hours-quality-v1.webp' || /^\/outfits\/[a-z0-9-]+\.webp$/.test(path)
+const mannequinPath = path => /^\/mannequin\/v2\/[a-z0-9-]+\.webp$/.test(path)
 async function cachedResponse(request) {
   // Shell and garment files are stored under a same-origin URL-only key.
   // Match that key again: crossorigin module requests include Origin, unlike
@@ -56,8 +57,8 @@ self.addEventListener('message', event => {
     let success = true
     try {
       const cache = await caches.open(CACHE)
-      for (const path of (event.data.urls || []).slice(0, 5)) {
-        if (typeof path !== 'string' || !(/^\/garments\/[a-z0-9-]+\.webp$/.test(path) || modelPhotoPath(path))) { success = false; continue }
+      for (const path of (event.data.urls || []).slice(0, 32)) {
+        if (typeof path !== 'string' || !(/^\/garments\/[a-z0-9-]+\.webp$/.test(path) || modelPhotoPath(path) || mannequinPath(path))) { success = false; continue }
         if (validPhoto(await cache.match(path))) continue
         try {
           const response = await fetch(path)
@@ -77,7 +78,7 @@ self.addEventListener('fetch', event => {
   if (url.pathname.startsWith('/previews/') && !modelPhotoPath(url.pathname)) return
   // Image URLs also remain images when opened directly in a tab. They must
   // never be handled as an app-shell navigation or replace the cached shell.
-  if (url.pathname.startsWith('/garments/') || modelPhotoPath(url.pathname)) {
+  if (url.pathname.startsWith('/garments/') || modelPhotoPath(url.pathname) || mannequinPath(url.pathname)) {
     event.respondWith((async () => {
       const cached = await cachedResponse(event.request)
       return validPhoto(cached) ? cached : fetch(event.request)

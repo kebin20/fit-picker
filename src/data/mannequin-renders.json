@@ -1,0 +1,772 @@
+{
+  "revision": 2,
+  "width": 600,
+  "height": 900,
+  "geometrySha256": "31d76c734722",
+  "rendererSha256": "8c883b425d60",
+  "garments": {
+    "navy-shirt": {
+      "id": "navy-shirt",
+      "category": "tops",
+      "color": "#233344",
+      "style": "shirt",
+      "wearableAs": [
+        "layers"
+      ],
+      "frontSource": "/garments/navy-shirt.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/navy-shirt.webp",
+          "sha256": "a23ed7d963ca"
+        }
+      ],
+      "front": "/mannequin/v2/navy-shirt-front-603d3b448a27.webp",
+      "back": "/mannequin/v2/navy-shirt-back-e5564f0668bd.webp",
+      "asLayer": {
+        "front": "/mannequin/v2/navy-shirt-layer-front-2671d469302e.webp",
+        "back": "/mannequin/v2/navy-shirt-layer-back-e296bdda4003.webp"
+      }
+    },
+    "brown-flannel": {
+      "id": "brown-flannel",
+      "category": "tops",
+      "color": "#75523a",
+      "style": "shirt",
+      "wearableAs": [
+        "layers"
+      ],
+      "frontSource": "/garments/brown-flannel.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/brown-flannel.webp",
+          "sha256": "116e4af40ae1"
+        }
+      ],
+      "front": "/mannequin/v2/brown-flannel-front-7aaac1267474.webp",
+      "back": "/mannequin/v2/brown-flannel-back-a9ddc8c45beb.webp",
+      "asLayer": {
+        "front": "/mannequin/v2/brown-flannel-layer-front-68fcf496195b.webp",
+        "back": "/mannequin/v2/brown-flannel-layer-back-eb3a56d666a0.webp"
+      }
+    },
+    "ainu-longsleeve": {
+      "id": "ainu-longsleeve",
+      "category": "tops",
+      "color": "#a7aaa8",
+      "style": "longsleeve",
+      "pattern": "graphic",
+      "frontSource": "/garments/ainu-longsleeve.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/ainu-longsleeve.webp",
+          "sha256": "f3c638ebb4e3"
+        }
+      ],
+      "front": "/mannequin/v2/ainu-longsleeve-front-113bdd57e85c.webp",
+      "back": "/mannequin/v2/ainu-longsleeve-back-fa30fc8b7793.webp"
+    },
+    "rust-tee": {
+      "id": "rust-tee",
+      "category": "tops",
+      "color": "#a44c2e",
+      "style": "tee",
+      "frontSource": "/garments/rust-tee.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/rust-tee.webp",
+          "sha256": "e1c9a5cd5f58"
+        }
+      ],
+      "front": "/mannequin/v2/rust-tee-front-68aa255c16bb.webp",
+      "back": "/mannequin/v2/rust-tee-back-9ec1c34a6b9f.webp"
+    },
+    "white-tee": {
+      "id": "white-tee",
+      "category": "tops",
+      "color": "#f3f0e8",
+      "style": "tee",
+      "frontSource": "/garments/white-tee.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/white-tee.webp",
+          "sha256": "83fbbae4e2f6"
+        }
+      ],
+      "front": "/mannequin/v2/white-tee-front-1bf8ddd7b08b.webp",
+      "back": "/mannequin/v2/white-tee-back-8b641668d0ab.webp"
+    },
+    "navy-sweatshirt": {
+      "id": "navy-sweatshirt",
+      "category": "tops",
+      "color": "#243343",
+      "style": "sweatshirt",
+      "frontSource": "/garments/navy-sweatshirt.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/navy-sweatshirt.webp",
+          "sha256": "07b63772e9b2"
+        }
+      ],
+      "front": "/mannequin/v2/navy-sweatshirt-front-4f7cd1ac7eb7.webp",
+      "back": "/mannequin/v2/navy-sweatshirt-back-26b0d535c5e6.webp"
+    },
+    "offwhite-sweatshirt": {
+      "id": "offwhite-sweatshirt",
+      "category": "tops",
+      "color": "#e9e1cf",
+      "style": "sweatshirt",
+      "frontSource": "/garments/offwhite-sweatshirt.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/offwhite-sweatshirt.webp",
+          "sha256": "c5ac088ffdd7"
+        }
+      ],
+      "front": "/mannequin/v2/offwhite-sweatshirt-front-5d31fc0fa3aa.webp",
+      "back": "/mannequin/v2/offwhite-sweatshirt-back-de5788e86209.webp"
+    },
+    "white-hoodie": {
+      "id": "white-hoodie",
+      "category": "tops",
+      "color": "#f1eee7",
+      "style": "hoodie",
+      "frontSource": "/garments/white-hoodie.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/white-hoodie.webp",
+          "sha256": "d68ffd283aa0"
+        }
+      ],
+      "front": "/mannequin/v2/white-hoodie-front-94341ea3258c.webp",
+      "back": "/mannequin/v2/white-hoodie-back-24a9afed5439.webp"
+    },
+    "brown-hoodie": {
+      "id": "brown-hoodie",
+      "category": "tops",
+      "color": "#9a826b",
+      "style": "hoodie",
+      "frontSource": "/garments/brown-hoodie.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/brown-hoodie.webp",
+          "sha256": "b24803d4fb0a"
+        }
+      ],
+      "front": "/mannequin/v2/brown-hoodie-front-c5ee091de648.webp",
+      "back": "/mannequin/v2/brown-hoodie-back-65c0ffd1b9b3.webp"
+    },
+    "navy-overshirt": {
+      "id": "navy-overshirt",
+      "category": "tops",
+      "color": "#263449",
+      "style": "overshirt",
+      "wearableAs": [
+        "layers"
+      ],
+      "frontSource": "/garments/navy-overshirt.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/navy-overshirt.webp",
+          "sha256": "1c31552aaf7f"
+        }
+      ],
+      "front": "/mannequin/v2/navy-overshirt-front-0874313af09d.webp",
+      "back": "/mannequin/v2/navy-overshirt-back-93a4efa39104.webp",
+      "asLayer": {
+        "front": "/mannequin/v2/navy-overshirt-layer-front-5f8afdd15cfd.webp",
+        "back": "/mannequin/v2/navy-overshirt-layer-back-c1825fdbcc5a.webp"
+      }
+    },
+    "check-overshirt": {
+      "id": "check-overshirt",
+      "category": "tops",
+      "color": "#bda078",
+      "style": "overshirt",
+      "pattern": "check",
+      "wearableAs": [
+        "layers"
+      ],
+      "frontSource": "/garments/check-overshirt.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/check-overshirt.webp",
+          "sha256": "19045d1f0aa0"
+        }
+      ],
+      "front": "/mannequin/v2/check-overshirt-front-68047acdbec4.webp",
+      "back": "/mannequin/v2/check-overshirt-back-4e85191d99b0.webp",
+      "asLayer": {
+        "front": "/mannequin/v2/check-overshirt-layer-front-2c15023fa84e.webp",
+        "back": "/mannequin/v2/check-overshirt-layer-back-1602f2047dca.webp"
+      }
+    },
+    "white-graphic-tee": {
+      "id": "white-graphic-tee",
+      "category": "tops",
+      "color": "#efede5",
+      "style": "tee",
+      "pattern": "graphic",
+      "frontSource": "/garments/white-graphic-tee-v2.webp",
+      "backSource": "/garments/white-graphic-tee-back-v2.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/white-graphic-tee-v2.webp",
+          "sha256": "62424917e7d6"
+        },
+        {
+          "file": "/garments/white-graphic-tee-back-v2.webp",
+          "sha256": "8fe009488785"
+        }
+      ],
+      "front": "/mannequin/v2/white-graphic-tee-front-59f742156597.webp",
+      "back": "/mannequin/v2/white-graphic-tee-back-207ec61af8bf.webp"
+    },
+    "black-cat-tee": {
+      "id": "black-cat-tee",
+      "category": "tops",
+      "color": "#282925",
+      "style": "tee",
+      "pattern": "graphic",
+      "frontSource": "/garments/black-cat-tee-v2.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/black-cat-tee-v2.webp",
+          "sha256": "864dd569470a"
+        }
+      ],
+      "front": "/mannequin/v2/black-cat-tee-front-d132e94a7413.webp",
+      "back": "/mannequin/v2/black-cat-tee-back-77c5300b467e.webp"
+    },
+    "green-tee": {
+      "id": "green-tee",
+      "category": "tops",
+      "color": "#68775a",
+      "style": "tee",
+      "frontSource": "/garments/green-tee.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/green-tee.webp",
+          "sha256": "ea77c4f6d226"
+        }
+      ],
+      "front": "/mannequin/v2/green-tee-front-6ac6ff32b0ec.webp",
+      "back": "/mannequin/v2/green-tee-back-eebf666b2a2f.webp"
+    },
+    "pink-tee": {
+      "id": "pink-tee",
+      "category": "tops",
+      "color": "#d9919d",
+      "style": "tee",
+      "pattern": "graphic",
+      "frontSource": "/garments/pink-tee-v2.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/pink-tee-v2.webp",
+          "sha256": "fd2ece9efcb4"
+        }
+      ],
+      "front": "/mannequin/v2/pink-tee-front-8c35eb22a5cf.webp",
+      "back": "/mannequin/v2/pink-tee-back-8e295e03fa11.webp"
+    },
+    "cream-tee": {
+      "id": "cream-tee",
+      "category": "tops",
+      "color": "#d1c2a3",
+      "style": "tee",
+      "chestPocket": true,
+      "frontSource": "/garments/cream-tee-v2.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/cream-tee-v2.webp",
+          "sha256": "7a02993ccb98"
+        }
+      ],
+      "front": "/mannequin/v2/cream-tee-front-9a64502a9283.webp",
+      "back": "/mannequin/v2/cream-tee-back-bd13784c897f.webp"
+    },
+    "ukiyoe-tee": {
+      "id": "ukiyoe-tee",
+      "category": "tops",
+      "color": "#cda131",
+      "style": "tee",
+      "pattern": "graphic",
+      "frontSource": "/garments/ukiyoe-tee-v2.webp",
+      "backSource": "/garments/ukiyoe-tee-back-v2.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/ukiyoe-tee-v2.webp",
+          "sha256": "69cf14cef2e7"
+        },
+        {
+          "file": "/garments/ukiyoe-tee-back-v2.webp",
+          "sha256": "27b8c7d1ca87"
+        }
+      ],
+      "front": "/mannequin/v2/ukiyoe-tee-front-2a5bd51bb2e1.webp",
+      "back": "/mannequin/v2/ukiyoe-tee-back-49bf0eada9b5.webp"
+    },
+    "teal-shirt": {
+      "id": "teal-shirt",
+      "category": "tops",
+      "color": "#2c6b75",
+      "style": "shirt",
+      "wearableAs": [
+        "layers"
+      ],
+      "frontSource": "/garments/teal-shirt.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/teal-shirt.webp",
+          "sha256": "decb8931c06b"
+        }
+      ],
+      "front": "/mannequin/v2/teal-shirt-front-fdbad2f2241b.webp",
+      "back": "/mannequin/v2/teal-shirt-back-698d39ff34cc.webp",
+      "asLayer": {
+        "front": "/mannequin/v2/teal-shirt-layer-front-c7258df760fe.webp",
+        "back": "/mannequin/v2/teal-shirt-layer-back-df86189fdb17.webp"
+      }
+    },
+    "brown-shirt": {
+      "id": "brown-shirt",
+      "category": "tops",
+      "color": "#78533d",
+      "style": "shirt",
+      "wearableAs": [
+        "layers"
+      ],
+      "frontSource": "/garments/brown-shirt.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/brown-shirt.webp",
+          "sha256": "d8235fa00697"
+        }
+      ],
+      "front": "/mannequin/v2/brown-shirt-front-ebc3792f983d.webp",
+      "back": "/mannequin/v2/brown-shirt-back-8ee0f542f957.webp",
+      "asLayer": {
+        "front": "/mannequin/v2/brown-shirt-layer-front-c158c0418329.webp",
+        "back": "/mannequin/v2/brown-shirt-layer-back-95706828aeaa.webp"
+      }
+    },
+    "burton-tee": {
+      "id": "burton-tee",
+      "category": "tops",
+      "color": "#252826",
+      "style": "tee",
+      "pattern": "graphic",
+      "frontSource": "/garments/burton-tee-v2.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/burton-tee-v2.webp",
+          "sha256": "6320c3a6c8ae"
+        }
+      ],
+      "front": "/mannequin/v2/burton-tee-front-757432bc2414.webp",
+      "back": "/mannequin/v2/burton-tee-back-0349da7e4364.webp"
+    },
+    "black-tee": {
+      "id": "black-tee",
+      "category": "tops",
+      "color": "#2c2e2c",
+      "style": "tee",
+      "pattern": "graphic",
+      "frontSource": "/garments/black-tee-v2.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/black-tee-v2.webp",
+          "sha256": "c38a62fb2386"
+        }
+      ],
+      "front": "/mannequin/v2/black-tee-front-b056e6aed2a2.webp",
+      "back": "/mannequin/v2/black-tee-back-d173703dd7c9.webp"
+    },
+    "grey-sweatshirt": {
+      "id": "grey-sweatshirt",
+      "category": "tops",
+      "color": "#a9aaa8",
+      "style": "sweatshirt",
+      "frontSource": "/garments/grey-sweatshirt.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/grey-sweatshirt.webp",
+          "sha256": "eebbb25b8ea9"
+        }
+      ],
+      "front": "/mannequin/v2/grey-sweatshirt-front-44263832c1de.webp",
+      "back": "/mannequin/v2/grey-sweatshirt-back-3fb73a5e04d6.webp"
+    },
+    "olive-sweatshirt": {
+      "id": "olive-sweatshirt",
+      "category": "tops",
+      "color": "#626747",
+      "style": "sweatshirt",
+      "frontSource": "/garments/olive-sweatshirt.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/olive-sweatshirt.webp",
+          "sha256": "94fc45604a21"
+        }
+      ],
+      "front": "/mannequin/v2/olive-sweatshirt-front-c29e6744e7aa.webp",
+      "back": "/mannequin/v2/olive-sweatshirt-back-e483da430966.webp"
+    },
+    "beige-coat": {
+      "id": "beige-coat",
+      "category": "layers",
+      "color": "#bda988",
+      "style": "coat",
+      "frontSource": "/garments/beige-coat.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/beige-coat.webp",
+          "sha256": "124dd7386fce"
+        }
+      ],
+      "front": "/mannequin/v2/beige-coat-front-3ac0ee8e4b77.webp",
+      "back": "/mannequin/v2/beige-coat-back-c9a3b5def86f.webp"
+    },
+    "navy-bomber": {
+      "id": "navy-bomber",
+      "category": "layers",
+      "color": "#263446",
+      "style": "bomber",
+      "frontSource": "/garments/navy-bomber.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/navy-bomber.webp",
+          "sha256": "697e667b0ef3"
+        }
+      ],
+      "front": "/mannequin/v2/navy-bomber-front-442a5f1d4ed9.webp",
+      "back": "/mannequin/v2/navy-bomber-back-b870dbf71c14.webp"
+    },
+    "green-bomber": {
+      "id": "green-bomber",
+      "category": "layers",
+      "color": "#616b43",
+      "style": "bomber",
+      "frontSource": "/garments/green-bomber.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/green-bomber.webp",
+          "sha256": "347bbe4ef251"
+        }
+      ],
+      "front": "/mannequin/v2/green-bomber-front-ee3b14459084.webp",
+      "back": "/mannequin/v2/green-bomber-back-5fa041669832.webp"
+    },
+    "black-puffer": {
+      "id": "black-puffer",
+      "category": "layers",
+      "color": "#2c2d2c",
+      "style": "puffer",
+      "frontSource": "/garments/black-puffer.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/black-puffer.webp",
+          "sha256": "5f48e55fe518"
+        }
+      ],
+      "front": "/mannequin/v2/black-puffer-front-7831082d21d6.webp",
+      "back": "/mannequin/v2/black-puffer-back-5d2368869d63.webp"
+    },
+    "brown-overshirt": {
+      "id": "brown-overshirt",
+      "category": "layers",
+      "color": "#84664b",
+      "style": "overshirt",
+      "frontSource": "/garments/brown-overshirt.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/brown-overshirt.webp",
+          "sha256": "4cf586e75a8b"
+        }
+      ],
+      "front": "/mannequin/v2/brown-overshirt-front-cb61e68491df.webp",
+      "back": "/mannequin/v2/brown-overshirt-back-cf554c6c82d3.webp"
+    },
+    "black-rain-jacket": {
+      "id": "black-rain-jacket",
+      "category": "layers",
+      "color": "#252a29",
+      "style": "raincoat",
+      "frontSource": "/garments/black-rain-jacket.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/black-rain-jacket.webp",
+          "sha256": "12caa087d320"
+        }
+      ],
+      "front": "/mannequin/v2/black-rain-jacket-front-f829085ec57a.webp",
+      "back": "/mannequin/v2/black-rain-jacket-back-7043003797aa.webp"
+    },
+    "white-barrel": {
+      "id": "white-barrel",
+      "category": "bottoms",
+      "color": "#e9e5d9",
+      "style": "trousers",
+      "frontSource": "/garments/white-barrel.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/white-barrel.webp",
+          "sha256": "4c49ddd4e40e"
+        }
+      ],
+      "front": "/mannequin/v2/white-barrel-front-33045587c600.webp",
+      "back": "/mannequin/v2/white-barrel-back-460af95cf840.webp"
+    },
+    "brown-barrel": {
+      "id": "brown-barrel",
+      "category": "bottoms",
+      "color": "#735e49",
+      "style": "trousers",
+      "frontSource": "/garments/brown-barrel.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/brown-barrel.webp",
+          "sha256": "f6804d8c5485"
+        }
+      ],
+      "front": "/mannequin/v2/brown-barrel-front-8e36fc24bbe2.webp",
+      "back": "/mannequin/v2/brown-barrel-back-11dc4e493bd0.webp"
+    },
+    "black-barrel": {
+      "id": "black-barrel",
+      "category": "bottoms",
+      "color": "#30322e",
+      "style": "trousers",
+      "frontSource": "/garments/black-barrel.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/black-barrel.webp",
+          "sha256": "d5fbc0cf1feb"
+        }
+      ],
+      "front": "/mannequin/v2/black-barrel-front-6880d77acc07.webp",
+      "back": "/mannequin/v2/black-barrel-back-e767550b24ec.webp"
+    },
+    "olive-wide": {
+      "id": "olive-wide",
+      "category": "bottoms",
+      "color": "#6c714a",
+      "style": "trousers",
+      "frontSource": "/garments/olive-wide.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/olive-wide.webp",
+          "sha256": "69e0ceb566df"
+        }
+      ],
+      "front": "/mannequin/v2/olive-wide-front-bcb9c371bb1d.webp",
+      "back": "/mannequin/v2/olive-wide-back-a80b0de23385.webp"
+    },
+    "grey-slacks": {
+      "id": "grey-slacks",
+      "category": "bottoms",
+      "color": "#777a74",
+      "style": "trousers",
+      "frontSource": "/garments/grey-slacks.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/grey-slacks.webp",
+          "sha256": "c228b1b0b24e"
+        }
+      ],
+      "front": "/mannequin/v2/grey-slacks-front-f2d4339ebe71.webp",
+      "back": "/mannequin/v2/grey-slacks-back-db64ff457b99.webp"
+    },
+    "cream-pants": {
+      "id": "cream-pants",
+      "category": "bottoms",
+      "color": "#d9cdb4",
+      "style": "trousers",
+      "frontSource": "/garments/cream-pants.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/cream-pants.webp",
+          "sha256": "495fccd37639"
+        }
+      ],
+      "front": "/mannequin/v2/cream-pants-front-2372ff273397.webp",
+      "back": "/mannequin/v2/cream-pants-back-8925a4047b37.webp"
+    },
+    "beige-trousers": {
+      "id": "beige-trousers",
+      "category": "bottoms",
+      "color": "#c9b894",
+      "style": "trousers",
+      "frontSource": "/garments/beige-trousers.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/beige-trousers.webp",
+          "sha256": "bd3fa60a77a1"
+        }
+      ],
+      "front": "/mannequin/v2/beige-trousers-front-69ed79b4908c.webp",
+      "back": "/mannequin/v2/beige-trousers-back-bdd44674cf6f.webp"
+    },
+    "black-ankle": {
+      "id": "black-ankle",
+      "category": "bottoms",
+      "color": "#363935",
+      "style": "trousers",
+      "frontSource": "/garments/black-ankle.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/black-ankle.webp",
+          "sha256": "31f6a949694a"
+        }
+      ],
+      "front": "/mannequin/v2/black-ankle-front-4b340dc93eb7.webp",
+      "back": "/mannequin/v2/black-ankle-back-1497bab2192e.webp"
+    },
+    "beige-shorts": {
+      "id": "beige-shorts",
+      "category": "bottoms",
+      "color": "#cbbd9d",
+      "style": "shorts",
+      "frontSource": "/garments/beige-shorts.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/beige-shorts.webp",
+          "sha256": "44439122b7d0"
+        }
+      ],
+      "front": "/mannequin/v2/beige-shorts-front-1c312d003a77.webp",
+      "back": "/mannequin/v2/beige-shorts-back-674ec17af0f7.webp"
+    },
+    "charcoal-shorts": {
+      "id": "charcoal-shorts",
+      "category": "bottoms",
+      "color": "#575c56",
+      "style": "shorts",
+      "frontSource": "/garments/charcoal-shorts.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/charcoal-shorts.webp",
+          "sha256": "cc9d79ef9563"
+        }
+      ],
+      "front": "/mannequin/v2/charcoal-shorts-front-a31532444d50.webp",
+      "back": "/mannequin/v2/charcoal-shorts-back-052ca50bfe04.webp"
+    },
+    "black-shorts": {
+      "id": "black-shorts",
+      "category": "bottoms",
+      "color": "#2d322e",
+      "style": "shorts",
+      "frontSource": "/garments/black-shorts.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/black-shorts.webp",
+          "sha256": "2fd06e36cff8"
+        }
+      ],
+      "front": "/mannequin/v2/black-shorts-front-969faf98119d.webp",
+      "back": "/mannequin/v2/black-shorts-back-5308cb274dfa.webp"
+    },
+    "adidas-striped": {
+      "id": "adidas-striped",
+      "category": "shoes",
+      "color": "#eeeee7",
+      "style": "sneakers",
+      "pattern": "stripes",
+      "frontSource": "/garments/adidas-striped.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/adidas-striped.webp",
+          "sha256": "22a6d0249456"
+        }
+      ],
+      "front": "/mannequin/v2/adidas-striped-front-80e273755785.webp",
+      "back": "/mannequin/v2/adidas-striped-back-4a76269909ec.webp"
+    },
+    "adidas-black": {
+      "id": "adidas-black",
+      "category": "shoes",
+      "color": "#282b29",
+      "style": "sneakers",
+      "frontSource": "/garments/adidas-black.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/adidas-black.webp",
+          "sha256": "59b12ce0a349"
+        }
+      ],
+      "front": "/mannequin/v2/adidas-black-front-613df4382551.webp",
+      "back": "/mannequin/v2/adidas-black-back-7bdfce9dc883.webp"
+    },
+    "skechers-white": {
+      "id": "skechers-white",
+      "category": "shoes",
+      "color": "#eeefea",
+      "style": "sneakers",
+      "frontSource": "/garments/skechers-white.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/skechers-white.webp",
+          "sha256": "aba69b0b7446"
+        }
+      ],
+      "front": "/mannequin/v2/skechers-white-front-9d7b7228f991.webp",
+      "back": "/mannequin/v2/skechers-white-back-30b9586a5d84.webp"
+    },
+    "converse-black": {
+      "id": "converse-black",
+      "category": "shoes",
+      "color": "#292e2c",
+      "style": "canvas",
+      "frontSource": "/garments/converse-black.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/converse-black.webp",
+          "sha256": "8cfa9426129c"
+        }
+      ],
+      "front": "/mannequin/v2/converse-black-front-6e3938497b64.webp",
+      "back": "/mannequin/v2/converse-black-back-82aab00e5cd9.webp"
+    },
+    "skechers-taupe": {
+      "id": "skechers-taupe",
+      "category": "shoes",
+      "color": "#a28e73",
+      "style": "slipons",
+      "frontSource": "/garments/skechers-taupe.webp",
+      "sourceFiles": [
+        {
+          "file": "/garments/skechers-taupe.webp",
+          "sha256": "bb1910997a45"
+        }
+      ],
+      "front": "/mannequin/v2/skechers-taupe-front-c9b3fdab12ad.webp",
+      "back": "/mannequin/v2/skechers-taupe-back-b3d5d519eae7.webp"
+    }
+  },
+  "body": {
+    "full": {
+      "front": "/mannequin/v2/form-full-front-c52c0adc5153.webp",
+      "back": "/mannequin/v2/form-full-back-8482971f8609.webp"
+    },
+    "head": {
+      "front": "/mannequin/v2/form-head-front-718335f8fc15.webp",
+      "back": "/mannequin/v2/form-head-back-efcb701bcf33.webp"
+    },
+    "hands": {
+      "front": "/mannequin/v2/form-hands-front-848c8f209a30.webp",
+      "back": "/mannequin/v2/form-hands-back-63115c080988.webp"
+    },
+    "forearms": {
+      "front": "/mannequin/v2/form-forearms-front-d3b91bdfb9b1.webp",
+      "back": "/mannequin/v2/form-forearms-back-984020c09552.webp"
+    },
+    "legs": {
+      "front": "/mannequin/v2/form-legs-front-7291e6c8c3cd.webp",
+      "back": "/mannequin/v2/form-legs-back-26fb6490768e.webp"
+    },
+    "feet": {
+      "front": "/mannequin/v2/form-feet-front-98fc01cc0ab2.webp",
+      "back": "/mannequin/v2/form-feet-back-fb0af2e229d3.webp"
+    }
+  }
+}

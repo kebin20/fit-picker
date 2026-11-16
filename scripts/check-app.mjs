@@ -17,7 +17,7 @@ try {
     }
     if(!ready)throw Error('Production preview did not become ready.')
   }
-  for(const script of ['browser-check','check-studio-photos','check-2d-mannequin','check-personal','check-functional-audit','check-image-recovery','check-offline-updates','check-3d-quality-resize','check-responsive-layouts']) {
+  for(const script of ['browser-check','check-studio-photos','check-2d-mannequin','check-personal','check-functional-audit','check-image-recovery','check-offline-updates','check-3d-quality-resize','check-tailored-avatar','check-responsive-layouts']) {
     console.log(`Browser regression: ${script}`)
     const child=spawn(process.execPath,[`scripts/${script}.mjs`],{stdio:'inherit',env:{...process.env,FIT_PICKER_URL:url}})
     const [code]=await once(child,'exit')

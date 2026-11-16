@@ -1,15 +1,15 @@
 # Fit Picker
 
-A personal wardrobe studio for Kevin. Assemble outfits with realistic photographic garment cutouts, browse seasonal/occasion suggestions drawn from the supplied style guides, and save favourite combinations on your browser.
+A personal wardrobe studio for Kevin. Assemble outfits on a fitted retail mannequin, browse seasonal/occasion suggestions drawn from the supplied style guides, and save favourite combinations on your browser.
 
 [Open the Cloudflare prototype](https://fit-picker.kaikei-app.workers.dev)
 
 ## Prototype
 
 - React, TypeScript and Vite.
-- A lightweight 2D mannequin is the default: photographic tops, bottoms, shoes and outerwear are positioned on a neutral vector display form. Show the base outfit beneath outerwear, or switch to Pieces to inspect individual items. Front/back top photos remain available. Compact recommendation fallbacks keep their clothing-only arrangement. This illustrates proportions, rather than predicting personal sizing or fabric drape.
-- 45 active transparent product-style garment photographs replace the former SVG drawings throughout the wardrobe, picker, outfit overviews and saved looks.
-- The optional Three.js 3D preview loads a fitted human body, hair and separate clothing models through `GLTFLoader`, with clothing swaps, rotation, zoom and reset. Model/WebGL failures return to 2D. A persistent Outerwear selector changes/removes the outer layer from any builder tab. Eighteen garment constructions have offline cloth drape and embedded normal maps: quilted puffer, ribbed bomber, rain shell, knee-length coat, shirts/overshirts, cotton tops and separate trouser cuts.
+- The default 2D mannequin uses camera-aligned renders of the new sculpted retail form and fitted clothing geometry. It supports front/back, worn/base outfits and a separate Pieces view.
+- 45 active product-style garment photographs remain available in My wardrobe and the picker. Their references also supply illustrative fabric/print textures for the fitted form.
+- The optional Three.js preview loads the replacement CC0 body and refitted clothing, with rotation, zoom, outerwear and graceful 2D fallback. Eighteen garment constructions, footwear and all confirmed pieces are supported. Model photos remain a separate preview option.
 - 43 confirmed garment entries, 2 clearly separated suggested sweatshirts, 6 unowned archive records, and 54 original combinations transcribed from three source images.
 - Seasonal Edit 01: 12 new combinations (three per season), with independent high-resolution styling photographs and why-it-works notes.
 - Seasonal Edit 02: 96 additional combinations (24 per season), each with its own generated full-body model photograph. Every season/occasion has multiple choices; all compositions are distinct from the existing guides and edit.
@@ -18,7 +18,7 @@ A personal wardrobe studio for Kevin. Assemble outfits with realistic photograph
 - Exact season/occasion filtering over confirmed garments; no AI API, accounts or live-weather dependency.
 - Searchable wardrobe, source guide viewer, local saved looks and responsive desktop/tablet/mobile navigation.
 - Original app icon, favicon, touch icon and web app manifest.
-- Responsive 400/800/1024-pixel WebP model images, deferred offscreen garment photos and eager selected pieces. The original glTF set was optimized in v0.5; v0.7 adds 18 compressed garment models totalling 2.97 MB, loaded by selection. The default six-model outfit totals 2.46 MB. A locally served Draco decoder loads once when 3D opens. Phone previews cap pixel ratio at 1.5 with 1024-pixel shadows. The 3D module remains opt-in and renders on demand.
+- Responsive model photographs, deferred offscreen product photos, content-hashed fitted 2D renders and optional compressed glTF assets. Phone 3D caps pixel ratio at 1.5 with 1024-pixel shadows; the renderer stays idle between changes. The fitted 2D mode does not load WebGL or a decoder.
 - Cloudflare Workers static-assets configuration. No server/database required.
 
 ## Run locally
@@ -173,3 +173,33 @@ All new 3D sourcing must be free and openly licensed. [Free asset evaluation](do
 “Keep outfit offline” stores the selected model image along with its garment photos. The rest of the photo library and all 3D files stay uncached until requested. `scripts/check-studio-photos.mjs` covers complete three-angle framing, stale/unprepared-image fallback, unavailable images, initial 3D download deferral and footer clearance in Chromium and WebKit at 320/390/820/1440 px.
 
 [Phone photo preview](docs/mockups/studio-photo-390.png) · [Tablet photo preview](docs/mockups/studio-photo-820.png)
+
+## Replacement mannequin — v0.13.0
+
+Both mannequin modes now use a replacement neutral retail display form. The
+2D view composes camera-aligned renders of the fitted geometry; the optional
+3D view rotates the same form and refitted garments. The old vector mannequin
+is removed from the studio, and the old human body/hair assets are no longer
+loaded by its 3D view. Model photos remain a separate option.
+
+The new CC0 library contains a Blender Studio body, eighteen clothing
+constructions and footwear. Garment reference images supply the fabric/print
+appearance. Real supplied back graphics are used on the correct sides; other
+back construction is inferred. Shirts worn as outerwear have separate open
+variants. “Show base outfit” reveals a graphic beneath the selected layer on
+either side. Custom appearances without a prepared 2D render use garment photos
+and remain available in interactive 3D.
+
+All 43 confirmed pieces and two suggestions have front/back rendered assets.
+The default 2D view starts without WebGL/model/decoder downloads. Content-hashed
+images participate in opt-in offline saving. The optional 3D view renders only
+on changes; its shared photo-texture cache retains at most sixteen inactive/
+active entries after disposal, except temporary overlapping active builds.
+
+The form illustrates outfit combinations; it is not a measured fit simulation
+or a photorealistic character. [Model/source notice](public/models/tailored/NOTICE.md)
+and [authoring instructions](scripts/tailored-avatar/README.md) document the
+free/open sources and rebuild process.
+
+[Replacement 2D preview](docs/mockups/replacement-2d-tablet.png) ·
+[Replacement 3D preview](docs/mockups/replacement-3d-tablet.png)

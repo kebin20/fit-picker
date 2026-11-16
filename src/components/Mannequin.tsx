@@ -6,7 +6,7 @@ import { buildAvatar, disposeAvatar } from '../lib/avatar-scene'
 import type { Garment, Selection } from '../types'
 
 interface Props { garments: Garment[]; selection: Selection; rotation: number; zoom: number; viewRevision: number; onUnavailable?: () => void }
-interface Stage { scene: THREE.Scene; camera: THREE.PerspectiveCamera; controls: OrbitControls; renderer: THREE.WebGLRenderer; model?: THREE.Group; render: () => void }
+interface Stage { scene: THREE.Scene; camera: THREE.PerspectiveCamera; controls: OrbitControls; renderer: THREE.WebGLRenderer; model?: THREE.Group; render: (afterPaint?:()=>void) => void }
 
 export default function Mannequin({ garments, selection, rotation, zoom, viewRevision, onUnavailable }: Props) {
   const host = useRef<HTMLDivElement>(null)
@@ -78,9 +78,13 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
     floor.receiveShadow = true
     scene.add(floor)
     let disposed = false, failed = false, frame = 0
+    const afterPaint: (()=>void)[] = []
     const fail = () => { if (!disposed && !failed) { failed = true; unavailable.current?.() } }
-    const render = () => {
-      if (disposed || failed || frame) return
+    const render = (done?:()=>void) => {
+      if (disposed || failed) return
+      if (done) afterPaint.push(done)
+      if (frame) return
+      canvas.dataset.renderPending = 'true'
       frame = requestAnimationFrame(() => {
         frame = 0
         if (disposed || failed) return
@@ -89,12 +93,16 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
           canvas.dataset.renderedFrames = String(renderer.info.render.frame)
           canvas.dataset.triangles = String(renderer.info.render.triangles)
           canvas.dataset.drawCalls = String(renderer.info.render.calls)
-        } catch { fail() }
+          canvas.dataset.textures = String(renderer.info.memory.textures)
+          canvas.dataset.renderPending = 'false'
+          afterPaint.splice(0).forEach(done=>done())
+        } catch { canvas.dataset.renderPending='false';fail() }
       })
     }
     const lost = (event: Event) => { event.preventDefault(); fail() }
     canvas.addEventListener('webglcontextlost', lost)
-    controls.addEventListener('change', render)
+    const controlsChanged=()=>render()
+    controls.addEventListener('change', controlsChanged)
     const resize = () => {
       const width = container.clientWidth, height = container.clientHeight
       if (!width || !height) return
@@ -124,7 +132,8 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
       stage.current = null
       observer.disconnect()
       if (frame) cancelAnimationFrame(frame)
-      controls.removeEventListener('change', render)
+      afterPaint.length=0
+      controls.removeEventListener('change', controlsChanged)
       controls.dispose()
       canvas.removeEventListener('webglcontextlost', lost)
       if (scene.children.length) scene.children.forEach(child => { if (child !== floor && child.type === 'Group') disposeAvatar(child) })
@@ -141,17 +150,17 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
     buildAvatar(garments, selection).then(model => {
       if (cancelled || stage.current !== current) { disposeAvatar(model); return }
       if (current.model) { current.scene.remove(current.model); disposeAvatar(current.model) }
-      model.rotation.y = pose.current.rotation * Math.PI / 180 - .12
+      model.rotation.y = pose.current.rotation * Math.PI / 180
       current.model = model
       current.scene.add(model)
       const names = Object.values(selection).map(id => garments.find(piece => piece.id === id)?.name).filter(Boolean)
       current.renderer.domElement.setAttribute('aria-label', `Loaded glTF avatar wearing ${names.join(', ')}. Use the rotate and zoom controls to change the view.`)
       current.renderer.domElement.dataset.modelFormat = 'gltf'
+      current.renderer.domElement.dataset.modelRevision = String(model.userData.revision)
       current.renderer.domElement.dataset.loadedModels = String(model.userData.files.length)
       current.renderer.domElement.dataset.garmentPrints = model.userData.prints.join(',')
       current.renderer.domElement.dataset.chestPockets = String(model.userData.chestPockets)
-      setLoading(false)
-      current.render()
+      current.render(()=>{if(!cancelled&&stage.current===current)setLoading(false)})
     }).catch(error => { if (!cancelled) { console.warn('Fitted avatar could not load', error); unavailable.current?.() } })
     return () => { cancelled = true }
   }, [garments, selection])
@@ -159,7 +168,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
   useEffect(() => {
     const current = stage.current
     if (!current) return
-    if (current.model) current.model.rotation.y = rotation * Math.PI / 180 - .12
+    if (current.model) current.model.rotation.y = rotation * Math.PI / 180
     current.camera.zoom = Math.min(1.3, Math.max(.8, zoom))
     current.camera.updateProjectionMatrix()
     current.render()

@@ -1,5 +1,6 @@
 import type { Garment, Selection, Season, Occasion, Category } from '../types'
 import { garmentPhoto } from './garment-photos'
+import { mannequinOfflineUrls } from './mannequin-renders'
 export interface Wear { date: string; items: Selection }
 export interface Personal { draft?: Selection; season?: Season; occasion?: Occasion; locks: Category[]; unavailable: string[]; history: Wear[]; pinned: string[]; hidden: string[]; edits: Garment[]; temperature: string; rain: boolean }
 export const personalKey = 'fit-picker:personal:v1'
@@ -45,5 +46,6 @@ export function localDay() { const d = new Date(); return `${d.getFullYear()}-${
 export function offlineLook(items: Selection, garments: Garment[], modelPhoto?: string) {
  const urls = Object.values(items).map(id => garments.find(g => g.id === id)).filter((g): g is Garment => !!g && !g.photo && g.ownership === 'confirmed').map(g => garmentPhoto(g))
  if (modelPhoto) urls.push(modelPhoto)
+ urls.push(...mannequinOfflineUrls(items,garments))
  return navigator.serviceWorker?.register('/sw.js').then(async()=>{try{localStorage.setItem('fit-picker:offline','1')}catch{}const registration=await new Promise<ServiceWorkerRegistration>((resolve,reject)=>{const timer=window.setTimeout(()=>reject(Error('Offline storage could not be prepared.')),15000);navigator.serviceWorker.ready.then(r=>{clearTimeout(timer);resolve(r)},e=>{clearTimeout(timer);reject(e)})});registration.active?.postMessage({ type: 'CACHE_LOOK', urls })})
 }

@@ -2,9 +2,9 @@
 
 The user chose free/openly licensed assets only. No paid models, subscriptions or API purchases are part of this update.
 
-## Current shipped assets
+## Previous assets (v0.12)
 
-The standing body, hair and garment seeds remain the pinned MakeHuman-derived CC0 exports recorded in [the avatar notice](licenses/avatar-model-assets.md). The independent Blender authoring scripts also produce CC0 derivative garments. v0.12 repairs the pilot outfit's overshirt opening/inner-shirt overlap, single pocket, material contrast and lighting. Those are targeted improvements to the current avatar, not a replacement human model.
+Before v0.13, the standing body, hair and garment seeds were the pinned MakeHuman-derived CC0 exports recorded in [the avatar notice](licenses/avatar-model-assets.md). The independent Blender authoring scripts also produce CC0 derivative garments. v0.12 repairs the pilot outfit's overshirt opening/inner-shirt overlap, single pocket, material contrast and lighting. Those are targeted improvements to the current avatar, not a replacement human model.
 
 ## Inspected replacement foundation
 
@@ -19,11 +19,23 @@ The 48.2 MiB archive was downloaded into ignored `.cache/human-base-meshes-v1.4.
 
 The separate Blender Studio realistic-human training base uses CC-BY, not this bundle's CC0; their provenance must not be conflated. No commercial game character geometry has been extracted.
 
-## Remaining work for a replacement avatar
+## Implemented replacement — v0.13.0
 
-1. Author the new generic adult body/head, UVs, skin/eye/hair materials and relaxed pose using documented open sources. The base mesh alone is not a finished character.
-2. Fit the first outfit to that body: collared navy shirt, open brown overshirt with one patch pocket, grey slacks and black sneakers. Approve front, side and back silhouettes against the generated visual target.
-3. Bake the cloth folds and normal/roughness maps offline; retopologise and compress for mobile. Recompute every body and inner-layer coverage mask against the actual exported topology. Current masks cannot be transferred to a new body.
-4. Verify rotation, layering, print placement, bare limbs, clipping, loading failures and phone memory/render costs before replacing the current viewer. Expand the remaining wardrobe after that pilot passes visual review.
+The app now loads the Blender Studio form with a relaxed standing pose and
+neutral sculpted materials/eyes. It uses a retail display mannequin style, with
+no photorealistic skin/hair character claimed. Eighteen CC0 garment constructions
+and footwear are refitted from the existing MakeHuman-derived sewn source meshes.
+Sleeves use their source arm weights; coat skirt shortening preserves the cuffs.
 
-MakeHuman's [official asset catalogue](https://static.makehumancommunity.org/assets/assetpacks.html) lists CC0 male skin, eyebrow and garment packs that may help the authoring phase. Its community packs have different licences; each used file must be checked and recorded individually. No uninspected pack is bundled by this release.
+The lightweight 2D view is rendered from the same geometry/pose and supports
+front/back, open layers, printed backs, bare forearms and shorts. It no longer
+uses the vector body with stretched product cutouts. The optional interactive
+view uses the new form and textures; model photos remain separate.
+
+The shared photo-texture cache is bounded and reference-counted. Fitting, body
+coverage, material projection and source-image provenance are checked before
+release. These static forms illustrate combinations, rather than measured fit
+or live cloth behaviour. Unseen back details remain approximate.
+
+See [the complete source/asset notice](../public/models/tailored/NOTICE.md) and
+[the reproducible authoring workflow](../scripts/tailored-avatar/README.md).

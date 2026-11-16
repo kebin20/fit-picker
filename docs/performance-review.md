@@ -140,3 +140,31 @@ dialog actions. Footer text remains reachable above the bottom navigation.
 The 3D resize check retained phone DPR 1.5 / 1024-pixel shadows, desktop DPR 2 /
 2048-pixel shadows, and zero renders during its idle observation. These are
 automated browser checks, not measurements on a physical iPhone.
+
+## Shared fitted mannequin — v0.13.0 (17 November 2026)
+
+The default 2D form now uses camera-aligned renders of the replacement model.
+All 114 front/back/body-region/open-layer WebP assets total 582,452 bytes; only
+those needed for the current outfit load. No model, WebGL renderer or decoder
+is requested by the default 2D view. Content hashes prevent old offline images
+from being reused after a reference or model update.
+
+The replacement body, eighteen clothing constructions and footwear total
+1,486,392 bytes across twenty glTF files. The default outfit uses five files,
+509,180 bytes of geometry/material data, loaded on demand. Garment photographs
+are shared with the existing product library. The Three.js chunk remains lazy
+(176.69 KB gzip in the production build); no runtime dependency was added.
+
+Photo textures use reference-counted ownership and a sixteen-entry cache after
+inactive entries can be disposed. The loading indicator now waits for the first
+actual rendered frame. The 3D library check waits for that paint before testing
+idle behaviour, and verifies all twenty new files, no legacy model requests,
+front/back layer views, shader errors, texture counts and a stationary idle
+frame counter. There is no live cloth solver or animation loop.
+
+Verification includes 76 unit tests; production TypeScript/build checks; all
+confirmed item/role front/back renders and photo checksums; the full existing
+functional/photo/offline regressions; the repaired 3D library check; and 22
+Chromium/WebKit responsive scenarios. The bottom navigation leaves controls,
+footers and dialog actions reachable. These are automated browser checks,
+including software WebGL, rather than physical-iPhone battery/FPS measurements.

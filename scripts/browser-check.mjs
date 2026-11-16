@@ -11,9 +11,10 @@ page.setDefaultTimeout(30000)
 page.on('pageerror', error => errors.push(error.message))
 try {
   await page.goto(baseURL)
-  console.log('Opened prototype; checking the default model photo, then the 2D outfit.')
+  console.log('Opened prototype; checking the replacement 2D mannequin and optional model photos.')
+  await expect(page.locator('.preview-panel .rendered-mannequin')).toBeVisible()
+  await page.getByRole('button', { name: 'Model photos', exact: true }).click()
   await expect(page.locator('.preview-panel .studio-photo')).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Model photos', exact: true })).toHaveAttribute('aria-pressed', 'true')
   await page.getByRole('button', { name: '2D outfit', exact: true }).click()
   await expect(page.locator('.preview-panel .outfit-canvas')).toBeVisible()
   await expect(page.getByRole('button', { name: '2D outfit', exact: true })).toHaveAttribute('aria-pressed', 'true')
@@ -143,7 +144,7 @@ try {
   // Restore the clean default for comparable, reproducible mockups.
   await page.evaluate(() => localStorage.clear())
   await page.reload()
-  await expect(page.locator('.preview-panel .studio-photo')).toBeVisible()
+  await expect(page.locator('.preview-panel .rendered-mannequin')).toBeVisible()
   for (const [name, width, height] of [['desktop', 1440, 1080], ['tablet', 820, 1180], ['mobile', 390, 844]]) {
     await page.setViewportSize({ width, height })
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
@@ -184,7 +185,7 @@ try {
     }
   })
   await fallback.goto(baseURL)
-  await expect(fallback.locator('.preview-panel .studio-photo')).toBeVisible()
+  await expect(fallback.locator('.preview-panel .rendered-mannequin')).toBeVisible()
   await fallback.getByRole('button', { name: '3D preview', exact: true }).click()
   await expect(fallback.getByRole('button', { name: '2D outfit', exact: true })).toHaveAttribute('aria-pressed', 'true')
   await expect(fallback.getByRole('button', { name: '3D preview', exact: true })).toBeDisabled()
@@ -201,7 +202,7 @@ try {
   await expect(brokenImage.locator('.outfit-photograph')).toHaveCount(0)
   await brokenImage.close()
   const missingModel = await browser.newPage()
-  await missingModel.route('**/models/*.glb', route => route.abort())
+  await missingModel.route('**/models/**/*.glb', route => route.abort())
   await missingModel.goto(baseURL)
   await missingModel.getByRole('button', { name: '3D preview', exact: true }).click()
   // Software WebGL setup on CI can take longer than the 5 s default assertion

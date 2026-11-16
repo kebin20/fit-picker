@@ -200,16 +200,25 @@ try {
   await missingModel.route('**/models/*.glb', route => route.abort())
   await missingModel.goto(baseURL)
   await missingModel.getByRole('button', { name: '3D preview', exact: true }).click()
-  await expect(missingModel.getByRole('button', { name: '3D preview', exact: true })).toBeDisabled()
+  // Software WebGL setup on CI can take longer than the 5 s default assertion
+  // timeout. Use the same budget as a successful model load before checking
+  // that a failed request has returned the app to its usable 2D view.
+  await expect(missingModel.getByRole('button', { name: '3D preview', exact: true })).toBeDisabled({ timeout: 30000 })
   await expect(missingModel.locator('.preview-panel .outfit-canvas')).toBeVisible()
   await missingModel.close()
   const missingDecoder = await browser.newPage()
   await missingDecoder.route('**/draco/**', route => route.abort())
   await missingDecoder.goto(baseURL)
   await missingDecoder.getByRole('button', { name: '3D preview', exact: true }).click()
-  await expect(missingDecoder.getByRole('button', { name: '3D preview', exact: true })).toBeDisabled()
+  await expect(missingDecoder.getByRole('button', { name: '3D preview', exact: true })).toBeDisabled({ timeout: 30000 })
   await expect(missingDecoder.locator('.preview-panel .outfit-canvas')).toBeVisible()
   await missingDecoder.close()
   if (errors.length) throw new Error(`Browser errors: ${errors.join('; ')}`)
   console.log('PASS: default 2D outfit, loaded glTF assets and 3D controls, scoped recommendation filters, 96 additional outfits, 51 garment photos, all clothing slots, save/reload/delete, search, ownership, decoded source guides, 133 selectable combinations and archived responsive model photos, original guide model previews, try/undo, mobile navigation, responsive breakpoints, WebGL and image-error fallbacks; no page errors.')
+} catch (error) {
+  await mkdir('test-results', { recursive: true })
+  for (const [index, openPage] of browser.contexts().flatMap(context => context.pages()).entries()) {
+    await openPage.screenshot({ path: `test-results/browser-failure-${index}.png`, fullPage: true }).catch(() => {})
+  }
+  throw error
 } finally { await browser.close() }

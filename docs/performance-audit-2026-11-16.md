@@ -53,3 +53,17 @@ After settling, the renderer produced zero new frames during the one-second idle
 4. **Keep cloth preparation offline.** Further avatar/body LOD and texture reductions could reduce the first 3D download. Any reduction needs visual comparison against the garment realism requested for this app; a live cloth solver would add work on the phone.
 
 No runtime dependency, full-library precache or continuous animation was introduced by these audit fixes.
+
+## Live v0.10.1 verification
+
+Application source `58bdeed636348c04d35948c0abd170aac0da4ef3` was deployed as Cloudflare version `6fe0c496-d3bd-477d-a7f7-250b1f068f5a`. The live HTML, entry JavaScript/CSS and service worker matched the local release bytes. All 22 Chromium/WebKit layout cases, the personal/offline flow and nine isolated functional regressions passed against Cloudflare in fresh browser contexts.
+
+| Same cold phone flow on Cloudflare | v0.10.0 baseline | v0.10.1 |
+| --- | ---: | ---: |
+| Initial requests | 11 | 11 |
+| Initial transferred bytes | 295,556 | 297,926 |
+| Initial image requests | 5 | 5 |
+| Browse first portrait, then open 3D: total bytes | 3,163,835 | 3,166,286 |
+| Idle additional renders | 0 | 0 |
+
+Startup adds approximately 2.4 KB (0.8%) for the audit fixes. The default still downloads no 3D module/models, decoder, source originals or model portraits. Optional 3D retains a 528×600 drawing buffer at 352×400 CSS pixels (DPR 1.5), with 45,746 triangles and 19 draw calls for the default outfit. [Raw production measurement](performance-metrics-v0.10.1.json). These remain unthrottled emulation/resource measurements rather than a phone speed or battery benchmark.

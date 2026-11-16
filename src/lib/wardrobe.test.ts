@@ -7,7 +7,7 @@ import { garmentPhoto, hasBackPhoto } from './garment-photos'
 
 describe('user wardrobe corrections', () => {
   it('keeps removed items out even when an old edit or backup claims ownership', () => {
-    const removed = ['cream-graphic-tee', 'navy-tee', 'white-longsleeve', 'white-shirt', 'yellow-tee']
+    const removed = ['brown-tee', 'cream-graphic-tee', 'navy-tee', 'white-longsleeve', 'white-shirt', 'yellow-tee']
     const oldEdits = garments.filter(g => removed.includes(g.id)).map(g => ({ ...g, ownership: 'confirmed' as const }))
     const merged = mergeWardrobe(garments, oldEdits)
     expect(merged.filter(g => g.ownership === 'not-owned').map(g => g.id).sort()).toEqual(removed)
@@ -23,6 +23,8 @@ describe('user wardrobe corrections', () => {
   it('removes just the unowned slot from an old look, preserving the remaining clothes', () => {
     expect(ownedSelection({ tops: 'white-shirt', bottoms: 'grey-slacks', shoes: 'adidas-black' }, garments))
       .toEqual({ bottoms: 'grey-slacks', shoes: 'adidas-black' })
+    expect(ownedSelection({ tops: 'brown-tee', bottoms: 'grey-slacks', shoes: 'adidas-striped' }, garments))
+      .toEqual({ bottoms: 'grey-slacks', shoes: 'adidas-striped' })
     expect(ownedSelection({ tops: 'cream-graphic-tee', layers: 'white-shirt', bottoms: 'olive-wide' }, garments))
       .toEqual({ bottoms: 'olive-wide' })
   })

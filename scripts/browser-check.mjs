@@ -214,7 +214,7 @@ try {
   await expect(missingDecoder.locator('.preview-panel .outfit-canvas')).toBeVisible()
   await missingDecoder.close()
   if (errors.length) throw new Error(`Browser errors: ${errors.join('; ')}`)
-  console.log('PASS: default 2D outfit, loaded glTF assets and 3D controls, scoped recommendation filters, 96 additional outfits, 51 garment photos, all clothing slots, save/reload/delete, search, ownership, decoded source guides, 133 selectable combinations and archived responsive model photos, original guide model previews, try/undo, mobile navigation, responsive breakpoints, WebGL and image-error fallbacks; no page errors.')
+  console.log('PASS: default 2D outfit, loaded glTF assets and 3D controls, scoped recommendation filters, 96 additional outfits, 51 garment photos, all clothing slots, save/reload/delete, search, ownership, decoded source guides, 132 selectable combinations and archived responsive model photos, original guide model previews, try/undo, mobile navigation, responsive breakpoints, WebGL and image-error fallbacks; no page errors.')
 } catch (error) {
   await mkdir('test-results', { recursive: true })
   for (const [index, openPage] of browser.contexts().flatMap(context => context.pages()).entries()) {

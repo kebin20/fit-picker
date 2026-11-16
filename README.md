@@ -8,12 +8,12 @@ A personal wardrobe studio for Kevin. Assemble outfits with realistic photograph
 
 - React, TypeScript and Vite.
 - A composed 2D outfit view is the default: the selected top, bottoms and shoes form an outfit, with the optional outer layer alongside.
-- 46 active transparent product-style garment photographs replace the former SVG drawings throughout the wardrobe, picker, outfit overviews and saved looks.
+- 45 active transparent product-style garment photographs replace the former SVG drawings throughout the wardrobe, picker, outfit overviews and saved looks.
 - The optional Three.js 3D preview loads a fitted human body, hair and separate clothing models through `GLTFLoader`, with clothing swaps, rotation, zoom and reset. Model/WebGL failures return to 2D. A persistent Outerwear selector changes/removes the outer layer from any builder tab. Eighteen garment constructions have offline cloth drape and embedded normal maps: quilted puffer, ribbed bomber, rain shell, knee-length coat, shirts/overshirts, cotton tops and separate trouser cuts.
-- 44 confirmed garment entries, 2 clearly separated suggested sweatshirts, 5 unowned archive records, and 54 original combinations transcribed from three source images.
+- 43 confirmed garment entries, 2 clearly separated suggested sweatshirts, 6 unowned archive records, and 54 original combinations transcribed from three source images.
 - Seasonal Edit 01: 12 new combinations (three per season), with independent high-resolution styling photographs and why-it-works notes.
 - Seasonal Edit 02: 96 additional combinations (24 per season), each with its own generated full-body model photograph. Every season/occasion has multiple choices; all compositions are distinct from the existing guides and edit.
-- The library retains 161 model photographs. After the ownership corrections, 133 combinations are selectable: 91 seasonal edits and 42 original guide looks. Combinations using unowned garments or the suggested grey sweatshirt remain excluded; their source records and historical photos are preserved. Original guide PNGs are preserved in the source viewer.
+- The library retains 161 model photographs. After the ownership corrections, 132 combinations are selectable: 91 seasonal edits and 41 original guide looks. Combinations using unowned garments or the suggested grey sweatshirt remain excluded; their source records and historical photos are preserved. Original guide PNGs are preserved in the source viewer.
 - Recommendation filters live under “Right for the occasion”. They change the suggested looks only; the outfit builder shows the confirmed wardrobe independently. Wardrobe browsing has its own season filter.
 - Exact season/occasion filtering over confirmed garments; no AI API, accounts or live-weather dependency.
 - Searchable wardrobe, source guide viewer, local saved looks and responsive desktop/tablet/mobile navigation.
@@ -149,3 +149,7 @@ All 20 active outfit portraits containing corrected tees have been replaced with
 Portrait metadata now records the pictured clothing appearance. A later change to a garment’s image, colour, cut, pocket or name invalidates that portrait and shows the current garment composition until a matching portrait is prepared. Uploaded personal photos also use the garment composition. Weather/notes do not invalidate a matching portrait. Versioned 400/800/1024 px URLs replace stale cached copies while keeping lazy loading.
 
 [Refreshed model photos, exact prompts, before/after review and verification](docs/artwork/outfits/wardrobe-refresh/README.md). Rebuild revised variants with `node scripts/prepare-refreshed-outfit-photos.mjs` after supplying the local PNG masters. The general photo-preparation script preserves revised portrait entries.
+
+## Ownership correction (v0.10.2)
+
+The plain brown crew-neck tee is now excluded from the wardrobe, picker and recommendations, including its original guide outfit (ss-c4). This leaves 43 confirmed pieces and 132 selectable combinations. Older drafts and saved looks retain the other pieces and prompt for a replacement top; older personal edits or backups cannot restore ownership of this tee. Brown collared shirts and outerwear remain separate items.

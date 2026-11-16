@@ -16,10 +16,10 @@ try{
  const coldRequests=requests.length
  await nav('My wardrobe')
  await expect(page.locator('.wardrobe-art .item-season')).toHaveCount(0)
- await expect(page.locator('.wardrobe-item')).toHaveCount(22)
+ await expect(page.locator('.wardrobe-item')).toHaveCount(21)
  await page.getByRole('checkbox',{name:'Show suggested pieces'}).check()
- await expect(page.locator('.wardrobe-item')).toHaveCount(24)
- for(const id of ['cream-graphic-tee','white-shirt','yellow-tee','navy-tee','white-longsleeve']) await expect(page.locator(`.wardrobe-item[data-garment-id="${id}"]`)).toHaveCount(0)
+ await expect(page.locator('.wardrobe-item')).toHaveCount(23)
+ for(const id of ['cream-graphic-tee','white-shirt','yellow-tee','navy-tee','white-longsleeve','brown-tee']) await expect(page.locator(`.wardrobe-item[data-garment-id="${id}"]`)).toHaveCount(0)
  for(const id of ['pink-tee','black-cat-tee','white-graphic-tee','ukiyoe-tee','burton-tee','black-tee','cream-tee']){
    const card=page.locator(`.wardrobe-item[data-garment-id="${id}"]`)
    const photo=card.locator('img');await decode(photo)
@@ -98,7 +98,7 @@ try{
  expect(await legacy.evaluate(()=>JSON.parse(localStorage.getItem('fit-picker:saved:v1')))).toMatchObject([{id:'old-white-look',items:{tops:'navy-shirt',bottoms:'grey-slacks',shoes:'adidas-black'}}])
  await legacy.close()
  expect(errors).toEqual([])
- const report={date:'2026-11-16',url,removed:['cream-graphic-tee','white-shirt','yellow-tee','navy-tee','white-longsleeve'],owned:44,suggested:2,selectableOutfits:133,coldRequests,printsDeferred:true,backPhotosDeferred:true,frontBack2D:true,frontBack3D:true,idleRenders:0,legacySavedLookRepaired:true,creamPocket2D:true,creamPocket3D:true,responsiveWidths:[320,390,511,784,820,1176],errors}
+ const report={date:'2026-11-16',url,removed:['cream-graphic-tee','white-shirt','yellow-tee','navy-tee','white-longsleeve','brown-tee'],owned:43,suggested:2,selectableOutfits:132,coldRequests,printsDeferred:true,backPhotosDeferred:true,frontBack2D:true,frontBack3D:true,idleRenders:0,legacySavedLookRepaired:true,creamPocket2D:true,creamPocket3D:true,responsiveWidths:[320,390,511,784,820,1176],errors}
  await writeFile(`${dir}/browser-verification.json`,JSON.stringify(report,null,2)+'\n')
  console.log('PASS',JSON.stringify(report))
 }finally{await browser.close()}

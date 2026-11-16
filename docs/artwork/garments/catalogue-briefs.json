@@ -3,7 +3,7 @@
   "purpose": "Source-informed catalogue briefs: 44 confirmed pieces, 2 suggested pieces, 5 unowned historical records. User corrections take precedence over the source guides.",
   "global": {
     "style": "Consistent premium ecommerce product photography, realistic fabric and natural seams, soft broad studio lighting, subtle grounding shadow, no dramatic highlights.",
-    "background": "True transparent alpha background; no baked-in backdrop. Displayed on the app\u2019s pale neutral surface.",
+    "background": "True transparent alpha background; no baked-in backdrop. Displayed on the app’s pale neutral surface.",
     "layout": "An exact equal-size invisible rectangular grid. One isolated garment or one matched shoe pair per cell, centered on that cell. No contact between cells and no garment crossing a boundary. No drawn cell borders, labels, numbers, text, branding overlays or ownership badges.",
     "view": "Clothing shown front-on, laid flat or evenly suspended without any visible hanger, model, body or mannequin. Buttons closed, sleeves symmetrically relaxed and slightly spread. Both trouser legs fully visible. Shoes are a matched pair in one gentle front three-quarter view.",
     "safeArea": "At least 10% empty space around each cell content. Values widthWithinCell/heightWithinCell are maximum relative extents including garment sleeves; do not crop sleeves, hems or toes. Never enlarge a small graphic to fill the cell.",
@@ -253,7 +253,7 @@
           "id": "brown-tee",
           "description": "Plain medium chocolate-brown short-sleeve crew-neck cotton T-shirt, relaxed body, no collar, buttons, print or logo.",
           "colorHex": "#69503d",
-          "ownership": "confirmed",
+          "ownership": "not-owned",
           "widthWithinCell": 0.76,
           "heightWithinCell": 0.74
         },

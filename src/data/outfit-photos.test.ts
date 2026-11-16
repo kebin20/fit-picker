@@ -16,7 +16,7 @@ const archivedPhotos = [...seasonalOutfits, ...outfits].filter(look => Object.va
 
 describe('complete model-photo library', () => {
   it('covers every selectable new and original guide combination', () => {
-    expect(selectable).toHaveLength(133)
+    expect(selectable).toHaveLength(132)
     // Preserve original IDs/photos as historical assets when ownership changes.
     expect(Object.keys(manifest).sort()).toEqual(archivedPhotos.map(look => look.id).sort())
     for (const look of selectable) expect(outfitPhoto(look), look.id).toBeDefined()

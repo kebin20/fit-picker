@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Outfit quality study 01 · Fit Picker</title>
+<meta name="description" content="A three-angle visual study of the navy shirt, brown overshirt, grey slacks and black sneakers.">
+<style>
+:root{font:16px/1.6 system-ui,sans-serif;color:#29332e;background:#f9faf7}*{box-sizing:border-box}body{margin:0;padding:max(24px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) max(32px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left))}main{max-width:1152px;margin:auto}header{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}a{color:#243e36;text-underline-offset:4px}header span{font-size:14px;color:#53614f}h1{font-size:clamp(26px,4vw,38px);letter-spacing:-1px;line-height:1.2;margin:28px 0 12px}p{margin:0 0 20px;color:#53614f;max-width:70ch}.views{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}button{font:inherit;min-height:44px;padding:8px 18px;border:1px solid #ccd6c1;border-radius:6px;background:#fff;color:#243e36;cursor:pointer}button[aria-pressed=true]{background:#243e36;color:white}button:focus-visible,a:focus-visible{outline:3px solid #70854d;outline-offset:4px}figure{margin:0}.stage{position:relative;overflow:hidden;margin:auto;width:min(420px,100%,35svh);aspect-ratio:1/2;background:#d2ccc7;border-radius:10px}.stage[data-view=all]{width:min(1152px,100%,105svh);aspect-ratio:3/2}.stage img{position:absolute;max-width:none;width:300%;height:100%;left:0;top:0;display:block}.stage[data-view=side] img{left:-100%}.stage[data-view=back] img{left:-200%}.stage[data-view=all] img{width:100%}figcaption{margin:20px 0 10px;text-align:center;font-size:15px}footer{border-top:1px solid #e0e5da;margin-top:28px;padding-top:18px}footer p{font-size:14px;margin:0}.view-label{display:block;color:#53614f;font-size:14px;text-align:center;margin-top:12px}
+</style>
+</head>
+<body><main>
+<header><a href="/">← Fit Picker</a><span>Quality study 01 · Visual prototype</span></header>
+<h1>Navy after hours.</h1>
+<p>One consistent human model, natural proportions and clothing worn together. Select an angle to inspect the silhouette and fabric.</p>
+<div class="views" role="group" aria-label="Outfit viewing angle">
+<button data-view="front" aria-pressed="true">Front</button><button data-view="side" aria-pressed="false">Side</button><button data-view="back" aria-pressed="false">Back</button><button data-view="all" aria-pressed="false">All views</button>
+</div>
+<figure><div class="stage" data-view="front"><img src="navy-after-hours-quality-v1.webp" width="1536" height="1024" alt="The same human model wearing a navy shirt, open solid brown overshirt, grey slacks and all-black sneakers, shown from the front."></div><span class="view-label" aria-live="polite">Front view</span><figcaption>Navy shirt · Brown overshirt · Grey slacks · All-black sneakers</figcaption></figure>
+<footer><p>Generated appearance study. Back and side details are inferred from the garment references. This preview establishes a visual direction; it is not an interactive 3D model or a sizing simulation.</p></footer>
+</main><script>
+const stage=document.querySelector('.stage'),label=document.querySelector('.view-label'),image=stage.querySelector('img');
+for(const button of document.querySelectorAll('button[data-view]'))button.addEventListener('click',()=>{stage.dataset.view=button.dataset.view;for(const other of document.querySelectorAll('button[data-view]'))other.setAttribute('aria-pressed',String(other===button));label.textContent=button.dataset.view==='all'?'Front · Side · Back':button.textContent+' view';image.alt='Generated outfit study: '+label.textContent+'. Same model in navy shirt, open solid brown overshirt, grey slacks and all-black sneakers.'});
+</script></body></html>

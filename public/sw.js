@@ -72,6 +72,8 @@ self.addEventListener('message', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url)
   if (url.origin !== location.origin || event.request.method !== 'GET') return
+  // Standalone visual studies are not the offline app shell.
+  if (url.pathname.startsWith('/previews/')) return
   if (event.request.mode === 'navigate') {
     event.respondWith((async () => {
       let response

@@ -3,6 +3,7 @@ import {readFileSync} from 'node:fs'
 import {createHash} from 'node:crypto'
 import models from '../../public/models/tailored/manifest.json'
 import renders from '../data/mannequin-renders.json'
+import modelHashes from '../data/tailored-model-hashes.json'
 import {garments} from '../data/wardrobe'
 import {mannequinPhoto,mannequinOfflineUrls} from './mannequin-renders'
 import {bodyCovered,tailoredFamily} from './tailored-avatar'
@@ -17,6 +18,7 @@ describe('replacement fitted mannequin',()=>{
    const bytes=read(`public/models/${asset.file}`)
    expect(bytes.length,asset.family).toBe(asset.bytes)
    expect(hash(bytes),asset.family).toBe(asset.sha256)
+   expect(modelHashes[asset.family as keyof typeof modelHashes]).toBe(asset.sha256.slice(0,12))
    const doc=JSON.parse(bytes.subarray(20,20+bytes.readUInt32LE(12)).toString())
    expect(doc.animations||[]).toHaveLength(0);expect(doc.skins||[]).toHaveLength(0)
    expect(bytes.length).toBeLessThan(400000)

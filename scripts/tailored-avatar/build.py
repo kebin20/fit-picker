@@ -244,5 +244,6 @@ def main():
  for side,location in [('front',(0,-4.8,1.0)),('back',(0,4.8,1.0)),('side',(4.8,0,1.0))]:
   cam.location=location;cam.rotation_euler=(Vector((0,0,.91))-cam.location).to_track_quat('-Z','Y').to_euler();bpy.context.scene.render.filepath=str(WORK/f'pilot-{side}.png');bpy.ops.render.render(write_still=True)
  (OUT/'manifest.json').write_text(json.dumps(dict(version=2,source='Blender Studio Human Base Meshes 1.4.1',license='CC0-1.0',assets=records),indent=2)+'\n')
+ (ROOT/'src/data/tailored-model-hashes.json').write_text(json.dumps({r['family']:r['sha256'][:12] for r in records},indent=2)+'\n')
  print('NEW LIBRARY COMPLETE',flush=True)
 if __name__=='__main__':main()

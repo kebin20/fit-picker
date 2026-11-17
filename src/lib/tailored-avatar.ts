@@ -7,7 +7,7 @@ import { clothMaterial } from './cloth-material'
 import { garments as catalogue } from '../data/wardrobe'
 import { addChestPocket } from './garment-pocket'
 import type { Garment, Selection } from '../types'
-import fittedModels from '../../public/models/tailored/manifest.json'
+import modelHashes from '../data/tailored-model-hashes.json'
 
 const decoder = new DRACOLoader().setDecoderPath('/draco/').setDecoderConfig({type:'wasm'}).setWorkerLimit(1)
 const loader = new GLTFLoader().setDRACOLoader(decoder)
@@ -15,14 +15,13 @@ const models = new Map<string, Promise<GLTF>>()
 type TextureEntry={promise:Promise<THREE.Texture|undefined>;refs:number}
 const maps = new Map<string, TextureEntry>()
 const base = new Map(catalogue.map(g => [g.id,g]))
-const modelHashes = new Map(fittedModels.assets.map(asset=>[asset.family,asset.sha256.slice(0,12)]))
 export const tailoredRevision = 'studio-v2'
 export function tailoredFamily(garment: Garment, slot: string) {
   const kind = avatarGarment(garment,slot).kind
   return kind === 'shorts' ? 'trousers-shorts' : kind === 'shoes' ? 'sneakers' : kind
 }
 function model(family: string) {
-  const file = `/models/tailored/${family}.glb?v=${modelHashes.get(family)}`
+  const file = `/models/tailored/${family}.glb?v=${modelHashes[family as keyof typeof modelHashes]}`
   if (!models.has(file)) models.set(file,loader.loadAsync(file).catch(e=>{models.delete(file);throw e}))
   return models.get(file)!
 }

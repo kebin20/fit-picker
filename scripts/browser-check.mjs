@@ -202,7 +202,7 @@ try {
   await expect(brokenImage.locator('.outfit-photograph')).toHaveCount(0)
   await brokenImage.close()
   const missingModel = await browser.newPage()
-  await missingModel.route('**/models/**/*.glb', route => route.abort())
+  await missingModel.route(/\/models\/.*\.glb(?:\?|$)/, route => route.abort())
   await missingModel.goto(baseURL)
   await missingModel.getByRole('button', { name: '3D preview', exact: true }).click()
   // Software WebGL setup on CI can take longer than the 5 s default assertion

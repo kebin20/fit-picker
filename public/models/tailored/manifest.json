@@ -6,20 +6,20 @@
     {
       "file": "tailored/body.glb",
       "family": "body",
-      "bytes": 233144,
-      "sha256": "1d5de90b00566a05e7c932db407881ee918ae1e7e69d67ecaf39a7a621ecab93",
-      "triangles": 36444,
-      "vertices": 18228,
+      "bytes": 208156,
+      "sha256": "6401f98c2016de1639a806836f1a55d44917aa6a25c658c7a421d6abe6b5cf58",
+      "triangles": 32512,
+      "vertices": 16399,
       "bounds": {
         "min": [
-          -0.3085953891277313,
-          0.0007530843140557408,
-          -0.1161854937672615
+          -0.3089325726032257,
+          0.000630095019005239,
+          -0.11664656549692154
         ],
         "max": [
-          0.3086097538471222,
-          1.7997846603393555,
-          0.19021961092948914
+          0.3088330030441284,
+          1.805999994277954,
+          0.19040939211845398
         ]
       }
     },
@@ -106,8 +106,8 @@
     {
       "file": "tailored/shirt-short.glb",
       "family": "shirt-short",
-      "bytes": 73444,
-      "sha256": "5ec6a3d14910b98f048b4d6b8741cc5090f76c8db120352641feb61aa537a062",
+      "bytes": 73356,
+      "sha256": "8e8f3b72be56a5f9b8a18cfb39addc946ddc7c3777da6809f85fc375f3486847",
       "triangles": 8971,
       "vertices": 4700,
       "bounds": {
@@ -126,8 +126,8 @@
     {
       "file": "tailored/shirt-long.glb",
       "family": "shirt-long",
-      "bytes": 72160,
-      "sha256": "25183692431171cc4b62a46c556ff6a8e2ef0a864de3fa36ac50168d7fb95fe0",
+      "bytes": 72204,
+      "sha256": "e3def0107508cf3a8a30d9c427f0017b1af4a5429e266b770a909f6ead063b52",
       "triangles": 8972,
       "vertices": 4642,
       "bounds": {
@@ -146,8 +146,8 @@
     {
       "file": "tailored/overshirt-short.glb",
       "family": "overshirt-short",
-      "bytes": 73536,
-      "sha256": "54c26ceec9933d9f1063eaad6e3309e01f08113c219e2bba0b1b17cdfeeb03d7",
+      "bytes": 73516,
+      "sha256": "a2cf99fa2de6904c419169b9f77d4c51ba190c8fdd52bc05cb70b3ebb57170a3",
       "triangles": 8971,
       "vertices": 4704,
       "bounds": {
@@ -166,8 +166,8 @@
     {
       "file": "tailored/overshirt-long.glb",
       "family": "overshirt-long",
-      "bytes": 74032,
-      "sha256": "9b19906ea99213ce28a2f98de7cd1ad9f0aae08106891266ae7d745aeadfdc85",
+      "bytes": 74112,
+      "sha256": "9ff49c35e050596f35247f4c090240d7859ba1f7e00ea7b96926d331e8e5e4b8",
       "triangles": 8971,
       "vertices": 4636,
       "bounds": {
@@ -266,18 +266,18 @@
     {
       "file": "tailored/trousers-slim.glb",
       "family": "trousers-slim",
-      "bytes": 59376,
-      "sha256": "e1ebe60409564781985b655f17e2fd108ebb1bc214bf32bdf74e258ae66821d1",
+      "bytes": 60136,
+      "sha256": "1e5007d45d51d31536427c99fc2a50e8667e1f2ae1c47be9ea85d9e08fb37f3e",
       "triangles": 8499,
       "vertices": 4310,
       "bounds": {
         "min": [
-          -0.21541960537433624,
+          -0.18253222107887268,
           0.06684558838605881,
           -0.10438357293605804
         ],
         "max": [
-          0.221047505736351,
+          0.1826135665178299,
           1.034603238105774,
           0.15049631893634796
         ]
@@ -286,18 +286,18 @@
     {
       "file": "tailored/trousers-regular.glb",
       "family": "trousers-regular",
-      "bytes": 59168,
-      "sha256": "f9d4debe6ac73a3e9a7b073116743be5546256e7635a815353b6d7f6d98f8178",
+      "bytes": 60084,
+      "sha256": "01c9ffada25846670a8d804cd237eef0d2bb7cb07bdf4f610f4e3e628ecab4e7",
       "triangles": 8499,
       "vertices": 4310,
       "bounds": {
         "min": [
-          -0.23190811276435852,
+          -0.19432255625724792,
           0.06684558838605881,
           -0.10438357293605804
         ],
         "max": [
-          0.23834002017974854,
+          0.19441549479961395,
           1.034603238105774,
           0.15049660205841064
         ]
@@ -306,18 +306,18 @@
     {
       "file": "tailored/trousers-wide.glb",
       "family": "trousers-wide",
-      "bytes": 61892,
-      "sha256": "bcb4bb8940e65d6a0797935850d99e778eb17491fcc05d540564309667b41435",
+      "bytes": 62324,
+      "sha256": "37009735057408581930caf208eba1b21f9f04577c44fb46b8b4a268b3d6cb62",
       "triangles": 8499,
       "vertices": 4310,
       "bounds": {
         "min": [
-          -0.26268666982650757,
+          -0.2163311392068863,
           0.06684558838605881,
           -0.10438357293605804
         ],
         "max": [
-          0.27061933279037476,
+          0.21644577383995056,
           1.034603238105774,
           0.15052637457847595
         ]
@@ -326,18 +326,18 @@
     {
       "file": "tailored/trousers-barrel.glb",
       "family": "trousers-barrel",
-      "bytes": 60144,
-      "sha256": "f6b48177f9821550e81699543739b0d33c1fe8169350516dfac41ab52f6fd1d9",
+      "bytes": 60392,
+      "sha256": "cf8725962bb6302732d4532f54348aaa4fd68dbba8ab8f3de920d775cdb6c2c9",
       "triangles": 8499,
       "vertices": 4310,
       "bounds": {
         "min": [
-          -0.27367904782295227,
+          -0.2241913229227066,
           0.06684558838605881,
           -0.10438357293605804
         ],
         "max": [
-          0.28214767575263977,
+          0.22431373596191406,
           1.034603238105774,
           0.15052637457847595
         ]
@@ -346,18 +346,18 @@
     {
       "file": "tailored/trousers-ankle.glb",
       "family": "trousers-ankle",
-      "bytes": 59388,
-      "sha256": "8dd03982d41f96873e15416e3aa0c066404574a1af639905ead9d2f708baf767",
+      "bytes": 59416,
+      "sha256": "e21b22d4bde3d4f2a0e54e31bad071661cc43a001d703668d3f870a2707fc0ad",
       "triangles": 8499,
       "vertices": 4310,
       "bounds": {
         "min": [
-          -0.220915749669075,
+          -0.18646231293678284,
           0.12184559553861618,
           -0.10438357293605804
         ],
         "max": [
-          0.22684797644615173,
+          0.18654751777648926,
           1.034603238105774,
           0.15049642324447632
         ]
@@ -386,20 +386,20 @@
     {
       "file": "tailored/sneakers.glb",
       "family": "sneakers",
-      "bytes": 69184,
-      "sha256": "56514288a76bc48e8b4709129ef7b192c2179dbb02ffe85df4eaac24ac1bb946",
-      "triangles": 8499,
-      "vertices": 4369,
+      "bytes": 82480,
+      "sha256": "68f1d0a4c5e65e5c0c5d1736ed4df89a28af9aced11ab03b1aabbaab099ab665",
+      "triangles": 9267,
+      "vertices": 4799,
       "bounds": {
         "min": [
-          -0.19306761026382446,
-          0.007999609224498272,
-          -0.056706663221120834
+          -0.16605092585086823,
+          0.005998978856950998,
+          -0.05671841278672218
         ],
         "max": [
-          0.19313769042491913,
-          0.16461701691150665,
-          0.2272907942533493
+          0.1661296933889389,
+          0.10251692682504654,
+          0.2272452563047409
         ]
       }
     }

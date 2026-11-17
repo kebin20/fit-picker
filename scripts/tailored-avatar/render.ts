@@ -35,7 +35,9 @@ export async function renderPart(id:string,side:'front'|'back',bodyRegion?:strin
   else if(bodyRegion){group.traverse(o=>{const mesh=o as THREE.Mesh;if(!mesh.isMesh)return;const g=mesh.geometry,p=g.getAttribute('position'),ix=g.getIndex();if(!ix)return;const kept:number[]=[];for(let i=0;i<ix.count;i+=3){const a=ix.getX(i),b=ix.getX(i+1),c=ix.getX(i+2);if([a,b,c].some(v=>region(bodyRegion,p.getX(v),p.getY(v),p.getZ(v))))kept.push(a,b,c)}g.setIndex(kept)})}
  }
  root.traverse(o=>{const m=o as THREE.Mesh;if(m.isMesh)(Array.isArray(m.material)?m.material:[m.material]).forEach(m=>{m.side=THREE.DoubleSide})})
- camera.position.set(0,.925,side==='front'?5:-5);camera.lookAt(0,.925,0);scene.add(root);renderer.render(scene,camera)
+ // A modest downward angle reveals the sneaker vamp and sole. A level
+ // orthographic camera collapsed the feet to dark, boot-like silhouettes.
+ camera.position.set(0,1.36,side==='front'?5:-5);camera.lookAt(0,.925,0);scene.add(root);renderer.render(scene,camera)
  const png=renderer.domElement.toDataURL('image/png').split(',')[1]
  scene.remove(root);dispose(root)
  return png

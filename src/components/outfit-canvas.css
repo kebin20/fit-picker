@@ -286,8 +286,8 @@
 .rendered-mannequin { position:absolute; inset:0; isolation:isolate; }
 .rendered-mannequin > img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; pointer-events:none; user-select:none; }
 .rendered-mannequin .rendered-mannequin__body { z-index:0; }
-.rendered-mannequin .outfit-canvas__bottoms { z-index:1; }
-.rendered-mannequin .outfit-canvas__top { z-index:2; clip-path:none; }
-.rendered-mannequin .outfit-canvas__worn-layer { z-index:3; }
-.rendered-mannequin .outfit-canvas__shoes { z-index:4; }
+.rendered-mannequin .outfit-canvas__shoes { z-index:1; }
+.rendered-mannequin .outfit-canvas__bottoms { z-index:2; }
+.rendered-mannequin .outfit-canvas__top { z-index:3; clip-path:none; }
+.rendered-mannequin .outfit-canvas__worn-layer { z-index:4; }
 .rendered-mannequin__shadow { position:absolute; left:28%; right:28%; bottom:2.5%; height:2.5%; border-radius:50%; background:#33432c15; filter:blur(4px); z-index:-1; }

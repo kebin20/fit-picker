@@ -7,7 +7,7 @@ A personal wardrobe studio for Kevin. Assemble outfits on a fitted retail manneq
 ## Prototype
 
 - React, TypeScript and Vite.
-- The default 2D mannequin uses camera-aligned renders of the new sculpted retail form and fitted clothing geometry. It supports front/back, worn/base outfits and a separate Pieces view.
+- The default 2D mannequin uses camera-aligned renders of a featureless retail form and fitted clothing geometry. It supports front/back, worn/base outfits and a separate Pieces view.
 - 45 active product-style garment photographs remain available in My wardrobe and the picker. Their references also supply illustrative fabric/print textures for the fitted form.
 - The optional Three.js preview loads the replacement CC0 body and refitted clothing, with rotation, zoom, outerwear and graceful 2D fallback. Eighteen garment constructions, footwear and all confirmed pieces are supported. Model photos remain a separate preview option.
 - 43 confirmed garment entries, 2 clearly separated suggested sweatshirts, 6 unowned archive records, and 54 original combinations transcribed from three source images.
@@ -203,3 +203,18 @@ free/open sources and rebuild process.
 
 [Replacement 2D preview](docs/mockups/replacement-2d-tablet.png) ·
 [Replacement 3D preview](docs/mockups/replacement-3d-tablet.png)
+
+## Mannequin refinement — v0.13.1
+
+The detailed face and ears have been replaced by a smooth display head and neck.
+Trouser shins align over the feet, and the low-cut shoes retain their toe shape
+with separate sole and lace details. The 2D stack places trouser hems over the
+shoe collars. Both cameras look down slightly so the tops of the shoes remain
+visible. All front/back 2D parts were regenerated from the revised geometry.
+
+3D model requests include their geometry hash to avoid showing an earlier
+browser-cached body or garment after an update. The replacement body is smaller
+than v0.13.0 (208,156 bytes and 32,512 triangles), and 3D remains optional.
+
+[Refined 2D preview](docs/mockups/mannequin-refinement-2d.png) ·
+[Refined 3D preview](docs/mockups/mannequin-refinement-3d.png)

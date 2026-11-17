@@ -33,6 +33,7 @@ try{
  await expect(canvas).toHaveAttribute('data-render-pending','false',{timeout:30000})
  const modelRequests=requests.filter(u=>/\/models\/.+\.glb/.test(u)),files=[...new Set(modelRequests.map(u=>new URL(u).pathname))]
  expect(files).toHaveLength(20);expect(files.every(u=>u.startsWith('/models/tailored/'))).toBe(true)
+ expect(modelRequests.every(u=>/^[a-f0-9]{12}$/.test(new URL(u).searchParams.get('v')||'')),'Updated model geometry should bypass earlier browser copies').toBe(true)
  expect(Number(await canvas.getAttribute('data-textures'))).toBeLessThanOrEqual(26)
  expect(Number(await canvas.getAttribute('data-triangles'))).toBeLessThan(120000)
  await p.waitForTimeout(300);const frame=await canvas.getAttribute('data-rendered-frames');await p.waitForTimeout(1000);expect(await canvas.getAttribute('data-rendered-frames')).toBe(frame)

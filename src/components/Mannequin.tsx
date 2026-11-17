@@ -45,7 +45,7 @@ export default function Mannequin({ garments, selection, rotation, zoom, viewRev
     room.dispose()
     pmrem.dispose()
     const camera = new THREE.PerspectiveCamera(32, 1, .05, 20)
-    camera.position.set(0, 1.03, 3.8)
+    camera.position.set(0, 1.35, 3.8)
     const controls = new OrbitControls(camera, canvas)
     controls.target.set(0, .94, 0)
     controls.enablePan = false

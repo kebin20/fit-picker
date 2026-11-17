@@ -7,6 +7,7 @@ import { clothMaterial } from './cloth-material'
 import { garments as catalogue } from '../data/wardrobe'
 import { addChestPocket } from './garment-pocket'
 import type { Garment, Selection } from '../types'
+import fittedModels from '../../public/models/tailored/manifest.json'
 
 const decoder = new DRACOLoader().setDecoderPath('/draco/').setDecoderConfig({type:'wasm'}).setWorkerLimit(1)
 const loader = new GLTFLoader().setDRACOLoader(decoder)
@@ -14,13 +15,14 @@ const models = new Map<string, Promise<GLTF>>()
 type TextureEntry={promise:Promise<THREE.Texture|undefined>;refs:number}
 const maps = new Map<string, TextureEntry>()
 const base = new Map(catalogue.map(g => [g.id,g]))
+const modelHashes = new Map(fittedModels.assets.map(asset=>[asset.family,asset.sha256.slice(0,12)]))
 export const tailoredRevision = 'studio-v2'
 export function tailoredFamily(garment: Garment, slot: string) {
   const kind = avatarGarment(garment,slot).kind
   return kind === 'shorts' ? 'trousers-shorts' : kind === 'shoes' ? 'sneakers' : kind
 }
 function model(family: string) {
-  const file = `/models/tailored/${family}.glb`
+  const file = `/models/tailored/${family}.glb?v=${modelHashes.get(family)}`
   if (!models.has(file)) models.set(file,loader.loadAsync(file).catch(e=>{models.delete(file);throw e}))
   return models.get(file)!
 }
@@ -128,8 +130,8 @@ export async function buildTailoredAvatar(garments:Garment[],selection:Selection
       }
       const source=(Array.isArray(m.material)?m.material[0]:m.material)
       const material=clothMaterial(g,source)
-      if(shoe){material.color.set(g.color);material.roughness=.8}
       const role=source.name.toLowerCase(),fabric=!role.startsWith('buttons')&&!role.startsWith('zipper')
+      if(shoe){material.color.set(g.color);material.roughness=.8;if(role.startsWith('sneaker outsole'))material.color.multiplyScalar(.78);if(role.startsWith('sneaker laces'))material.color.lerp(new THREE.Color('#bcbdb7'),.17)}
       if(front&&fabric&&!shoe){
         geo=splitSides(geo)
         const frontUV=shirtUVs(geo,family,false),backUV=shirtUVs(geo,family,true,!hasBackPhoto(g)),index=geo.getIndex()!,uv=frontUV.clone()

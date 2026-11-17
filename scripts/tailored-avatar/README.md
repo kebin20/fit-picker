@@ -29,6 +29,12 @@ photo checksums, 3D library provenance and renderer source hashes. Tests reject
 stale 2D output after model/material/reference changes. Re-running replaces this
 dedicated generated image directory.
 
-The current body is a neutral sculpted display form. A textured human character
+The current body uses a smooth featureless display head, aligned trouser legs
+and low-cut sneaker collars with separate soles and laces. The 2D composition
+draws shoes before trousers so hems fall over the collars, and both cameras use
+a modest downward angle to reveal the feet. Model URLs include geometry hashes
+so a previous browser download cannot conceal a new asset release.
+
+The current body is a neutral display form. A textured human character
 is a different asset/style; this pipeline does not claim to produce one. Cloth
 rests in a static authored pose, with no browser cloth simulation or fit advice.

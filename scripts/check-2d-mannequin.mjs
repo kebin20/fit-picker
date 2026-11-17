@@ -17,6 +17,8 @@ for(const [engine,type] of [['chromium',chromium],['webkit',webkit]]){
    await expect(form).toHaveClass(/outfit-canvas--mannequin/)
    await expect(preview.locator('.rendered-mannequin')).toHaveAttribute('data-model-revision','studio-v2')
    await expect(preview.locator('.outfit-canvas__worn-layer')).toHaveAttribute('src',/\/mannequin\/v2\/brown-overshirt-front-/)
+   const hemAboveShoe=await preview.locator('.rendered-mannequin').evaluate(root=>Number(getComputedStyle(root.querySelector('.outfit-canvas__bottoms')).zIndex)>Number(getComputedStyle(root.querySelector('.outfit-canvas__shoes')).zIndex))
+   expect(hemAboveShoe,'Trouser hems should cover the sneaker collars').toBe(true)
    const selected=await page.locator('.selection-strip').innerText()
    await presentation.getByRole('button',{name:'Show base outfit',exact:true}).click()
    await expect(preview.locator('.outfit-canvas__worn-layer')).toHaveCount(0)

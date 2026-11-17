@@ -25,6 +25,10 @@ describe('replacement fitted mannequin',()=>{
   expect(hash(read('public/models/tailored/body.glb'))).not.toBe(hash(read('public/models/base_body.glb')))
   expect(models.assets.find(a=>a.family==='coat')!.bounds.min[1]).toBeLessThan(.65)
   expect(models.assets.find(a=>a.family==='bomber')!.bounds.min[1]).toBeGreaterThan(.80)
+  // The original high shoe collar projected like a boot above trouser hems.
+  const shoe=models.assets.find(a=>a.family==='sneakers')!
+  expect(shoe.bounds.max[1]).toBeLessThan(.12)
+  expect(shoe.bounds.min[1]).toBeGreaterThanOrEqual(0)
  })
  it('matches 2D geometry and rendering provenance to the current 3D library',()=>{
   expect(renders.geometrySha256).toBe(hash(read('public/models/tailored/manifest.json')).slice(0,12))

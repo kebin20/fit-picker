@@ -64,18 +64,29 @@ def body():
   if arm>0:x=side*(.185+math.cos(angle)*dx+math.sin(angle)*dz);z=1.34-math.sin(angle)*dx+math.cos(angle)*dz
   if arm<.05 and z<.90:x-=side*.085*(1-smooth(.65,.90,z))
   v.co=(x*1.065,y*1.065,(z+.006)*1.065)
- # The display form has neutral sculpted features, no skin photo or hair.
+ # Replace the sculpted neck/face/ears with a quiet, featureless display head
+ # and smooth neck. Their closed surfaces overlap inside the display form.
+ clip(o,[lambda p:1.515-p.y])
  o.data.materials.clear();o.data.materials.append(FORM)
  sub=o.modifiers.new('Sculpted display form','SUBSURF');sub.levels=1;apply(o,sub)
- dec=o.modifiers.new('Mobile retopology','DECIMATE');dec.ratio=.42;apply(o,dec)
+ dec=o.modifiers.new('Mobile retopology','DECIMATE');dec.ratio=min(.42,28000/max(1,sum(len(f.vertices)-2 for f in o.data.polygons)));apply(o,dec)
  for f in o.data.polygons:f.use_smooth=True
- parts=[o]
- for side in [-1,1]:
-  bpy.ops.mesh.primitive_uv_sphere_add(segments=20,ring_count=12,location=vec(side*.032,1.680,.145))
-  eye=bpy.context.object;eye.name='Neutral sculpted eye';eye.scale=(.012,.009,.010);active(eye);bpy.ops.object.transform_apply(location=False,rotation=False,scale=True);eye.data.materials.append(FORM)
-  for f in eye.data.polygons:f.use_smooth=True
-  parts.append(eye)
- return join(parts,'Studio display form')
+ bpy.ops.mesh.primitive_uv_sphere_add(segments=48,ring_count=32,location=(0,0,0))
+ head=bpy.context.object;head.name='Featureless display head'
+ for v in head.data.vertices:
+  x,y,z=v.co
+  jaw=.84+.16*smooth(-.85,.15,z)
+  v.co=vec(x*.079*jaw,1.683+z*.123,.018-y*.077)
+ head.data.materials.append(FORM)
+ for f in head.data.polygons:f.use_smooth=True
+ neck_points=[];neck_faces=[]
+ for r,(h,rx,rz) in enumerate([(1.485,.064,.054),(1.515,.050,.043),(1.550,.042,.040),(1.590,.041,.042),(1.625,.043,.044)]):
+  for j in range(48):
+   a=TAU*j/48;neck_points.append((rx*math.sin(a),h,.015+rz*math.cos(a)))
+   if r:neck_faces.append(((r-1)*48+j,(r-1)*48+(j+1)%48,r*48+(j+1)%48,r*48+j))
+ neck=mesh('Smooth display neck',neck_points,neck_faces,FORM)
+ sub=neck.modifiers.new('Continuous neck contour','SUBSURF');sub.levels=1;apply(neck,sub)
+ return join([o,neck,head],'Studio display form')
 
 def tube(name,points,radius,mat=DETAIL,n=8):
  pts=[];faces=[];p=[Vector(t) for t in points]
@@ -143,11 +154,19 @@ def fitted_seed(name):
   x*=1.04;h*=1.04;z*=1.04
   if trousers_kind:
    x-=side*.05*(1-smooth(.70,1.02,h))
+   # Bring each shin over its own shoe rather than retaining the seed's
+   # spread stance. Preserve the original crotch and sewn fabric topology.
+   x-=side*.05*(1-smooth(.10,.60,h))
    centre=side*.10;amount={'slim':1.05,'regular':1.20,'wide':1.48,'barrel':1.58,'ankle':1.10,'shorts':1.20}[name.split('-')[-1]]
    x=centre+(x-centre)*(1+(amount-1)*(1-smooth(.78,1.01,h)))
    if name.endswith('ankle') and h<.35:h+=.055*(1-smooth(.10,.35,h))
    z+=.009
-  elif shoe:x-=side*.073;h=max(.008,h*.75);z+=.005
+  elif shoe:
+   x-=side*.10
+   # Retain the toe/sole contours while lowering the tall seed collar.
+   # A uniform scale shrank the toe and left a boot-like ankle tube.
+   h=max(.006,h if h<.055 else .055+(h-.055)*.28)
+   z+=.005
   else:
    x-=side*.025*arm;h+=.025*arm-.025*smooth(1.40,1.58,h)
    ease=.013 if name.startswith('overshirt') else .021 if name in ['puffer','coat','rain-jacket','bomber'] else .003
@@ -157,6 +176,11 @@ def fitted_seed(name):
   v.co=vec(x,h,z)
  o.data.materials.clear();o.data.materials.append(FABRIC)
  for f in o.data.polygons:f.material_index=0
+ if shoe:
+  sole=material('Sneaker outsole',(.018,.020,.020),.83)
+  o.data.materials.append(sole)
+  for f in o.data.polygons:
+   if max(o.data.vertices[i].co.z for i in f.vertices)<.025:f.material_index=1
  if name in ['shirt-short','overshirt-short']:
   clip(o,[lambda p:max(.225-abs(p.x),p.y-1.24)])
  if name.startswith('overshirt') or name in ['bomber','puffer','rain-jacket']:
@@ -165,6 +189,18 @@ def fitted_seed(name):
  dec=o.modifiers.new('Phone garment budget','DECIMATE');dec.ratio=min(1,8500/max(1,sum(len(f.vertices)-2 for f in o.data.polygons)));apply(o,dec)
  for f in o.data.polygons:f.use_smooth=True
  trims=[o]
+ if shoe:
+  # Short laces follow the fitted instep instead of painting a boot cuff.
+  tree=BVHTree.FromObject(o,bpy.context.evaluated_depsgraph_get())
+  lace=material('Sneaker laces',(.065,.070,.070),.95)
+  for side in [-1,1]:
+   for z in [.035,.055,.075,.095]:
+    pts=[]
+    for i in range(9):
+     x=side*.111+(i/8-.5)*.044
+     hit,_,_,_=tree.ray_cast(vec(x,.30,z),Vector((0,0,-1)),.4)
+     if hit:pts.append((x,hit.z+.002,z))
+    if len(pts)>1:trims.append(tube('Sneaker laces',pts,.0015,lace,6))
  if name in ['shirt-short','shirt-long','overshirt-short','overshirt-long']:
   trims.append(patch(o,.10,1.33,.067,.078))
   for h in [1.445,1.355,1.265,1.175,1.085]:

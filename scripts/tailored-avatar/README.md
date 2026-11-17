@@ -35,6 +35,13 @@ draws shoes before trousers so hems fall over the collars, and both cameras use
 a modest downward angle to reveal the feet. Model URLs include geometry hashes
 so a previous browser download cannot conceal a new asset release.
 
+The shared runtime fitting cage (v0.13.2) narrows the waist by up to 18% and
+chest by 13%, with a smooth shoulder/hip transition. It fits the body, all
+garments and pocket/button details together; head, hands and lower legs keep
+their proportions. Existing smooth normals use the cage's inverse transpose,
+so UV-split cloth does not become faceted. The 2D renderer applies this same
+cage, with no new geometry downloads or animation loop.
+
 The current body is a neutral display form. A textured human character
 is a different asset/style; this pipeline does not claim to produce one. Cloth
 rests in a static authored pose, with no browser cloth simulation or fit advice.

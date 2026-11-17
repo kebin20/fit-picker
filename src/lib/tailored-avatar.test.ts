@@ -6,12 +6,28 @@ import renders from '../data/mannequin-renders.json'
 import modelHashes from '../data/tailored-model-hashes.json'
 import {garments} from '../data/wardrobe'
 import {mannequinPhoto,mannequinOfflineUrls} from './mannequin-renders'
-import {bodyCovered,tailoredFamily} from './tailored-avatar'
+import {bodyCovered,tailoredFamily,fitSlimTorso} from './tailored-avatar'
+import {BufferGeometry,Float32BufferAttribute} from 'three'
 const read=(file:string)=>readFileSync(new URL(`../../${file}`,import.meta.url))
 const hash=(bytes:Buffer)=>createHash('sha256').update(bytes).digest('hex')
 const garment=(id:string)=>garments.find(g=>g.id===id)!
 
 describe('replacement fitted mannequin',()=>{
+ it('narrows the waist while preserving the shoulder connection, limbs and head',()=>{
+  const geometry=new BufferGeometry().setAttribute('position',new Float32BufferAttribute([.18,1.12,.14,-.18,1.12,-.14,.29,1.12,.04,.08,1.7,.05,.11,.30,.04,.17,1.535,.05],3))
+  geometry.setAttribute('normal',new Float32BufferAttribute(Array.from({length:6},()=>[Math.SQRT1_2,Math.SQRT1_2,0]).flat(),3))
+  fitSlimTorso(geometry)
+  const p=geometry.getAttribute('position')
+  expect(p.getX(0)).toBeCloseTo(.1476,4);expect(p.getX(1)).toBeCloseTo(-.1476,4)
+  expect(p.getZ(0)).toBeCloseTo(.126,4)
+  expect(p.getX(2)).toBeCloseTo(.29);expect(p.getX(3)).toBeCloseTo(.08);expect(p.getX(4)).toBeCloseTo(.11)
+  expect(p.getX(5)).toBeGreaterThan(.169)
+  const n=geometry.getAttribute('normal')
+  expect(n.getX(0)).toBeGreaterThan(n.getY(0))
+  expect(Math.hypot(n.getX(0),n.getY(0),n.getZ(0))).toBeCloseTo(1)
+  expect(n.getX(2)).toBeCloseTo(Math.SQRT1_2)
+  geometry.dispose()
+ })
  it('ships a different body and every fitted construction within mobile budgets',()=>{
   expect(models.assets).toHaveLength(20)
   for(const asset of models.assets){

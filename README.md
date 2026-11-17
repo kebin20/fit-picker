@@ -218,3 +218,15 @@ than v0.13.0 (208,156 bytes and 32,512 triangles), and 3D remains optional.
 
 [Refined 2D preview](docs/mockups/mannequin-refinement-2d.png) ·
 [Refined 3D preview](docs/mockups/mannequin-refinement-3d.png)
+
+## Slimmer mannequin torso — v0.13.2
+
+The shared fitting cage narrows the torso and garment panels together, tapering
+the waist by up to 18% and the chest by 13%. It blends into the shoulders and
+hips while preserving limb lengths, hands, head and feet. Pocket/button details
+follow the garment surface. Smooth normals are transformed with the fitting
+cage, preserving fabric shading across texture seams. Both front/back 2D renders
+and interactive 3D use these proportions without additional model downloads.
+
+[Slimmer 2D preview](docs/mockups/slimmer-torso-2d.png) ·
+[Slimmer 3D preview](docs/mockups/slimmer-torso-3d.png)

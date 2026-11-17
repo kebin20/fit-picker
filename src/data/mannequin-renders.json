@@ -3,7 +3,7 @@
   "width": 600,
   "height": 900,
   "geometrySha256": "781b8d44647e",
-  "rendererSha256": "e2cd625122ee",
+  "rendererSha256": "69e18bc2b716",
   "garments": {
     "navy-shirt": {
       "id": "navy-shirt",
@@ -20,11 +20,11 @@
           "sha256": "a23ed7d963ca"
         }
       ],
-      "front": "/mannequin/v2/navy-shirt-front-b2a3b0f41acf.webp",
-      "back": "/mannequin/v2/navy-shirt-back-133d998b4179.webp",
+      "front": "/mannequin/v2/navy-shirt-front-5566d2f53a7e.webp",
+      "back": "/mannequin/v2/navy-shirt-back-661bdbc1473e.webp",
       "asLayer": {
-        "front": "/mannequin/v2/navy-shirt-layer-front-0acbb79d0a41.webp",
-        "back": "/mannequin/v2/navy-shirt-layer-back-67577d3a1d04.webp"
+        "front": "/mannequin/v2/navy-shirt-layer-front-4e94399e4f59.webp",
+        "back": "/mannequin/v2/navy-shirt-layer-back-723e6771ed42.webp"
       }
     },
     "brown-flannel": {
@@ -42,11 +42,11 @@
           "sha256": "116e4af40ae1"
         }
       ],
-      "front": "/mannequin/v2/brown-flannel-front-cbd82d5a2c94.webp",
-      "back": "/mannequin/v2/brown-flannel-back-50c0e3a03be8.webp",
+      "front": "/mannequin/v2/brown-flannel-front-3d4cc2e60c8f.webp",
+      "back": "/mannequin/v2/brown-flannel-back-20ad56db63cf.webp",
       "asLayer": {
-        "front": "/mannequin/v2/brown-flannel-layer-front-c7a554a54501.webp",
-        "back": "/mannequin/v2/brown-flannel-layer-back-703cc7262cf5.webp"
+        "front": "/mannequin/v2/brown-flannel-layer-front-36cf3f7d33c9.webp",
+        "back": "/mannequin/v2/brown-flannel-layer-back-175aa3e29571.webp"
       }
     },
     "ainu-longsleeve": {
@@ -62,8 +62,8 @@
           "sha256": "f3c638ebb4e3"
         }
       ],
-      "front": "/mannequin/v2/ainu-longsleeve-front-af840d0ee1b0.webp",
-      "back": "/mannequin/v2/ainu-longsleeve-back-f0f544ca0187.webp"
+      "front": "/mannequin/v2/ainu-longsleeve-front-b104cfcbc4c9.webp",
+      "back": "/mannequin/v2/ainu-longsleeve-back-0f477730d1bd.webp"
     },
     "rust-tee": {
       "id": "rust-tee",
@@ -77,8 +77,8 @@
           "sha256": "e1c9a5cd5f58"
         }
       ],
-      "front": "/mannequin/v2/rust-tee-front-01e4538a3925.webp",
-      "back": "/mannequin/v2/rust-tee-back-9c621ba680c0.webp"
+      "front": "/mannequin/v2/rust-tee-front-1ca28d851b03.webp",
+      "back": "/mannequin/v2/rust-tee-back-f3c1ba3cd046.webp"
     },
     "white-tee": {
       "id": "white-tee",
@@ -92,8 +92,8 @@
           "sha256": "83fbbae4e2f6"
         }
       ],
-      "front": "/mannequin/v2/white-tee-front-324905e5c896.webp",
-      "back": "/mannequin/v2/white-tee-back-5de86ff7cdd8.webp"
+      "front": "/mannequin/v2/white-tee-front-ddaa67c1c865.webp",
+      "back": "/mannequin/v2/white-tee-back-381a64cb7087.webp"
     },
     "navy-sweatshirt": {
       "id": "navy-sweatshirt",
@@ -107,8 +107,8 @@
           "sha256": "07b63772e9b2"
         }
       ],
-      "front": "/mannequin/v2/navy-sweatshirt-front-f4e5ec102385.webp",
-      "back": "/mannequin/v2/navy-sweatshirt-back-2ef3377c3b3e.webp"
+      "front": "/mannequin/v2/navy-sweatshirt-front-f51e0cfaf2a7.webp",
+      "back": "/mannequin/v2/navy-sweatshirt-back-f0081ede1b22.webp"
     },
     "offwhite-sweatshirt": {
       "id": "offwhite-sweatshirt",
@@ -122,8 +122,8 @@
           "sha256": "c5ac088ffdd7"
         }
       ],
-      "front": "/mannequin/v2/offwhite-sweatshirt-front-b3e209a05355.webp",
-      "back": "/mannequin/v2/offwhite-sweatshirt-back-ea3356f5405f.webp"
+      "front": "/mannequin/v2/offwhite-sweatshirt-front-d2d085105967.webp",
+      "back": "/mannequin/v2/offwhite-sweatshirt-back-ade029e965ce.webp"
     },
     "white-hoodie": {
       "id": "white-hoodie",
@@ -137,8 +137,8 @@
           "sha256": "d68ffd283aa0"
         }
       ],
-      "front": "/mannequin/v2/white-hoodie-front-60865be3c6c2.webp",
-      "back": "/mannequin/v2/white-hoodie-back-fbd5cc063fa6.webp"
+      "front": "/mannequin/v2/white-hoodie-front-4bf3dd27fd80.webp",
+      "back": "/mannequin/v2/white-hoodie-back-7a632725bbe6.webp"
     },
     "brown-hoodie": {
       "id": "brown-hoodie",
@@ -152,8 +152,8 @@
           "sha256": "b24803d4fb0a"
         }
       ],
-      "front": "/mannequin/v2/brown-hoodie-front-ef77ab009deb.webp",
-      "back": "/mannequin/v2/brown-hoodie-back-957bf9a51383.webp"
+      "front": "/mannequin/v2/brown-hoodie-front-7c6eb96ac55b.webp",
+      "back": "/mannequin/v2/brown-hoodie-back-98d42eae58f8.webp"
     },
     "navy-overshirt": {
       "id": "navy-overshirt",
@@ -170,11 +170,11 @@
           "sha256": "1c31552aaf7f"
         }
       ],
-      "front": "/mannequin/v2/navy-overshirt-front-c76e04f721d9.webp",
-      "back": "/mannequin/v2/navy-overshirt-back-7accac7a7a7e.webp",
+      "front": "/mannequin/v2/navy-overshirt-front-d035b8b961e9.webp",
+      "back": "/mannequin/v2/navy-overshirt-back-21605316eb3b.webp",
       "asLayer": {
-        "front": "/mannequin/v2/navy-overshirt-layer-front-28f204a7a134.webp",
-        "back": "/mannequin/v2/navy-overshirt-layer-back-e8c7762a2f46.webp"
+        "front": "/mannequin/v2/navy-overshirt-layer-front-4d2aa9fb169c.webp",
+        "back": "/mannequin/v2/navy-overshirt-layer-back-ff146f6328d3.webp"
       }
     },
     "check-overshirt": {
@@ -193,11 +193,11 @@
           "sha256": "19045d1f0aa0"
         }
       ],
-      "front": "/mannequin/v2/check-overshirt-front-485d64a34bd6.webp",
-      "back": "/mannequin/v2/check-overshirt-back-b220811f3d86.webp",
+      "front": "/mannequin/v2/check-overshirt-front-2553db75b1a8.webp",
+      "back": "/mannequin/v2/check-overshirt-back-36095eb5496d.webp",
       "asLayer": {
-        "front": "/mannequin/v2/check-overshirt-layer-front-fc7c79dd1c40.webp",
-        "back": "/mannequin/v2/check-overshirt-layer-back-d47c59bd3e43.webp"
+        "front": "/mannequin/v2/check-overshirt-layer-front-d43b64cd81e2.webp",
+        "back": "/mannequin/v2/check-overshirt-layer-back-0107f87ce9b4.webp"
       }
     },
     "white-graphic-tee": {
@@ -218,8 +218,8 @@
           "sha256": "8fe009488785"
         }
       ],
-      "front": "/mannequin/v2/white-graphic-tee-front-a279c28270c0.webp",
-      "back": "/mannequin/v2/white-graphic-tee-back-acee1f967f6a.webp"
+      "front": "/mannequin/v2/white-graphic-tee-front-e97c98f9da25.webp",
+      "back": "/mannequin/v2/white-graphic-tee-back-e23e7d69c02f.webp"
     },
     "black-cat-tee": {
       "id": "black-cat-tee",
@@ -234,8 +234,8 @@
           "sha256": "864dd569470a"
         }
       ],
-      "front": "/mannequin/v2/black-cat-tee-front-9b995f64b497.webp",
-      "back": "/mannequin/v2/black-cat-tee-back-ae699f9c5267.webp"
+      "front": "/mannequin/v2/black-cat-tee-front-275908103802.webp",
+      "back": "/mannequin/v2/black-cat-tee-back-bd408ccd6967.webp"
     },
     "green-tee": {
       "id": "green-tee",
@@ -249,8 +249,8 @@
           "sha256": "ea77c4f6d226"
         }
       ],
-      "front": "/mannequin/v2/green-tee-front-7842f4eb797f.webp",
-      "back": "/mannequin/v2/green-tee-back-c4477537219c.webp"
+      "front": "/mannequin/v2/green-tee-front-33ed0a38fa6b.webp",
+      "back": "/mannequin/v2/green-tee-back-a0d23854744f.webp"
     },
     "pink-tee": {
       "id": "pink-tee",
@@ -265,8 +265,8 @@
           "sha256": "fd2ece9efcb4"
         }
       ],
-      "front": "/mannequin/v2/pink-tee-front-a2299b3403a7.webp",
-      "back": "/mannequin/v2/pink-tee-back-fb1c0422dadf.webp"
+      "front": "/mannequin/v2/pink-tee-front-4c44384d58a9.webp",
+      "back": "/mannequin/v2/pink-tee-back-38184c52b3a0.webp"
     },
     "cream-tee": {
       "id": "cream-tee",
@@ -281,8 +281,8 @@
           "sha256": "7a02993ccb98"
         }
       ],
-      "front": "/mannequin/v2/cream-tee-front-f91fd123f790.webp",
-      "back": "/mannequin/v2/cream-tee-back-90d048166426.webp"
+      "front": "/mannequin/v2/cream-tee-front-872e6f2e4bed.webp",
+      "back": "/mannequin/v2/cream-tee-back-c1ba4060fb75.webp"
     },
     "ukiyoe-tee": {
       "id": "ukiyoe-tee",
@@ -302,8 +302,8 @@
           "sha256": "27b8c7d1ca87"
         }
       ],
-      "front": "/mannequin/v2/ukiyoe-tee-front-e867f9ab6362.webp",
-      "back": "/mannequin/v2/ukiyoe-tee-back-b8ee61ef33a1.webp"
+      "front": "/mannequin/v2/ukiyoe-tee-front-7354492de2a3.webp",
+      "back": "/mannequin/v2/ukiyoe-tee-back-7962820a0823.webp"
     },
     "teal-shirt": {
       "id": "teal-shirt",
@@ -320,11 +320,11 @@
           "sha256": "decb8931c06b"
         }
       ],
-      "front": "/mannequin/v2/teal-shirt-front-5b3274020816.webp",
-      "back": "/mannequin/v2/teal-shirt-back-b6041ed80042.webp",
+      "front": "/mannequin/v2/teal-shirt-front-6375dfd4d136.webp",
+      "back": "/mannequin/v2/teal-shirt-back-a9eaeaba7675.webp",
       "asLayer": {
-        "front": "/mannequin/v2/teal-shirt-layer-front-cef5e998cf0a.webp",
-        "back": "/mannequin/v2/teal-shirt-layer-back-99b91e16f91b.webp"
+        "front": "/mannequin/v2/teal-shirt-layer-front-4d361c88bc9e.webp",
+        "back": "/mannequin/v2/teal-shirt-layer-back-35557712c5c4.webp"
       }
     },
     "brown-shirt": {
@@ -342,11 +342,11 @@
           "sha256": "d8235fa00697"
         }
       ],
-      "front": "/mannequin/v2/brown-shirt-front-03a81d0ca489.webp",
-      "back": "/mannequin/v2/brown-shirt-back-e41459bd31d1.webp",
+      "front": "/mannequin/v2/brown-shirt-front-edcfe09b6e23.webp",
+      "back": "/mannequin/v2/brown-shirt-back-408c06767f5e.webp",
       "asLayer": {
-        "front": "/mannequin/v2/brown-shirt-layer-front-5dc9a7562b26.webp",
-        "back": "/mannequin/v2/brown-shirt-layer-back-6f5336f8eb8c.webp"
+        "front": "/mannequin/v2/brown-shirt-layer-front-afa6677340a5.webp",
+        "back": "/mannequin/v2/brown-shirt-layer-back-70bb7d1a7235.webp"
       }
     },
     "burton-tee": {
@@ -362,8 +362,8 @@
           "sha256": "6320c3a6c8ae"
         }
       ],
-      "front": "/mannequin/v2/burton-tee-front-887f6952764e.webp",
-      "back": "/mannequin/v2/burton-tee-back-6e0d94c993d9.webp"
+      "front": "/mannequin/v2/burton-tee-front-8bdbafc52b96.webp",
+      "back": "/mannequin/v2/burton-tee-back-144c497511af.webp"
     },
     "black-tee": {
       "id": "black-tee",
@@ -378,8 +378,8 @@
           "sha256": "c38a62fb2386"
         }
       ],
-      "front": "/mannequin/v2/black-tee-front-c590aeee783c.webp",
-      "back": "/mannequin/v2/black-tee-back-9e7aa9f84619.webp"
+      "front": "/mannequin/v2/black-tee-front-c3265bb8a5d2.webp",
+      "back": "/mannequin/v2/black-tee-back-a6c2aff32e7e.webp"
     },
     "grey-sweatshirt": {
       "id": "grey-sweatshirt",
@@ -393,8 +393,8 @@
           "sha256": "eebbb25b8ea9"
         }
       ],
-      "front": "/mannequin/v2/grey-sweatshirt-front-ff6b80a32f5c.webp",
-      "back": "/mannequin/v2/grey-sweatshirt-back-b88c93033151.webp"
+      "front": "/mannequin/v2/grey-sweatshirt-front-bc9a4998b203.webp",
+      "back": "/mannequin/v2/grey-sweatshirt-back-96bfa91ca926.webp"
     },
     "olive-sweatshirt": {
       "id": "olive-sweatshirt",
@@ -408,8 +408,8 @@
           "sha256": "94fc45604a21"
         }
       ],
-      "front": "/mannequin/v2/olive-sweatshirt-front-31c8fa418d83.webp",
-      "back": "/mannequin/v2/olive-sweatshirt-back-4d709af71561.webp"
+      "front": "/mannequin/v2/olive-sweatshirt-front-e8c59c7d61a0.webp",
+      "back": "/mannequin/v2/olive-sweatshirt-back-9373bdaf2f72.webp"
     },
     "beige-coat": {
       "id": "beige-coat",
@@ -423,8 +423,8 @@
           "sha256": "124dd7386fce"
         }
       ],
-      "front": "/mannequin/v2/beige-coat-front-774e8e16ab5f.webp",
-      "back": "/mannequin/v2/beige-coat-back-b713383a2559.webp"
+      "front": "/mannequin/v2/beige-coat-front-a5cbdf15487d.webp",
+      "back": "/mannequin/v2/beige-coat-back-350e6b5df4e9.webp"
     },
     "navy-bomber": {
       "id": "navy-bomber",
@@ -438,8 +438,8 @@
           "sha256": "697e667b0ef3"
         }
       ],
-      "front": "/mannequin/v2/navy-bomber-front-d24171cba23b.webp",
-      "back": "/mannequin/v2/navy-bomber-back-04346efa1946.webp"
+      "front": "/mannequin/v2/navy-bomber-front-37b69707ca8f.webp",
+      "back": "/mannequin/v2/navy-bomber-back-2671eb297563.webp"
     },
     "green-bomber": {
       "id": "green-bomber",
@@ -453,8 +453,8 @@
           "sha256": "347bbe4ef251"
         }
       ],
-      "front": "/mannequin/v2/green-bomber-front-a65e28048e5d.webp",
-      "back": "/mannequin/v2/green-bomber-back-cee8727e4814.webp"
+      "front": "/mannequin/v2/green-bomber-front-166a58f1587a.webp",
+      "back": "/mannequin/v2/green-bomber-back-a0c5fa96f88f.webp"
     },
     "black-puffer": {
       "id": "black-puffer",
@@ -468,8 +468,8 @@
           "sha256": "5f48e55fe518"
         }
       ],
-      "front": "/mannequin/v2/black-puffer-front-24b93f8f196b.webp",
-      "back": "/mannequin/v2/black-puffer-back-fd0226450de7.webp"
+      "front": "/mannequin/v2/black-puffer-front-0d2a5d7ca067.webp",
+      "back": "/mannequin/v2/black-puffer-back-4c5f5c4e3f6d.webp"
     },
     "brown-overshirt": {
       "id": "brown-overshirt",
@@ -483,8 +483,8 @@
           "sha256": "4cf586e75a8b"
         }
       ],
-      "front": "/mannequin/v2/brown-overshirt-front-6090446d9704.webp",
-      "back": "/mannequin/v2/brown-overshirt-back-25357face62b.webp"
+      "front": "/mannequin/v2/brown-overshirt-front-9891ff645b6c.webp",
+      "back": "/mannequin/v2/brown-overshirt-back-5979bceec089.webp"
     },
     "black-rain-jacket": {
       "id": "black-rain-jacket",
@@ -498,8 +498,8 @@
           "sha256": "12caa087d320"
         }
       ],
-      "front": "/mannequin/v2/black-rain-jacket-front-d563e07c34a8.webp",
-      "back": "/mannequin/v2/black-rain-jacket-back-0c3c53e599e2.webp"
+      "front": "/mannequin/v2/black-rain-jacket-front-c42f8e383762.webp",
+      "back": "/mannequin/v2/black-rain-jacket-back-5e0db71f4511.webp"
     },
     "white-barrel": {
       "id": "white-barrel",
@@ -513,8 +513,8 @@
           "sha256": "4c49ddd4e40e"
         }
       ],
-      "front": "/mannequin/v2/white-barrel-front-8376455c5b57.webp",
-      "back": "/mannequin/v2/white-barrel-back-1668d72be9e5.webp"
+      "front": "/mannequin/v2/white-barrel-front-3206e77687a3.webp",
+      "back": "/mannequin/v2/white-barrel-back-38ead3a51201.webp"
     },
     "brown-barrel": {
       "id": "brown-barrel",
@@ -528,8 +528,8 @@
           "sha256": "f6804d8c5485"
         }
       ],
-      "front": "/mannequin/v2/brown-barrel-front-401e1de53133.webp",
-      "back": "/mannequin/v2/brown-barrel-back-65b00c6e9713.webp"
+      "front": "/mannequin/v2/brown-barrel-front-10c96f2fbc90.webp",
+      "back": "/mannequin/v2/brown-barrel-back-4111074a18b0.webp"
     },
     "black-barrel": {
       "id": "black-barrel",
@@ -543,8 +543,8 @@
           "sha256": "d5fbc0cf1feb"
         }
       ],
-      "front": "/mannequin/v2/black-barrel-front-f157c04e7ce0.webp",
-      "back": "/mannequin/v2/black-barrel-back-cc0bd3e1c074.webp"
+      "front": "/mannequin/v2/black-barrel-front-538595ae54f4.webp",
+      "back": "/mannequin/v2/black-barrel-back-f493d6b37369.webp"
     },
     "olive-wide": {
       "id": "olive-wide",
@@ -558,8 +558,8 @@
           "sha256": "69e0ceb566df"
         }
       ],
-      "front": "/mannequin/v2/olive-wide-front-9222f2d60413.webp",
-      "back": "/mannequin/v2/olive-wide-back-08e8098f9007.webp"
+      "front": "/mannequin/v2/olive-wide-front-ba6f9c35565b.webp",
+      "back": "/mannequin/v2/olive-wide-back-3ed4abdd0783.webp"
     },
     "grey-slacks": {
       "id": "grey-slacks",
@@ -573,8 +573,8 @@
           "sha256": "c228b1b0b24e"
         }
       ],
-      "front": "/mannequin/v2/grey-slacks-front-e673de6d66ae.webp",
-      "back": "/mannequin/v2/grey-slacks-back-f70b1d2fad67.webp"
+      "front": "/mannequin/v2/grey-slacks-front-51393e46b765.webp",
+      "back": "/mannequin/v2/grey-slacks-back-2f8350bb7b88.webp"
     },
     "cream-pants": {
       "id": "cream-pants",
@@ -588,8 +588,8 @@
           "sha256": "495fccd37639"
         }
       ],
-      "front": "/mannequin/v2/cream-pants-front-5c077f349b84.webp",
-      "back": "/mannequin/v2/cream-pants-back-3dde177f3c64.webp"
+      "front": "/mannequin/v2/cream-pants-front-ee344399826a.webp",
+      "back": "/mannequin/v2/cream-pants-back-62d01bccc164.webp"
     },
     "beige-trousers": {
       "id": "beige-trousers",
@@ -603,8 +603,8 @@
           "sha256": "bd3fa60a77a1"
         }
       ],
-      "front": "/mannequin/v2/beige-trousers-front-12229ff63f54.webp",
-      "back": "/mannequin/v2/beige-trousers-back-787f7c980235.webp"
+      "front": "/mannequin/v2/beige-trousers-front-1e8bbf6cc0ac.webp",
+      "back": "/mannequin/v2/beige-trousers-back-c57edc4f6a31.webp"
     },
     "black-ankle": {
       "id": "black-ankle",
@@ -618,8 +618,8 @@
           "sha256": "31f6a949694a"
         }
       ],
-      "front": "/mannequin/v2/black-ankle-front-e1ecb92d0fd9.webp",
-      "back": "/mannequin/v2/black-ankle-back-2fa6a2d187b4.webp"
+      "front": "/mannequin/v2/black-ankle-front-1936dc75d64c.webp",
+      "back": "/mannequin/v2/black-ankle-back-4cf863c9ca1e.webp"
     },
     "beige-shorts": {
       "id": "beige-shorts",
@@ -633,8 +633,8 @@
           "sha256": "44439122b7d0"
         }
       ],
-      "front": "/mannequin/v2/beige-shorts-front-723e0c68771f.webp",
-      "back": "/mannequin/v2/beige-shorts-back-0f2173bbae64.webp"
+      "front": "/mannequin/v2/beige-shorts-front-a75cbe2db851.webp",
+      "back": "/mannequin/v2/beige-shorts-back-bfd230e300a7.webp"
     },
     "charcoal-shorts": {
       "id": "charcoal-shorts",
@@ -648,8 +648,8 @@
           "sha256": "cc9d79ef9563"
         }
       ],
-      "front": "/mannequin/v2/charcoal-shorts-front-6c800d9d532b.webp",
-      "back": "/mannequin/v2/charcoal-shorts-back-e467b378f95e.webp"
+      "front": "/mannequin/v2/charcoal-shorts-front-5f35e8733d4a.webp",
+      "back": "/mannequin/v2/charcoal-shorts-back-2d0f7c03f9d0.webp"
     },
     "black-shorts": {
       "id": "black-shorts",
@@ -663,8 +663,8 @@
           "sha256": "2fd06e36cff8"
         }
       ],
-      "front": "/mannequin/v2/black-shorts-front-3f0715b7059a.webp",
-      "back": "/mannequin/v2/black-shorts-back-ae94fa45cce2.webp"
+      "front": "/mannequin/v2/black-shorts-front-c24c83e03612.webp",
+      "back": "/mannequin/v2/black-shorts-back-3ea2233d6058.webp"
     },
     "adidas-striped": {
       "id": "adidas-striped",
@@ -745,20 +745,20 @@
   },
   "body": {
     "full": {
-      "front": "/mannequin/v2/form-full-front-7a8b9715590c.webp",
-      "back": "/mannequin/v2/form-full-back-598ab79f6bfa.webp"
+      "front": "/mannequin/v2/form-full-front-a15313d9426c.webp",
+      "back": "/mannequin/v2/form-full-back-c7ca84409a23.webp"
     },
     "head": {
-      "front": "/mannequin/v2/form-head-front-a9f990ed4fc9.webp",
-      "back": "/mannequin/v2/form-head-back-cac4e07be237.webp"
+      "front": "/mannequin/v2/form-head-front-7b83fe0e9a66.webp",
+      "back": "/mannequin/v2/form-head-back-33ae5e5017d2.webp"
     },
     "hands": {
-      "front": "/mannequin/v2/form-hands-front-9a1c08dda895.webp",
-      "back": "/mannequin/v2/form-hands-back-427fc8ece1c0.webp"
+      "front": "/mannequin/v2/form-hands-front-01928ee724e0.webp",
+      "back": "/mannequin/v2/form-hands-back-270cc005c510.webp"
     },
     "forearms": {
-      "front": "/mannequin/v2/form-forearms-front-66cfcfd1af44.webp",
-      "back": "/mannequin/v2/form-forearms-back-51edb250df95.webp"
+      "front": "/mannequin/v2/form-forearms-front-502f7cb43850.webp",
+      "back": "/mannequin/v2/form-forearms-back-af1762c46c88.webp"
     },
     "legs": {
       "front": "/mannequin/v2/form-legs-front-cc629a7eefde.webp",

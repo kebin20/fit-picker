@@ -15,6 +15,33 @@ const models = new Map<string, Promise<GLTF>>()
 type TextureEntry={promise:Promise<THREE.Texture|undefined>;refs:number}
 const maps = new Map<string, TextureEntry>()
 const base = new Map(catalogue.map(g => [g.id,g]))
+const smooth=(a:number,b:number,value:number)=>{const t=THREE.MathUtils.clamp((value-a)/(b-a),0,1);return t*t*(3-2*t)}
+const slope=(a:number,b:number,value:number)=>{const t=THREE.MathUtils.clamp((value-a)/(b-a),0,1);return 6*t*(1-t)/(b-a)}
+/** A shared fitting cage narrows the trunk without scaling the limbs or head.
+ * Apply after UV projection so pockets/prints keep their garment placement. */
+export function fitSlimTorso(geometry:THREE.BufferGeometry) {
+  const positions=geometry.getAttribute('position'),normals=geometry.getAttribute('normal')
+  for(let i=0;i<positions.count;i++){
+    const x=positions.getX(i),y=positions.getY(i),z=positions.getZ(i)
+    const centre=1-smooth(.19,.255,Math.abs(x)),lower=smooth(.84,1.04,y),upper=1-smooth(1.37,1.54,y)
+    const trunk=centre*lower*upper
+    const taper=.13+.05*(1-smooth(1.13,1.36,y))
+    if(normals){
+      // Transform existing smooth normals with the cage's inverse transpose.
+      // Rebuilding normals on UV-split triangles would flatten the cloth.
+      const dx=-slope(.19,.255,Math.abs(x))*Math.sign(x)*lower*upper
+      const dy=centre*(slope(.84,1.04,y)*upper-lower*slope(1.37,1.54,y))
+      const a=1-taper*trunk-x*taper*dx,b=-x*(-.05*slope(1.13,1.36,y)*trunk+taper*dy)
+      const c=-z*.1*dx,d=-z*.1*dy,e=1-.1*trunk
+      const nz=normals.getZ(i)/e,nx=(normals.getX(i)-c*nz)/a,ny=normals.getY(i)-b*nx-d*nz,length=Math.hypot(nx,ny,nz)||1
+      normals.setXYZ(i,nx/length,ny/length,nz/length)
+    }
+    positions.setXYZ(i,x*(1-taper*trunk),y,z*(1-.10*trunk))
+  }
+  positions.needsUpdate=true
+  if(normals)normals.needsUpdate=true
+  geometry.computeBoundingBox();geometry.computeBoundingSphere()
+}
 export const tailoredRevision = 'studio-v2'
 export function tailoredFamily(garment: Garment, slot: string) {
   const kind = avatarGarment(garment,slot).kind
@@ -150,6 +177,9 @@ export async function buildTailoredAvatar(garments:Garment[],selection:Selection
     if(g.chestPocket)addChestPocket(group,g)
     root.add(group)
   }))
+  // Fit the form, all garment panels and attached details together. Cached
+  // source buffers remain untouched, so switching outfits cannot compound it.
+  root.traverse(o=>{const m=o as THREE.Mesh;if(m.isMesh)fitSlimTorso(m.geometry)})
   root.userData.assetFormat='glTF 2.0';root.userData.revision=tailoredRevision;root.userData.licensedSource='Blender Studio Human Base Meshes CC0 / independently authored fitted clothes'
   root.userData.textureUrls=[...ownedTextures.keys()];root.userData.textureEntries=[...ownedTextures.values()]
   root.userData.files=[...new Set(files)].map(f=>`tailored/${f}.glb`)

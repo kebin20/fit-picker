@@ -13,7 +13,7 @@ A personal wardrobe studio for Kevin. Assemble outfits on a fitted retail manneq
 - 43 confirmed garment entries, 2 clearly separated suggested sweatshirts, 6 unowned archive records, and 54 original combinations transcribed from three source images.
 - Seasonal Edit 01: 12 new combinations (three per season), with independent high-resolution styling photographs and why-it-works notes.
 - Seasonal Edit 02: 96 additional combinations (24 per season), each with its own generated full-body model photograph. Every season/occasion has multiple choices; all compositions are distinct from the existing guides and edit.
-- The library retains 161 model photographs. After the ownership corrections, 132 combinations are selectable: 91 seasonal edits and 41 original guide looks. Combinations using unowned garments or the suggested grey sweatshirt remain excluded; their source records and historical photos are preserved. Original guide PNGs are preserved in the source viewer.
+- The recommendation edit features 29 outfits selected from the 132 owned combinations. The library retains the original look IDs and 161 model photographs, and the original guides remain in the source viewer.
 - Recommendation filters live under “Right for the occasion”. They change the suggested looks only; the outfit builder shows the confirmed wardrobe independently. Wardrobe browsing has its own season filter.
 - Exact season/occasion filtering over confirmed garments; no AI API, accounts or live-weather dependency.
 - Searchable wardrobe, source guide viewer, local saved looks and responsive desktop/tablet/mobile navigation.
@@ -114,7 +114,7 @@ The generated icon master is `public/app-icon-master.png`; production sizes are 
 
 ## Personal wardrobe tools (v0.8)
 
-Lock selected clothing slots to filter recommendations around them, mark pieces unavailable/in laundry, and record “Wore this today”. Favourites rank first, with fewer matching looks worn within the last 14 days. Hidden suggestions can be restored. Manual temperature/rain controls use broad warmth rules and your garment settings; rain variations replace the outer layer with the confirmed rain jacket and use garment compositions rather than unrelated model photos.
+Choose one or two garments under “Build around a piece” to filter recommendations independently of the current outfit. Each suggestion includes the exact selected items. The picker can offer a few close variations on reviewed outfits when needed, using wardrobe images for those combinations. Older slot locks migrate to the first two locked pieces in the saved draft. Mark pieces unavailable/in laundry and record “Wore this today”. Favourites rank first, followed by looks worn less in the past 14 days. Hidden suggestions can be restored. The temperature and rain controls use broad warmth rules and your garment settings. Rain variations use the confirmed rain jacket and wardrobe images.
 
 The current draft, filters, locks and preferences persist locally. Saved looks can be renamed/updated without duplicates, and deletion has an undo. Export a JSON backup from Saved looks; importing previews counts and requires an explicit replacement action, with undo available until reload. Backups include garment edits, resized photos, availability and wear history. Import validation and storage rollback protect the existing data. This is manual transfer, not automatic cloud sync.
 

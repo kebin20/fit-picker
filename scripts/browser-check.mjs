@@ -9,6 +9,10 @@ const errors = []
 const page = await browser.newPage({ viewport: { width: 1440, height: 1080 } })
 page.setDefaultTimeout(30000)
 page.on('pageerror', error => errors.push(error.message))
+const cards = page.locator('.outfit-card')
+const seasonFilter = page.getByRole('combobox', { name: 'Season', exact: true })
+const selectOccasion = name => page.getByRole('group', { name: 'Outfit recommendation filters' }).getByRole('button', { name, exact: true }).click()
+const resultCount = async () => Number.parseInt(await page.locator('.outlined-count').innerText(), 10)
 try {
   await page.goto(baseURL)
   console.log('Opened prototype; checking the replacement 2D mannequin and optional model photos.')
@@ -31,15 +35,16 @@ try {
   if (filterPosition.filters <= filterPosition.builder || filterPosition.filters <= filterPosition.heading) throw new Error('Recommendation filters appear above the builder or recommendation heading')
   const selectedBeforeFilters = await page.locator('.preview-panel .outfit-canvas img').evaluateAll(images => images.map(image => image.src))
   const builderPieceCount = await page.locator('.garment-card').count()
-  await page.getByRole('combobox', { name: 'Season', exact: true }).selectOption('Winter')
-  await page.getByRole('button', { name: 'Outdoors', exact: true }).click()
-  await expect(page.locator('.outfit-card')).toHaveCount(6)
-  const winterIdeas = Number.parseInt(await page.locator('.outlined-count').innerText())
-  if (winterIdeas < 24) throw new Error('Too few winter outdoor combinations')
+  await seasonFilter.selectOption('Winter')
+  await selectOccasion('Outdoors')
+  const winterIdeas = await resultCount()
+  expect(winterIdeas, 'Winter outdoors should still offer a choice').toBeGreaterThanOrEqual(2)
+  expect(winterIdeas, 'The curated winter outdoor edit should be smaller than the previous 24+ results').toBeLessThan(24)
+  await expect(cards).toHaveCount(Math.min(winterIdeas, 6))
   expect(await page.locator('.preview-panel .outfit-canvas img').evaluateAll(images => images.map(image => image.src))).toEqual(selectedBeforeFilters)
   await expect(page.locator('.garment-card')).toHaveCount(builderPieceCount)
-  await page.getByRole('combobox', { name: 'Season', exact: true }).selectOption('Autumn')
-  await page.getByRole('button', { name: 'Everyday', exact: true }).click()
+  await seasonFilter.selectOption('Autumn')
+  await selectOccasion('Everyday')
   await page.getByRole('button', { name: '3D preview', exact: true }).click()
   await expect(page.locator('canvas')).toHaveAttribute('data-model-format', 'gltf', { timeout: 30000 })
   await page.getByRole('button', { name: 'Rotate right', exact: true }).click()
@@ -97,18 +102,30 @@ try {
   await expect(page.getByRole('dialog')).not.toBeVisible()
 
   await page.getByRole('button', { name: 'Outfit studio', exact: true }).first().click()
-  await page.getByRole('combobox', { name: 'Season', exact: true }).selectOption('Summer')
-  await page.getByRole('button', { name: 'Dinner', exact: true }).click()
-  await expect(page.locator('.outfit-card').first()).toBeVisible()
-  await page.getByRole('button', { name: 'Try this look', exact: true }).first().click()
-  await expect(page.locator('.current-look p')).toContainText('Summer · Styled from your wardrobe')
+  await seasonFilter.selectOption('Summer')
+  await selectOccasion('Dinner')
+  const dinnerLook = cards.first()
+  const dinnerName = await dinnerLook.getByRole('heading').innerText()
+  await dinnerLook.getByRole('button', { name: 'Try this look', exact: true }).click()
+  await expect(page.locator('.current-look h2')).toHaveText(dinnerName)
   await page.getByRole('button', { name: 'Undo last change', exact: true }).click()
 
   for (const season of ['Autumn', 'Winter', 'Spring', 'Summer']) {
-    await page.getByRole('combobox', { name: 'Season', exact: true }).selectOption(season)
-    await page.getByRole('button', { name: 'Everyday', exact: true }).click()
-    await expect(page.locator('.outfit-card')).toHaveCount(6)
-    await expect(page.locator('.outfit-photograph')).toHaveCount(6)
+    await seasonFilter.selectOption(season)
+    for (const occasion of ['Dinner', 'Date night', 'With friends', 'Outdoors', 'Everyday']) {
+      await selectOccasion(occasion)
+      const total = await resultCount()
+      expect(total, `${season} / ${occasion} should have curated recommendations`).toBeGreaterThan(0)
+      await expect(cards).toHaveCount(Math.min(total, 6))
+    }
+    const total = await resultCount()
+    const more = page.getByRole('button', { name: /Show \d+ more looks/ })
+    for (let count = 6; count < total; count += 6) {
+      await more.click()
+      await expect(cards).toHaveCount(Math.min(total, count + 6))
+    }
+    await expect(more).toHaveCount(0)
+    await expect(page.locator('.outfit-photograph')).toHaveCount(total)
     for (const photo of await page.locator('.outfit-photograph').all()) {
       await photo.scrollIntoViewIfNeeded()
       await expect(photo).toHaveAttribute('src', /outfits/)
@@ -119,13 +136,11 @@ try {
       return { src: image.currentSrc, width: image.naturalWidth, height: image.naturalHeight }
     })))
     if (decoded.some(image => image.width < 300 || image.height < 450)) throw new Error(`Small or broken styling image in ${season}`)
-    console.log(`${season}: expanded combinations and original styling images verified`)
+    console.log(`${season}: curated occasion coverage and available styling images verified`)
   }
-  await page.getByRole('button', { name: /Show 6 more looks/ }).click()
-  await expect(page.locator('.outfit-card')).toHaveCount(12)
   await page.getByRole('button', { name: 'From your guides', exact: true }).click()
   await expect(page.locator('.outfit-photograph').first()).toBeVisible()
-  await expect(page.locator('.outfit-photograph')).toHaveCount(6)
+  await expect(page.locator('.outfit-photograph')).toHaveCount(Math.min(await resultCount(), 6))
   await page.getByRole('button', { name: 'Try this look', exact: true }).first().click()
   await expect(page.locator('.current-look p')).toContainText('Spring / Summer')
 
@@ -194,11 +209,13 @@ try {
   const brokenImage = await browser.newPage()
   await brokenImage.route('**/outfits/**', route => route.abort())
   await brokenImage.goto(baseURL)
-  for (const card of await brokenImage.locator('.outfit-card').all()) {
+  const brokenCards = await brokenImage.locator('.outfit-card').all()
+  expect(brokenCards.length).toBeGreaterThan(0)
+  for (const card of brokenCards) {
     await card.scrollIntoViewIfNeeded()
     await expect(card.locator('.outfit-flat-preview')).toBeVisible()
   }
-  await expect(brokenImage.locator('.outfit-flat-preview')).toHaveCount(6)
+  await expect(brokenImage.locator('.outfit-flat-preview')).toHaveCount(brokenCards.length)
   await expect(brokenImage.locator('.outfit-photograph')).toHaveCount(0)
   await brokenImage.close()
   const missingModel = await browser.newPage()
@@ -219,7 +236,7 @@ try {
   await expect(missingDecoder.locator('.preview-panel .outfit-canvas')).toBeVisible()
   await missingDecoder.close()
   if (errors.length) throw new Error(`Browser errors: ${errors.join('; ')}`)
-  console.log('PASS: default 2D outfit, loaded glTF assets and 3D controls, scoped recommendation filters, 96 additional outfits, 51 garment photos, all clothing slots, save/reload/delete, search, ownership, decoded source guides, 132 selectable combinations and archived responsive model photos, original guide model previews, try/undo, mobile navigation, responsive breakpoints, WebGL and image-error fallbacks; no page errors.')
+  console.log('PASS: 2D and 3D controls, curated seasonal and occasion recommendations, recommendation photos, 51 garment photos, all clothing slots, save/reload/delete, search, source guides, try/undo, responsive layouts, and asset-error fallbacks.')
 } catch (error) {
   await mkdir('test-results', { recursive: true })
   for (const [index, openPage] of browser.contexts().flatMap(context => context.pages()).entries()) {

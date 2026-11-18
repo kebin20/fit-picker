@@ -2,18 +2,20 @@ import type { Garment, Selection, Season, Occasion, Category } from '../types'
 import { garmentPhoto } from './garment-photos'
 import { mannequinOfflineUrls } from './mannequin-renders'
 export interface Wear { date: string; items: Selection }
-export interface Personal { draft?: Selection; season?: Season; occasion?: Occasion; locks: Category[]; unavailable: string[]; history: Wear[]; pinned: string[]; hidden: string[]; edits: Garment[]; temperature: string; rain: boolean }
+export interface Personal { draft?: Selection; season?: Season; occasion?: Occasion; focusPieces: string[]; unavailable: string[]; history: Wear[]; pinned: string[]; hidden: string[]; edits: Garment[]; temperature: string; rain: boolean }
 export const personalKey = 'fit-picker:personal:v1'
-export const defaults: Personal = { locks: [], unavailable: [], history: [], pinned: [], hidden: [], edits: [], temperature: '', rain: false }
+export const defaults: Personal = { focusPieces: [], unavailable: [], history: [], pinned: [], hidden: [], edits: [], temperature: '', rain: false }
 const cats = ['tops','layers','bottoms','shoes']; const seasons = ['Autumn','Winter','Spring','Summer']
 const styles: Record<string, string[]> = { tops: ['tee','longsleeve','shirt','sweatshirt','hoodie','overshirt'], layers: ['overshirt','bomber','coat','puffer','raincoat'], bottoms: ['trousers','shorts'], shoes: ['sneakers','canvas','slipons'] }
 export function validSelection(value: unknown): value is Selection { return !!value && typeof value === 'object' && !Array.isArray(value) && Object.entries(value).every(([k,v]) => cats.includes(k) && typeof v === 'string' && /^[a-z0-9-]{1,100}$/.test(v)) }
 function validDay(value: string) { const date = new Date(`${value}T00:00:00Z`); return /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(date.getTime()) && date.toISOString().slice(0,10) === value }
 export function validatePersonal(value: unknown): Personal {
  if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error('Invalid wardrobe data')
- const p = value as Personal
- for (const field of ['locks','unavailable','pinned','hidden'] as const) if (!Array.isArray(p[field]) || p[field].length > 5000 || !p[field].every(v => typeof v === 'string' && v.length < 100)) throw Error('Invalid preference list')
- if (p.locks.some(c => !cats.includes(c)) || !Array.isArray(p.edits) || p.edits.length > 100) throw Error('Invalid wardrobe')
+ const { locks, ...p } = value as Omit<Personal, 'focusPieces'> & { locks?: Category[]; focusPieces?: string[] }
+ for (const field of ['unavailable','pinned','hidden'] as const) if (!Array.isArray(p[field]) || p[field].length > 5000 || !p[field].every(v => typeof v === 'string' && v.length < 100)) throw Error('Invalid preference list')
+ if (locks !== undefined && (!Array.isArray(locks) || locks.some(slot => !cats.includes(slot)))) throw Error('Invalid legacy outfit locks')
+ if (p.focusPieces !== undefined && (!Array.isArray(p.focusPieces) || p.focusPieces.length > 2 || new Set(p.focusPieces).size !== p.focusPieces.length || !p.focusPieces.every(id => typeof id === 'string' && /^[a-z0-9-]{1,100}$/.test(id)))) throw Error('Invalid focus pieces')
+ if (!Array.isArray(p.edits) || p.edits.length > 100) throw Error('Invalid wardrobe')
  if (new Set(p.edits.map(g=>g?.id)).size !== p.edits.length) throw Error('Duplicate garments in backup')
  for (const g of p.edits) {
   if (!g || typeof g.id !== 'string' || !/^[a-z0-9-]{1,100}$/.test(g.id) || typeof g.name !== 'string' || !g.name.trim() || g.name.length > 100 || !cats.includes(g.category) || !styles[g.category]?.includes(g.style) || !/^#[0-9a-f]{6}$/i.test(g.color) || !Array.isArray(g.seasons) || !g.seasons.length || !g.seasons.every(s => seasons.includes(s)) || (g.note !== undefined && (typeof g.note !== 'string' || g.note.length > 1000))) throw Error('Invalid garment')
@@ -28,7 +30,8 @@ export function validatePersonal(value: unknown): Personal {
  if (p.season !== undefined && !seasons.includes(p.season)) throw Error('Invalid season')
  if (p.occasion !== undefined && !['Everyday','Dinner','Date night','With friends','Outdoors'].includes(p.occasion)) throw Error('Invalid occasion')
  if (typeof p.temperature !== 'string' || (p.temperature !== '' && (!Number.isFinite(Number(p.temperature)) || Number(p.temperature) < -30 || Number(p.temperature) > 50)) || typeof p.rain !== 'boolean') throw Error('Invalid weather preferences')
- return { ...defaults, ...p, edits: p.edits.map(g => ({ ...g, ownership: 'confirmed' })) }
+ const legacyPieces = locks?.flatMap(slot => p.draft?.[slot] ?? []) ?? []
+ return { ...defaults, ...p, focusPieces: p.focusPieces ?? [...new Set(legacyPieces)].slice(0, 2), edits: p.edits.map(g => ({ ...g, ownership: 'confirmed' })) }
 }
 export function readPersonal(): Personal { try { return validatePersonal(JSON.parse(localStorage.getItem(personalKey) || 'null')) } catch { return { ...defaults } } }
 export function weatherSuitable(items: Garment[], temperature: string, rain: boolean, layerId?: string) {

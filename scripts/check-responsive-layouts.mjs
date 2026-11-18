@@ -52,6 +52,15 @@ for(const [engine,type] of [['chromium',chromium],['webkit',webkit]]){
    await page.getByRole('button',{name:'Close dialog',exact:true}).click()
    await unobscured(page.locator('.garment-grid .garment-card .garment-name').last())
    await page.getByRole('group',{name:'Outfit recommendation filters'}).scrollIntoViewIfNeeded()
+   if(name==='iphone-se'||name==='ipad'){
+    const firstPiece=page.getByRole('combobox',{name:'First piece',exact:true})
+    const secondPiece=page.getByRole('combobox',{name:'Second piece',exact:true})
+    await unobscured(firstPiece)
+    await firstPiece.selectOption('navy-bomber')
+    await unobscured(secondPiece)
+    await unobscured(page.getByRole('button',{name:'Clear pieces',exact:true}))
+    await page.getByRole('button',{name:'Clear pieces',exact:true}).click()
+   }
    await page.getByRole('button',{name:'With friends',exact:true}).click()
    await page.getByRole('combobox',{name:'Season',exact:true}).selectOption('Summer')
    await fits(page)

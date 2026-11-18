@@ -24,7 +24,7 @@
 .select-control{position:relative;display:block;min-width:0}.select-control>select{appearance:none;-webkit-appearance:none;width:100%;min-height:44px;padding:10px 38px 10px 12px;border:1px solid #dce3d2;border-radius:5px;background:#fbfcf6;color:#53614f;font:inherit}.select-control>svg{position:absolute;right:13px;top:50%;transform:translateY(-50%);pointer-events:none;color:#53614f}.outerwear-control{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:14px;margin-top:22px;padding:12px;background:#f4f6ed;border:1px solid #e2e7d9;border-radius:6px;color:#53614f;font-size:14px}.outerwear-control>span:first-child{font-weight:600}.outerwear-control select{background:#fffef9}.outerwear-control+.category-tabs{margin-top:14px}.wardrobe-season-filter .select-control{min-width:128px}.wardrobe-season-filter .select-control select{padding:10px 38px 10px 12px}.picker-caption>button:disabled{opacity:.45;cursor:default}
 @media(max-width:700px){.outerwear-control{gap:10px;margin-top:17px;padding:10px;font-size:14px}.outerwear-control .select-control>select{font-size:14px;padding-left:10px}.wardrobe-season-filter .select-control{min-width:130px}.wardrobe-season-filter .select-control select{font-size:14px}.picker-caption>button{font-size:13px}}
 /* Personal wardrobe controls */
-.personal-bar,.look-actions,.item-actions,.lock-controls,.weather-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0}.personal-bar button,.look-actions button,.item-actions button,.lock-controls button,.weather-controls select,.weather-controls input,.personal-bar input{border:1px solid #d7dfcc;border-radius:7px;padding:9px 12px;background:#f7f9f1;color:#304835;font:inherit}.lock-controls button[aria-pressed=true],.look-actions button[aria-pressed=true]{background:#243e36;color:white}.weather-controls label{display:flex;align-items:center;gap:8px}.weather-controls input[type=number]{width:90px}.item-actions{margin-top:8px}.item-actions button{font-size:15px}.availability{font-size:15px;color:#8c522f}.editor-backdrop{position:fixed;inset:0;background:#172b2299;z-index:100;display:grid;place-items:center;padding:20px}.editor-dialog{position:relative;background:#fbfcf7;border-radius:16px;padding:28px;width:min(560px,100%);max-height:90dvh;overflow:auto}.editor-close{position:absolute;right:16px;top:12px;font-size:26px;background:none;border:0}.editor-dialog form>label{display:grid;gap:6px;margin:12px 0}.editor-dialog input:not([type=checkbox]):not([type=color]),.editor-dialog select,.editor-dialog textarea{width:100%;padding:10px;border:1px solid #ccd6c1;border-radius:6px;font:inherit}.check-label{display:flex!important;align-items:center;gap:8px;margin:8px 0}.editor-photo{max-height:160px;max-width:100%;object-fit:contain}.backup-preview{padding:16px;background:#edf1e4;border-radius:8px;margin:12px 0}.history-entry{font-size:15px;color:#53614f}.personal-bar input[type=file]{max-width:100%}.offline-status{font-size:15px;color:#526746}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #738b59;outline-offset:3px}
+.personal-bar,.look-actions,.item-actions,.weather-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0}.personal-bar button,.look-actions button,.item-actions button,.weather-controls select,.weather-controls input,.personal-bar input{border:1px solid #d7dfcc;border-radius:7px;padding:9px 12px;background:#f7f9f1;color:#304835;font:inherit}.look-actions button[aria-pressed=true]{background:#243e36;color:white}.weather-controls label{display:flex;align-items:center;gap:8px}.weather-controls input[type=number]{width:90px}.item-actions{margin-top:8px}.item-actions button{font-size:15px}.availability{font-size:15px;color:#8c522f}.editor-backdrop{position:fixed;inset:0;background:#172b2299;z-index:100;display:grid;place-items:center;padding:20px}.editor-dialog{position:relative;background:#fbfcf7;border-radius:16px;padding:28px;width:min(560px,100%);max-height:90dvh;overflow:auto}.editor-close{position:absolute;right:16px;top:12px;font-size:26px;background:none;border:0}.editor-dialog form>label{display:grid;gap:6px;margin:12px 0}.editor-dialog input:not([type=checkbox]):not([type=color]),.editor-dialog select,.editor-dialog textarea{width:100%;padding:10px;border:1px solid #ccd6c1;border-radius:6px;font:inherit}.check-label{display:flex!important;align-items:center;gap:8px;margin:8px 0}.editor-photo{max-height:160px;max-width:100%;object-fit:contain}.backup-preview{padding:16px;background:#edf1e4;border-radius:8px;margin:12px 0}.history-entry{font-size:15px;color:#53614f}.personal-bar input[type=file]{max-width:100%}.offline-status{font-size:15px;color:#526746}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #738b59;outline-offset:3px}
 
 /* Readable type and room for text to reflow at every breakpoint. */
 :root { line-height: 1.5; }
@@ -273,3 +273,40 @@ body:has(dialog[open], .editor-backdrop) .mobile-nav { visibility: hidden; point
   .save-preview .garment-art { height: 100px; max-height: 100px; object-fit: contain; }
 }
 @media (max-width: 360px) { .wardrobe-full-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.focus-piece-picker {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 14px 16px 16px;
+  border: 1px solid #dce3d2;
+  border-radius: 8px;
+  background: #f2f5eb;
+}
+.focus-piece-picker legend {
+  padding: 0 6px;
+  color: #304835;
+  font-size: 18px;
+  font-weight: 650;
+}
+.focus-piece-picker p { margin: 0 0 14px; color: #53614f; line-height: 1.5; }
+.focus-piece-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+  gap: 12px;
+  align-items: end;
+}
+.focus-piece-fields label { display: grid; gap: 6px; min-width: 0; font-weight: 550; }
+.focus-piece-fields select { font-weight: 450; }
+.focus-piece-fields select:disabled { opacity: .65; }
+.focus-piece-fields button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #d7dfcc;
+  border-radius: 5px;
+  color: #304835;
+  background: #fbfcf6;
+}
+@media (max-width: 560px) {
+  .focus-piece-fields { grid-template-columns: minmax(0, 1fr); }
+  .focus-piece-fields button { justify-self: start; }
+}

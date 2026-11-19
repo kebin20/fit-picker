@@ -1,5 +1,3 @@
-import type { Outfit } from '../types'
-
 /**
  * The recommendation edit, in editorial order. Keep the original library
  * separate so older saved looks and exact photo matches retain their IDs.
@@ -51,35 +49,4 @@ export const focusGuideIds = new Map([
   ['brown-hoodie', 'styled-winter-01'],
   ['white-graphic-tee', 'ss-h1'],
   ['burton-tee', 'ss-f2'],
-])
-
-export const focusRecipes = new Map<string, Outfit>([
-  ['navy-overshirt', {
-    id: 'focus-navy-overshirt',
-    name: 'Navy over white',
-    subtitle: '',
-    origin: 'styled',
-    source: 'aw-updated',
-    sourceLabel: 'Built around your pieces',
-    sourceIndex: -1,
-    items: { tops: 'white-tee', layers: 'navy-overshirt', bottoms: 'grey-slacks', shoes: 'adidas-striped' },
-    seasons: ['Autumn', 'Spring'],
-    occasions: ['Everyday', 'Dinner', 'Date night', 'With friends'],
-    vibe: 'Clean casual',
-    note: 'Wear the navy overshirt open so the white tee breaks up the darker layers. Grey slacks sharpen the outfit, and white Adidas echo the tee.',
-  }],
-  ['black-rain-jacket', {
-    id: 'focus-black-rain-jacket',
-    name: 'Olive on a rainy day',
-    subtitle: '',
-    origin: 'styled',
-    source: 'aw-updated',
-    sourceLabel: 'Built around your pieces',
-    sourceIndex: -1,
-    items: { tops: 'offwhite-sweatshirt', layers: 'black-rain-jacket', bottoms: 'olive-wide', shoes: 'adidas-black' },
-    seasons: ['Autumn', 'Spring'],
-    occasions: ['Everyday', 'With friends', 'Outdoors'],
-    vibe: 'Rainy day casual',
-    note: 'Olive trousers soften the black jacket and sneakers. The off-white crew gives the outfit contrast when you wear the jacket open.',
-  }],
 ])

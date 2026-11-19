@@ -7,6 +7,12 @@ const b=await chromium.launch({args:['--use-angle=swiftshader','--enable-webgl',
 try{
  const p=await b.newPage({viewport:{width:390,height:844}}),errors=[],requests=[]
  p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error'&&/THREE|WebGL|shader/i.test(m.text()))errors.push(m.text())});p.on('request',r=>requests.push(r.url()))
+ await p.addInitScript(() => {
+  localStorage.setItem('fit-picker:personal:v1', JSON.stringify({
+   focusPieces: [], unavailable: [], history: [], pinned: [], hidden: [], temperature: '', rain: false,
+   edits: [{ id: 'custom-shell', name: 'Test shell', category: 'layers', style: 'raincoat', color: '#252a29', colorName: 'Black', seasons: ['Autumn'], source: 'ss' }],
+  }))
+ })
  await p.goto(url);await expect(p.locator('.rendered-mannequin')).toHaveAttribute('data-model-revision','studio-v2')
  await p.locator('.rendered-mannequin img').evaluateAll(images=>Promise.all(images.map(i=>i.decode())))
  expect(requests.some(u=>/\/models\/|\/draco\//.test(u))).toBe(false)
@@ -19,7 +25,7 @@ try{
  for(const id of ['rust-tee','ainu-longsleeve','navy-sweatshirt','white-hoodie','navy-shirt','brown-flannel'])await pick('Tops',id)
  for(const id of ['beige-shorts','grey-slacks','beige-trousers','olive-wide','white-barrel','black-ankle'])await pick('Bottoms',id)
  await pick('Tops','navy-shirt');await pick('Bottoms','grey-slacks')
- for(const id of ['brown-overshirt','teal-shirt','navy-bomber','black-puffer','beige-coat','black-rain-jacket']){
+ for(const id of ['brown-overshirt','teal-shirt','navy-bomber','black-puffer','beige-coat','custom-shell']){
   const selector=p.getByRole('combobox',{name:'Selected outerwear',exact:true}),name=await selector.locator(`option[value="${id}"]`).innerText()
   await selector.selectOption(id);await expect(canvas).toHaveAttribute('aria-label',new RegExp(name),{timeout:30000})
   if(['brown-overshirt','beige-coat','black-puffer'].includes(id)){

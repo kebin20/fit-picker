@@ -135,7 +135,7 @@
           "id": "navy-overshirt",
           "description": "Solid dark navy long-sleeve button-front overshirt with collar and discreet chest pocket, slightly boxy relaxed shape; distinct from the short-sleeve navy shirt, no contrasting check pattern.",
           "colorHex": "#263449",
-          "ownership": "confirmed",
+          "ownership": "not-owned",
           "widthWithinCell": 0.78,
           "heightWithinCell": 0.82
         },
@@ -436,7 +436,7 @@
           "id": "black-rain-jacket",
           "description": "Plain matte black lightweight hooded rain jacket, central zip, simple practical pockets, slightly longer hip-length hem, minimal seam detailing; no quilted baffles or visible branding.",
           "colorHex": "#252a29",
-          "ownership": "confirmed",
+          "ownership": "not-owned",
           "widthWithinCell": 0.78,
           "heightWithinCell": 0.84
         },

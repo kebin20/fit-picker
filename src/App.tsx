@@ -16,7 +16,7 @@ import { personalKey, readPersonal, validatePersonal, validSelection, weatherSui
 import SourceGuideCard from './components/SourceGuideCard'
 import { sourceGuides as sourceInfo } from './data/source-guides'
 import { seasonalOutfits } from './data/seasonal-outfits'
-import { curatedOutfitIds, focusGuideIds, focusRecipes } from './data/curated-outfits'
+import { curatedOutfitIds, focusGuideIds } from './data/curated-outfits'
 import FocusPiecePicker from './components/FocusPiecePicker'
 import { adaptFocusOutfits } from './lib/focus-outfits'
 import { validateBackup } from './lib/backup'
@@ -151,27 +151,35 @@ export default function App() {
     const piece = byId.get(id)
     return piece?.ownership === 'confirmed' ? [piece] : []
   }), [byId, personal.focusPieces])
+  const rainLayers = useMemo(() => garments.filter(piece => piece.ownership === 'confirmed' &&
+    (piece.category === 'layers' || piece.wearableAs?.includes('layers')) &&
+    (piece.style === 'raincoat' || piece.waterproof)
+  ), [garments])
+  const rain = personal.rain && rainLayers.length > 0
   const matchingLooks = useMemo(() => {
     const focusIds = focusPieces.map(piece => piece.id)
     const hidden = new Set(personal.hidden)
     const available = garments.filter(piece => !personal.unavailable.includes(piece.id))
-    const focusedRecipes = focusIds.flatMap(id => focusRecipes.get(id) ?? outfitsById.get(focusGuideIds.get(id) ?? '') ?? [])
+    const focusedRecipes = focusIds.flatMap(id => outfitsById.get(focusGuideIds.get(id) ?? '') ?? [])
     const recipes = recommendOutfits([...curatedOutfits, ...focusedRecipes], garments, season, occasion)
-    const rainVariations: Outfit[] = personal.rain ? recipes.filter(outfit => outfit.items.layers !== 'black-rain-jacket').map(outfit => ({
+    const suitableLayers = rain ? rainLayers.filter(piece => piece.seasons.includes(season) && !personal.unavailable.includes(piece.id)) : []
+    const rainVariations: Outfit[] = suitableLayers.flatMap(layer => recipes.filter(outfit =>
+      outfit.items.layers !== layer.id && outfit.items.tops !== layer.id
+    ).map(outfit => ({
       ...outfit,
-      id: `${outfit.id}-rain`,
+      id: `${outfit.id}-rain-${layer.id}`,
       name: `${outfit.name} · rain layer`,
-      subtitle: 'With your black rain jacket',
-      items: { ...outfit.items, layers: 'black-rain-jacket' },
+      subtitle: `With your ${layer.name}`,
+      items: { ...outfit.items, layers: layer.id },
       origin: 'styled',
       image: undefined,
-      note: 'Rain jacket added over this combination. Check warmth and footwear for your conditions.',
+      note: `${layer.name} added for rain.`,
       sourceLabel: 'Personal rain variation',
-    })) : []
+    })))
     function fitsFilters(outfit: Outfit) {
       const ids = Object.values(outfit.items)
       return !hidden.has(outfit.id) && focusIds.every(id => ids.includes(id)) &&
-        weatherSuitable(ids.map(id => byId.get(id)!), personal.temperature, personal.rain, outfit.items.layers)
+        weatherSuitable(ids.map(id => byId.get(id)!), personal.temperature, rain, outfit.items.layers)
     }
 
     const seen = new Set<string>()
@@ -192,7 +200,7 @@ export default function App() {
       return true
     })
     return [...rankedExact, ...rankOutfits(alternatives, personal.pinned, personal.history).slice(0, 3 - exact.length)]
-  }, [byId, focusPieces, garments, occasion, personal.hidden, personal.history, personal.pinned, personal.rain, personal.temperature, personal.unavailable, season])
+  }, [byId, focusPieces, garments, occasion, personal.hidden, personal.history, personal.pinned, personal.temperature, personal.unavailable, rain, rainLayers, season])
   const compatible = matchingLooks.filter(o => recommendationView === 'all' || (recommendationView === 'styled' ? o.origin === 'styled' : o.origin !== 'styled'))
   const garmentList = garments.filter(g => (g.category === category || g.wearableAs?.includes(category)) && (page !== 'wardrobe' || wardrobeSeason === 'All seasons' || g.seasons.includes(wardrobeSeason)) && (g.ownership === 'confirmed' || (page === 'wardrobe' && showRecommended && g.ownership === 'recommended')) && `${g.name} ${g.colorName}`.toLowerCase().includes(search.toLowerCase()))
   const outerwear = garments.filter(g => (g.category === 'layers' || g.wearableAs?.includes('layers')) && g.ownership === 'confirmed')
@@ -310,7 +318,7 @@ export default function App() {
             <div className="section-title"><div><h2>Right for the <em>occasion.</em></h2><p>{recommendationView === 'guide' ? 'Selected looks from your original guides' : 'A curated selection'} for {season.toLowerCase()} · {occasion.toLowerCase()}.</p></div><span className="outlined-count" aria-live="polite">{compatible.length} {compatible.length === 1 ? 'look' : 'looks'}</span></div>
             <FocusPiecePicker garments={garments} pieces={focusPieces} unavailable={personal.unavailable} onChange={changeFocus}/>
         <div className="context-bar" role="group" aria-label="Outfit recommendation filters"><div className="occasion-options" aria-label="Occasion">{occasions.map((o, i) => { const Icon = [Coffee, Utensils, Heart, Users, Leaf][i]; return <button className={occasion === o ? 'active' : ''} onClick={() => setOccasion(o)} key={o} aria-pressed={occasion === o}><Icon size={15}/>{o}</button> })}</div><label className="season-select">{(() => { const Icon = seasonIcons[season]; return <Icon size={15}/> })()}<select value={season} onChange={e => changeSeason(e.target.value as Season)} aria-label="Season">{seasons.map(s => <option key={s}>{s}</option>)}</select><ChevronDown size={14}/></label></div>
-            <div className="weather-controls"><label>Temperature °C<input aria-label="Temperature °C" type="number" min="-30" max="50" placeholder="Any" value={personal.temperature} onChange={e=>{setPersonal(p=>({...p,temperature:e.target.value === '' ? '' : String(Math.max(-30,Math.min(50,Number(e.target.value))))}));setVisibleLooks(6)}}/></label><label><input type="checkbox" checked={personal.rain} onChange={e=>{setPersonal(p=>({...p,rain:e.target.checked}));setVisibleLooks(6)}}/>Rain — require rain-suitable outerwear</label></div><p className="history-entry">Weather matching uses your item settings and broad warmth rules. Check conditions and your own comfort.</p>{!!personal.hidden.length&&<button onClick={()=>setPersonal(p=>({...p,hidden:[]}))}>Restore hidden suggestions ({personal.hidden.length})</button>}
+            <div className="weather-controls"><label>Temperature °C<input aria-label="Temperature °C" type="number" min="-30" max="50" placeholder="Any" value={personal.temperature} onChange={e=>{setPersonal(p=>({...p,temperature:e.target.value === '' ? '' : String(Math.max(-30,Math.min(50,Number(e.target.value))))}));setVisibleLooks(6)}}/></label><label><input type="checkbox" checked={rain} disabled={!rainLayers.length} onChange={e=>{setPersonal(p=>({...p,rain:e.target.checked}));setVisibleLooks(6)}}/>Rain — require rain-suitable outerwear</label></div><p className="history-entry">{rainLayers.length ? 'Weather matching uses your item settings and broad warmth rules.' : 'Add waterproof outerwear to enable the rain filter.'}</p>{!!personal.hidden.length&&<button onClick={()=>setPersonal(p=>({...p,hidden:[]}))}>Restore hidden suggestions ({personal.hidden.length})</button>}
             <div className="recommendation-tabs" role="group" aria-label="Outfit collection"><button aria-pressed={recommendationView === 'all'} onClick={() => setRecommendationView('all')}>All looks<span className="collection-count">{matchingLooks.length}</span></button><button aria-pressed={recommendationView === 'styled'} onClick={() => setRecommendationView('styled')}><Sparkles size={14}/>Seasonal edits</button><button aria-pressed={recommendationView === 'guide'} onClick={() => setRecommendationView('guide')}><Layers3 size={14}/>From your guides</button></div>
             <p className="styling-image-note">Model photos illustrate your wardrobe combinations. Exact prints, cuts and fit may vary.</p>
             <div className="outfit-grid">{compatible.slice(0, visibleLooks).map((o, i) => renderOutfitCard(o, i))}</div>

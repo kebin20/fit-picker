@@ -17,7 +17,7 @@ function garment(
 // The updated collection wins where the guides describe the same piece.
 // Distinct cuts/prints remain distinct; ambiguous naming is recorded in notes.
 export const garments: Garment[] = [
-  garment('navy-shirt', 'Navy short-sleeve shirt', 'tops', 'shirt', '#233344', 'Navy', 'ss', { wearableAs: ['layers'], note: 'Short-sleeve shirt in the core and summer guides; distinct from the updated navy overshirt.' }),
+  garment('navy-shirt', 'Navy short-sleeve shirt', 'tops', 'shirt', '#233344', 'Navy', 'ss', { wearableAs: ['layers'], note: 'Short-sleeve navy shirt from the core and summer guides.' }),
   garment('brown-flannel', 'Solid brown flannel shirt', 'tops', 'shirt', '#75523a', 'Brown', 'aw-updated', { wearableAs: ['layers'], seasons: cool, note: 'Confirmed by you as solid brown, with no stripes or checks. Can be worn alone or open as a layer.' }),
   garment('ainu-longsleeve', 'Grey Ainu long-sleeve tee', 'tops', 'longsleeve', '#a7aaa8', 'Grey', 'aw-updated', { seasons: cool, pattern: 'graphic' }),
   garment('rust-tee', 'Rust tee', 'tops', 'tee', '#a44c2e', 'Rust', 'aw-updated'),
@@ -27,7 +27,7 @@ export const garments: Garment[] = [
   garment('offwhite-sweatshirt', 'Off-white sweatshirt', 'tops', 'sweatshirt', '#e9e1cf', 'Off white', 'aw-updated', { seasons: cool }),
   garment('white-hoodie', 'White hoodie', 'tops', 'hoodie', '#f1eee7', 'White', 'aw-updated', { seasons: cool }),
   garment('brown-hoodie', 'Light brown hoodie', 'tops', 'hoodie', '#9a826b', 'Light brown', 'aw-updated', { seasons: cool }),
-  garment('navy-overshirt', 'Navy overshirt', 'tops', 'overshirt', '#263449', 'Navy', 'aw-updated', { wearableAs: ['layers'], seasons: cool, note: 'Low-contrast long-sleeve overshirt in the updated guide.' }),
+  garment('navy-overshirt', 'Navy overshirt', 'tops', 'overshirt', '#263449', 'Navy', 'aw-updated', { wearableAs: ['layers'], seasons: cool, ownership: 'not-owned', note: 'You confirmed you do not own this long-sleeve overshirt.' }),
   garment('check-overshirt', 'Check overshirt', 'tops', 'overshirt', '#bda078', 'Beige check', 'aw-updated', { wearableAs: ['layers'], seasons: cool, pattern: 'check', note: 'Labelled “Burberry Style” in the source; not a verified brand identification.' }),
   garment('white-graphic-tee', 'White graphic tee', 'tops', 'tee', '#efede5', 'White', 'aw-updated', { pattern: 'graphic', note: 'Small circular text mark on the front; wording unconfirmed. Back: #Meow Monday illustration with a cat and a person wearing a red cap and headphones, from your supplied reference.' }),
   garment('black-cat-tee', 'Black cat graphic tee', 'tops', 'tee', '#282925', 'Black', 'aw-updated', { pattern: 'graphic', note: 'Front: pink Coffee lettering above the rectangular cat-and-coffee illustration, matched to your supplied reference.' }),
@@ -52,7 +52,7 @@ export const garments: Garment[] = [
   garment('green-bomber', 'Green bomber', 'layers', 'bomber', '#616b43', 'Olive green', 'aw-updated', { seasons: cool }),
   garment('black-puffer', 'Black GU puffer', 'layers', 'puffer', '#2c2d2c', 'Black', 'aw-updated', { seasons: ['Winter'] }),
   garment('brown-overshirt', 'Brown overshirt', 'layers', 'overshirt', '#84664b', 'Brown', 'aw-core', { seasons: cool, note: 'Separate overshirt listed in the core guide. Not merged with the flannel because the guide lists both.' }),
-  garment('black-rain-jacket', 'Black rain jacket', 'layers', 'raincoat', '#252a29', 'Black', 'aw-core', { seasons: cool }),
+  garment('black-rain-jacket', 'Black rain jacket', 'layers', 'raincoat', '#252a29', 'Black', 'aw-core', { seasons: cool, ownership: 'not-owned', note: 'You confirmed you do not own this rain jacket.' }),
 
   garment('white-barrel', 'White barrel pants', 'bottoms', 'trousers', '#e9e5d9', 'White', 'aw-updated', { note: 'Wide white barrel cut in the updated wardrobe. Summer C2’s “white trousers” are mapped here; exact cut in that drawing is uncertain.' }),
   garment('brown-barrel', 'Brown barrel pants', 'bottoms', 'trousers', '#735e49', 'Brown', 'aw-updated', { note: 'Updated wide brown barrel pants; mapped to the core guide’s brown pants because no separate brown pair is established.' }),
@@ -124,7 +124,7 @@ export const outfits: Outfit[] = [
   outfit('aw-core-5', 'Smart casual layer', 'Navy shirt, brown overshirt & cream pants', 'navy-shirt', 'cream-pants', 'adidas-black', 'aw-core', 4, autumn, smart, 'Smart casual', 'brown-overshirt'),
   outfit('aw-core-6', 'Textured & cozy', 'Brown flannel shirt & grey slacks', 'brown-flannel', 'grey-slacks', 'adidas-black', 'aw-core', 5, autumn, casualDate, 'Textured casual'),
   outfit('aw-core-7', 'Sweat casual', 'Navy sweatshirt & cream pants', 'navy-sweatshirt', 'cream-pants', 'adidas-black', 'aw-core', 6, autumn, everyday, 'Clean casual'),
-  outfit('aw-core-8', 'Street / outdoor', 'Grey sweatshirt, olive pants & rain jacket', 'grey-sweatshirt', 'olive-wide', 'adidas-black', 'aw-core', 7, aw, outside, 'Outdoor casual', 'black-rain-jacket', 'Contains a suggested grey sweatshirt, not a confirmed owned piece. Excluded from owned-wardrobe recommendations.'),
+  outfit('aw-core-8', 'Street / outdoor', 'Grey sweatshirt, olive pants & rain jacket', 'grey-sweatshirt', 'olive-wide', 'adidas-black', 'aw-core', 7, aw, outside, 'Outdoor casual', 'black-rain-jacket', 'Archived guide look with a suggested grey sweatshirt and an unowned rain jacket.'),
 
   outfit('ss-r1', 'Cat tee, out of office', 'Cat graphic tee, olive chef pants & Converse', 'black-cat-tee', 'olive-wide', 'converse-black', 'ss', 0, warm, outside, 'Relaxed / street'),
   outfit('ss-r2', 'Rust, on repeat', 'Rust tee, beige shorts & taupe Skechers', 'rust-tee', 'beige-shorts', 'skechers-taupe', 'ss', 1, warm, outside, 'Relaxed / street'),

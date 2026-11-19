@@ -12,11 +12,11 @@ describe('recommendOutfits', () => {
     expect(result.some(look => look.source === 'aw-updated')).toBe(false)
   })
 
-  it('excludes the core grey-sweatshirt suggestion until ownership is confirmed', () => {
+  it('excludes the archived rain look even if the grey sweatshirt is confirmed', () => {
     const suggestions = recommendOutfits(outfits, garments, 'Winter', 'Outdoors')
     expect(suggestions.some(look => look.id === 'aw-core-8')).toBe(false)
     const confirmed = garments.map(piece => piece.id === 'grey-sweatshirt' ? { ...piece, ownership: 'confirmed' as const } : piece)
-    expect(recommendOutfits(outfits, confirmed, 'Winter', 'Outdoors').some(look => look.id === 'aw-core-8')).toBe(true)
+    expect(recommendOutfits(outfits, confirmed, 'Winter', 'Outdoors').some(look => look.id === 'aw-core-8')).toBe(false)
   })
 
   it('removes looks whose shoe or layer no longer exists instead of inventing a replacement', () => {

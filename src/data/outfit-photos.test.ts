@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { garments, outfits } from './wardrobe'
 import { seasonalOutfits } from './seasonal-outfits'
+import { guideQuickIdeas } from './guide-quick-ideas'
 import { outfitPhoto } from '../lib/outfit-photos'
 import manifest from './outfit-photo-manifest.json'
 import refreshed from '../../docs/artwork/outfits/wardrobe-refresh/prompts.json'
@@ -13,19 +14,22 @@ import type { Garment } from '../types'
 const owned = new Set(garments.filter(piece => piece.ownership === 'confirmed').map(piece => piece.id))
 const selectable = [...seasonalOutfits, ...outfits].filter(look => Object.values(look.items).every(id => owned.has(id)))
 const archivedPhotos = [...seasonalOutfits, ...outfits].filter(look => Object.values(look.items).every(id => garments.some(g => g.id === id && g.ownership !== 'recommended')))
+const newPortraits = guideQuickIdeas.filter(look => look.id !== 'aw-quick-4')
 
 describe('complete model-photo library', () => {
   it('covers every selectable new and original guide combination', () => {
     expect(selectable).toHaveLength(132)
     // Preserve original IDs/photos as historical assets when ownership changes.
-    expect(Object.keys(manifest).sort()).toEqual(archivedPhotos.map(look => look.id).sort())
-    for (const look of selectable) expect(outfitPhoto(look), look.id).toBeDefined()
+    expect(Object.keys(manifest).sort()).toEqual([...archivedPhotos, ...newPortraits].map(look => look.id).sort())
+    for (const look of [...selectable, ...guideQuickIdeas]) expect(outfitPhoto(look), look.id).toBeDefined()
+    const flannel = guideQuickIdeas.find(look => look.id === 'aw-quick-4')!
+    expect(outfitPhoto(flannel)?.src).toBe(outfitPhoto(seasonalOutfits.find(look => look.id === 'styled-autumn-edit02-20')!)?.src)
     const sourceOnly = outfits.find(look => look.id === 'aw-core-8')!
     expect(outfitPhoto(sourceOnly)).toBeUndefined()
   })
 
   it('ships decodable responsive WebPs with matching portrait dimensions', async () => {
-    for (const look of selectable) {
+    for (const look of [...selectable, ...newPortraits]) {
       const photo = outfitPhoto(look)!
       expect(photo.width, look.id).toBe(1024)
       expect(photo.height, look.id).toBeGreaterThanOrEqual(1500)

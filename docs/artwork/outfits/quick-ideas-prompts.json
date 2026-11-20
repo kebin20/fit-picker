@@ -1,0 +1,39 @@
+{
+  "generatedWith": "Built-in image generation",
+  "section": "Updated Autumn / Winter guide · More Outfit Combinations (Quick Ideas)",
+  "entries": [
+    {
+      "id": "aw-quick-1",
+      "original": "docs/artwork/outfits/originals/aw-quick-1.png",
+      "reference": "src/assets/guides/aw-updated.png",
+      "prompt": "Use case: product-mockup. Make one polished photorealistic full-body men's outfit portrait for the Fit Picker wardrobe app, in a vertical 2:3 frame. One East Asian adult male fashion model with short dark hair, natural proportions and a calm expression. Use a warm off-white seamless studio backdrop and soft natural studio light, with the entire figure centered and visible from head to soles, low visual clutter, subtle contact shadow. Show garments clearly and faithfully, in relaxed contemporary Japanese casual styling. No captions, borders, collages, bags or extra accessories. The wardrobe guide is a garment reference only; ignore the text/layout and other outfits. Use the first combination in the bottom-right ‘More Outfit Combinations’ row: a plain deep navy crewneck sweatshirt, straight through the body with ribbed cuffs and hem, light ivory-white relaxed barrel-leg trousers with natural taper, and white low-top trainers with three black stripes. No coat, no undershirt sticking out.",
+      "assets": [
+        "public/outfits/aw-quick-1.webp",
+        "public/outfits/400/aw-quick-1.webp",
+        "public/outfits/800/aw-quick-1.webp"
+      ]
+    },
+    {
+      "id": "aw-quick-2",
+      "original": "docs/artwork/outfits/originals/aw-quick-2.png",
+      "reference": "src/assets/guides/aw-updated.png",
+      "prompt": "Use case: product-mockup. Make one polished photorealistic full-body men's outfit portrait for the Fit Picker wardrobe app, in a vertical 2:3 frame. One East Asian adult male fashion model with short dark hair, natural proportions and a calm expression. Use a warm off-white seamless studio backdrop and soft natural studio light, with the entire figure centered and visible from head to soles, low visual clutter, subtle contact shadow. Show garments clearly and faithfully, in relaxed contemporary Japanese casual styling. No captions, borders, collages, bags or extra accessories. The wardrobe guide is a garment reference only; ignore the text/layout and other outfits. Use the second combination in the bottom-right ‘More Outfit Combinations’ row: a long-sleeve tan overshirt with broad black and red-beige checks worn open over a plain warm cream cotton tee with a small chest pocket, muted olive green wide-leg pants, and light taupe low-top slip-in walking sneakers with neutral cream soles. Use the caption's taupe slip-ins even though the guide illustration depicts dark footwear. Show the layer opening and contrast.",
+      "assets": [
+        "public/outfits/aw-quick-2.webp",
+        "public/outfits/400/aw-quick-2.webp",
+        "public/outfits/800/aw-quick-2.webp"
+      ]
+    },
+    {
+      "id": "aw-quick-3",
+      "original": "docs/artwork/outfits/originals/aw-quick-3.png",
+      "reference": "src/assets/guides/aw-updated.png",
+      "prompt": "Use case: product-mockup. Make one polished photorealistic full-body men's outfit portrait for the Fit Picker wardrobe app, in a vertical 2:3 frame. One East Asian adult male fashion model with short dark hair, natural proportions and a calm expression. Use a warm off-white seamless studio backdrop and soft natural studio light, with the entire figure centered and visible from head to soles, low visual clutter, subtle contact shadow. Show garments clearly and faithfully, in relaxed contemporary Japanese casual styling. No captions, borders, collages, bags or extra accessories. The wardrobe guide is a garment reference only; ignore the text/layout and other outfits. Use the third combination in the bottom-right ‘More Outfit Combinations’ row: a solid white pullover hoodie with a simple kangaroo pocket and hood down, relaxed wide brown barrel-leg pants in warm earth brown with a tapered ankle, and all-white low-top walking sneakers. Keep the proportions relaxed and clean, and do not add any outer jacket.",
+      "assets": [
+        "public/outfits/aw-quick-3.webp",
+        "public/outfits/400/aw-quick-3.webp",
+        "public/outfits/800/aw-quick-3.webp"
+      ]
+    }
+  ]
+}

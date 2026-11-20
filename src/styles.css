@@ -310,3 +310,10 @@ body:has(dialog[open], .editor-backdrop) .mobile-nav { visibility: hidden; point
   .focus-piece-fields { grid-template-columns: minmax(0, 1fr); }
   .focus-piece-fields button { justify-self: start; }
 }
+
+.context-bar--guide { display: flex; flex-wrap: nowrap; justify-content: flex-start; }
+.guide-occasion { width: 180px; min-width: 0; }
+.context-bar--guide .season-select { width: auto; min-width: 0; margin-top: 0; border-top: 0; flex-shrink: 0; }
+.outfit-photograph:not([src]) { visibility: hidden; }
+.recommendation-section h2 { scroll-margin-top: 20px; }
+.sources-modal .browse-guide-outfits { margin: 0 0 24px; }

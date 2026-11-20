@@ -16,6 +16,7 @@ import { personalKey, readPersonal, validatePersonal, validSelection, weatherSui
 import SourceGuideCard from './components/SourceGuideCard'
 import { sourceGuides as sourceInfo } from './data/source-guides'
 import { seasonalOutfits } from './data/seasonal-outfits'
+import { guideQuickIdeas } from './data/guide-quick-ideas'
 import { curatedOutfitIds, focusGuideIds } from './data/curated-outfits'
 import FocusPiecePicker from './components/FocusPiecePicker'
 import { adaptFocusOutfits } from './lib/focus-outfits'
@@ -26,7 +27,8 @@ import { rankOutfits } from './lib/rank-outfits'
 import { studioPhoto, type PhotoAngle } from './lib/studio-photos'
 import { useImageFailure } from './lib/use-image-failure'
 
-const allOutfits = [...seasonalOutfits, ...outfits]
+const guideOutfits = [...outfits, ...guideQuickIdeas]
+const allOutfits = [...guideQuickIdeas, ...seasonalOutfits, ...outfits]
 const outfitsById = new Map(allOutfits.map(outfit => [outfit.id, outfit]))
 const curatedOutfits = curatedOutfitIds.flatMap(id => outfitsById.get(id) ?? [])
 const composition = (items: Selection) => [items.tops, items.layers, items.bottoms, items.shoes].join('|')
@@ -58,7 +60,9 @@ export default function App() {
   const [page, setPage] = useState<Page>('studio')
   const [season, setSeason] = useState<Season>(personal.season || 'Autumn')
   const [occasion, setOccasion] = useState<Occasion>(personal.occasion || 'Everyday')
+  const [guideOccasion, setGuideOccasion] = useState<Occasion | ''>('')
   const [recommendationView, setRecommendationView] = useState<'all' | 'styled' | 'guide'>('all')
+  const browsingGuides = recommendationView === 'guide'
   const [wardrobeSeason, setWardrobeSeason] = useState<Season | 'All seasons'>('All seasons')
   const [visibleLooks, setVisibleLooks] = useState(6)
   const [category, setCategory] = useState<Category>('tops')
@@ -82,6 +86,8 @@ export default function App() {
   const mobileNav = useRef<HTMLElement>(null)
   const focusReturn = useRef<HTMLElement | null>(null)
   const skipPageReset = useRef(false)
+  const focusGuideHeading = useRef(false)
+  const recommendationHeading = useRef<HTMLHeadingElement>(null)
   const initialPage = useRef(true)
   const wasOverlayOpen = useRef(false)
   const overlayOpen = Boolean(modal || editor)
@@ -140,6 +146,12 @@ export default function App() {
     if (skipPageReset.current) { skipPageReset.current = false; return }
     scrollPageTop()
   },[page])
+  useLayoutEffect(() => {
+    if (modal || page !== 'studio' || !browsingGuides || !focusGuideHeading.current) return
+    focusGuideHeading.current = false
+    recommendationHeading.current?.scrollIntoView({ block: 'start', behavior: 'instant' })
+    recommendationHeading.current?.focus({ preventScroll: true })
+  }, [modal, page, browsingGuides])
   const matched = allOutfits.find(o => sameOutfit(selection, o))
   const preparedPhoto = studioPhoto(selection, garments, allOutfits)
   const photoFailure = useImageFailure(preparedPhoto?.src)
@@ -156,7 +168,7 @@ export default function App() {
     (piece.style === 'raincoat' || piece.waterproof)
   ), [garments])
   const rain = personal.rain && rainLayers.length > 0
-  const matchingLooks = useMemo(() => {
+  const { matchingLooks, guideLooks } = useMemo(() => {
     const focusIds = focusPieces.map(piece => piece.id)
     const hidden = new Set(personal.hidden)
     const available = garments.filter(piece => !personal.unavailable.includes(piece.id))
@@ -181,6 +193,11 @@ export default function App() {
       return !hidden.has(outfit.id) && focusIds.every(id => ids.includes(id)) &&
         weatherSuitable(ids.map(id => byId.get(id)!), personal.temperature, rain, outfit.items.layers)
     }
+    const guideLooks = rankOutfits(
+      recommendOutfits(guideOutfits, available, season, guideOccasion || undefined).filter(fitsFilters),
+      personal.pinned,
+      personal.history,
+    )
 
     const seen = new Set<string>()
     const exact = recommendOutfits([...recipes, ...rainVariations], available, season, occasion).filter(outfit => {
@@ -190,7 +207,7 @@ export default function App() {
       return true
     })
     const rankedExact = rankOutfits(exact, personal.pinned, personal.history)
-    if (!focusIds.length || exact.length >= 3) return rankedExact
+    if (!focusIds.length || exact.length >= 3) return { matchingLooks: rankedExact, guideLooks }
 
     const adapted = adaptFocusOutfits(recipes.filter(outfit => !hidden.has(outfit.id)), garments, focusIds)
     const alternatives = recommendOutfits(adapted, available, season, occasion).filter(outfit => {
@@ -199,9 +216,11 @@ export default function App() {
       seen.add(key)
       return true
     })
-    return [...rankedExact, ...rankOutfits(alternatives, personal.pinned, personal.history).slice(0, 3 - exact.length)]
-  }, [byId, focusPieces, garments, occasion, personal.hidden, personal.history, personal.pinned, personal.temperature, personal.unavailable, rain, rainLayers, season])
-  const compatible = matchingLooks.filter(o => recommendationView === 'all' || (recommendationView === 'styled' ? o.origin === 'styled' : o.origin !== 'styled'))
+    const matchingLooks = [...rankedExact, ...rankOutfits(alternatives, personal.pinned, personal.history).slice(0, 3 - exact.length)]
+    return { matchingLooks, guideLooks }
+  }, [byId, focusPieces, garments, guideOccasion, occasion, personal.hidden, personal.history, personal.pinned, personal.temperature, personal.unavailable, rain, rainLayers, season])
+  const compatible = browsingGuides ? guideLooks
+    : recommendationView === 'styled' ? matchingLooks.filter(outfit => outfit.origin === 'styled') : matchingLooks
   const garmentList = garments.filter(g => (g.category === category || g.wearableAs?.includes(category)) && (page !== 'wardrobe' || wardrobeSeason === 'All seasons' || g.seasons.includes(wardrobeSeason)) && (g.ownership === 'confirmed' || (page === 'wardrobe' && showRecommended && g.ownership === 'recommended')) && `${g.name} ${g.colorName}`.toLowerCase().includes(search.toLowerCase()))
   const outerwear = garments.filter(g => (g.category === 'layers' || g.wearableAs?.includes('layers')) && g.ownership === 'confirmed')
   useEffect(() => { if (!notice) return; const id = window.setTimeout(() => setNotice(''), 5000); return () => clearTimeout(id) }, [notice])
@@ -241,8 +260,17 @@ export default function App() {
   function tryOutfit(outfit: Outfit) { updateSelection({ ...outfit.items }); setEditingLook(null); setPage('studio'); setNotice(`Now trying “${outfit.name}”.`); window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }) }
   function changeFocus(ids: string[]) {
     setPersonal(current => ({ ...current, focusPieces: ids }))
-    setRecommendationView('all')
+    if (!browsingGuides) setRecommendationView('all')
     setVisibleLooks(6)
+  }
+  function browseGuideOutfits() {
+    focusGuideHeading.current = true
+    skipPageReset.current = page !== 'studio'
+    setGuideOccasion('')
+    setRecommendationView('guide')
+    setVisibleLooks(6)
+    setPage('studio')
+    setModal(null)
   }
   function jumpToFocusPicker() {
     const picker = document.getElementById('focus-first-piece')
@@ -270,9 +298,11 @@ export default function App() {
     else setSaveError('This browser could not save the look. Check available storage and try again.')
   }
   function changeSeason(next: Season) { setSeason(next) }
-  useEffect(() => { setVisibleLooks(6) }, [season, occasion, recommendationView])
+  useEffect(() => { setVisibleLooks(6) }, [season, occasion, guideOccasion, recommendationView])
   function renderOutfitCard(outfit: Outfit, index: number) {
-    const label = outfit.origin === 'styled' ? `${outfit.seasons[0].toUpperCase()} · ${outfit.sourceLabel.split(' · ').at(-1)?.toUpperCase()}` : outfit.source === 'ss' ? 'SPRING / SUMMER · GUIDE' : 'AUTUMN / WINTER · GUIDE'
+    const label = outfit.origin === 'styled'
+      ? `${outfit.seasons[0]} · ${outfit.sourceLabel.split(' · ').at(-1)}`
+      : outfit.sourceLabel
     return <article className="outfit-card" key={outfit.id} data-outfit-id={outfit.id}>
       <div className="outfit-image"><OutfitPreview outfit={outfit} garments={garments}/><span className="look-number">{String(index + 1).padStart(2, '0')}</span><span className="outfit-vibe">{outfit.vibe}</span></div>
       <div className="outfit-content"><span className="eyebrow">{label}</span><h3>{outfit.name}</h3><p>{outfitSummary(outfit, garments)}</p>{outfit.origin === 'styled' && outfit.note && <p className="outfit-reason">{outfit.note}</p>}<div className="look-swatches">{Object.values(outfit.items).map(id => <span key={id} style={{ background: byId.get(id)?.color }} title={byId.get(id)?.name}/>)}</div><button onClick={() => tryOutfit(outfit)}>Try this look <ArrowRight size={15}/></button><div className="look-actions"><button aria-pressed={personal.pinned.includes(outfit.id)} onClick={()=>toggle('pinned',outfit.id)}>Favourite</button><button onClick={()=>toggle('hidden',outfit.id)}>Hide suggestion</button></div></div>
@@ -315,18 +345,29 @@ export default function App() {
           </section>
           <div className="personal-bar">{editingLook&&<><span>Editing {saved.find(l=>l.id===editingLook)?.name}</span><button onClick={()=>setEditingLook(null)}>Cancel editing</button></>}{!online&&<span className="offline-status">Offline · Your cached outfits are available in 2D.</span>}<button onClick={jumpToFocusPicker}>Build around a piece <ArrowDown size={14} aria-hidden="true"/></button><button onClick={wearToday} disabled={!complete}>Wore this today</button><button onClick={()=>cacheLook(selection)}>Keep outfit offline</button>{personal.history[0]&&<span className="history-entry">Last recorded: {personal.history[0].date}</span>}</div><div className="approximation"><CircleHelp size={13}/><span>Mannequin views illustrate colours and combinations. Garment shapes, fit and unseen details are approximate.</span>{previous && <button onClick={() => { setSelection(previous); setPrevious(null); setNotice('Previous outfit restored.') }}>Undo last change</button>}</div>
           <section className="recommendation-section">
-            <div className="section-title"><div><h2>Right for the <em>occasion.</em></h2><p>{recommendationView === 'guide' ? 'Selected looks from your original guides' : 'A curated selection'} for {season.toLowerCase()} · {occasion.toLowerCase()}.</p></div><span className="outlined-count" aria-live="polite">{compatible.length} {compatible.length === 1 ? 'look' : 'looks'}</span></div>
+            <div className="section-title"><div><h2 ref={recommendationHeading} tabIndex={-1}>{browsingGuides ? 'Outfits from your guides' : <>Right for the <em>occasion.</em></>}</h2>{!browsingGuides && <p>A curated selection for {season.toLowerCase()} · {occasion.toLowerCase()}.</p>}</div><span className="outlined-count" aria-live="polite">{compatible.length} {compatible.length === 1 ? 'look' : 'looks'}</span></div>
             <FocusPiecePicker garments={garments} pieces={focusPieces} unavailable={personal.unavailable} onChange={changeFocus}/>
-        <div className="context-bar" role="group" aria-label="Outfit recommendation filters"><div className="occasion-options" aria-label="Occasion">{occasions.map((o, i) => { const Icon = [Coffee, Utensils, Heart, Users, Leaf][i]; return <button className={occasion === o ? 'active' : ''} onClick={() => setOccasion(o)} key={o} aria-pressed={occasion === o}><Icon size={15}/>{o}</button> })}</div><label className="season-select">{(() => { const Icon = seasonIcons[season]; return <Icon size={15}/> })()}<select value={season} onChange={e => changeSeason(e.target.value as Season)} aria-label="Season">{seasons.map(s => <option key={s}>{s}</option>)}</select><ChevronDown size={14}/></label></div>
+            <div className={browsingGuides ? 'context-bar context-bar--guide' : 'context-bar'} role="group" aria-label="Outfit recommendation filters">
+              {browsingGuides
+                ? <div className="select-control guide-occasion">
+                    <select aria-label="Guide occasion" value={guideOccasion} onChange={event => setGuideOccasion(event.target.value as Occasion | '')}>
+                      <option value="">All occasions</option>
+                      {occasions.map(option => <option key={option}>{option}</option>)}
+                    </select>
+                    <ChevronDown size={14} aria-hidden="true"/>
+                  </div>
+                : <div className="occasion-options" aria-label="Occasion">{occasions.map((o, i) => { const Icon = [Coffee, Utensils, Heart, Users, Leaf][i]; return <button className={occasion === o ? 'active' : ''} onClick={() => setOccasion(o)} key={o} aria-pressed={occasion === o}><Icon size={15}/>{o}</button> })}</div>}
+              <label className="season-select">{(() => { const Icon = seasonIcons[season]; return <Icon size={15}/> })()}<select value={season} onChange={e => changeSeason(e.target.value as Season)} aria-label="Season">{seasons.map(s => <option key={s}>{s}</option>)}</select><ChevronDown size={14}/></label>
+            </div>
             <div className="weather-controls"><label>Temperature °C<input aria-label="Temperature °C" type="number" min="-30" max="50" placeholder="Any" value={personal.temperature} onChange={e=>{setPersonal(p=>({...p,temperature:e.target.value === '' ? '' : String(Math.max(-30,Math.min(50,Number(e.target.value))))}));setVisibleLooks(6)}}/></label><label><input type="checkbox" checked={rain} disabled={!rainLayers.length} onChange={e=>{setPersonal(p=>({...p,rain:e.target.checked}));setVisibleLooks(6)}}/>Rain — require rain-suitable outerwear</label></div><p className="history-entry">{rainLayers.length ? 'Weather matching uses your item settings and broad warmth rules.' : 'Add waterproof outerwear to enable the rain filter.'}</p>{!!personal.hidden.length&&<button onClick={()=>setPersonal(p=>({...p,hidden:[]}))}>Restore hidden suggestions ({personal.hidden.length})</button>}
-            <div className="recommendation-tabs" role="group" aria-label="Outfit collection"><button aria-pressed={recommendationView === 'all'} onClick={() => setRecommendationView('all')}>All looks<span className="collection-count">{matchingLooks.length}</span></button><button aria-pressed={recommendationView === 'styled'} onClick={() => setRecommendationView('styled')}><Sparkles size={14}/>Seasonal edits</button><button aria-pressed={recommendationView === 'guide'} onClick={() => setRecommendationView('guide')}><Layers3 size={14}/>From your guides</button></div>
+            <div className="recommendation-tabs" role="group" aria-label="Outfit collection"><button aria-pressed={recommendationView === 'all'} onClick={() => setRecommendationView('all')}>Curated picks<span className="collection-count">{matchingLooks.length}</span></button><button aria-pressed={recommendationView === 'styled'} onClick={() => setRecommendationView('styled')}><Sparkles size={14}/>Seasonal edits</button><button aria-pressed={browsingGuides} onClick={() => setRecommendationView('guide')}><Layers3 size={14}/>From your guides</button></div>
             <p className="styling-image-note">Model photos illustrate your wardrobe combinations. Exact prints, cuts and fit may vary.</p>
             <div className="outfit-grid">{compatible.slice(0, visibleLooks).map((o, i) => renderOutfitCard(o, i))}</div>
             {compatible.length === 0 && <div className="empty-state"><Leaf/><h3>No matching looks</h3><p>{focusPieces.some(piece => personal.unavailable.includes(piece.id))
               ? 'One of your chosen pieces is unavailable. Choose a different piece or mark it available in My wardrobe.'
               : focusPieces.some(piece => !piece.seasons.includes(season))
                 ? 'One of your chosen pieces is outside this season. Choose another season or change the piece.'
-                : `Try another occasion or adjust the weather filters${focusPieces.length === 2 ? ', or try one piece at a time' : focusPieces.length ? ', or choose a different piece' : ''}.`}</p>{recommendationView !== 'all' && <button className="primary-button" onClick={() => setRecommendationView('all')}>See all looks<ArrowRight size={15}/></button>}</div>}
+                : `Try another occasion or adjust the weather filters${focusPieces.length === 2 ? ', or try one piece at a time' : focusPieces.length ? ', or choose a different piece' : ''}.`}</p>{recommendationView !== 'all' && <button className="primary-button" onClick={() => setRecommendationView('all')}>See curated picks<ArrowRight size={15}/></button>}</div>}
             {compatible.length > visibleLooks && <button className="show-more-looks" onClick={() => setVisibleLooks(count => count + 6)}>Show {Math.min(6, compatible.length - visibleLooks)} more looks <ArrowDown size={14}/><span>({compatible.length - visibleLooks} remaining)</span></button>}
           </section>
         </>}
@@ -342,7 +383,12 @@ export default function App() {
     {notice && <div role="status" className="toast"><Check size={16}/>{notice}<button onClick={() => setNotice('')} aria-label="Dismiss notification"><X size={15}/></button></div>}
     <dialog ref={dialog} className={`modal ${modal === 'sources' ? 'sources-modal' : ''}`} onCancel={() => setModal(null)} onClick={e => { if (e.target === dialog.current) setModal(null) }}><div className="modal-header"><span className="eyebrow">FIT PICKER / YOUR PERSONAL EDIT</span><button onClick={() => setModal(null)} aria-label="Close dialog"><X size={20}/></button></div>
       {modal === 'save' && <form onSubmit={saveLook}><h2>A look worth <em>keeping.</em></h2><p>Give this combination a name. It will be saved on this browser.</p><label className="form-label">Look name<input autoFocus required maxLength={70} value={lookName} onChange={e => setLookName(e.target.value)}/></label>{saveError && <p role="alert">{saveError}</p>}<div className="save-preview">{chosen.map(g => <div key={g.id}><GarmentArt garment={g}/><span>{g.name}</span></div>)}</div><button type="button" onClick={()=>{setModal(null);setPage('studio')}}>Change pieces</button><button className="primary-button" type="submit">Save this look <Bookmark size={16}/></button></form>}
-      {modal === 'sources' && <><h2>It starts with <em>your wardrobe.</em></h2><p>Your wardrobe catalogue and original combinations come from these three images. The new seasonal edit adds fresh combinations using your confirmed pieces. Occasion and season tags are our styling interpretation. Suggested sweatshirts are kept separate from confirmed pieces.</p><div className="source-guides">{Object.entries(sourceInfo).map(([key, source]) => <SourceGuideCard key={key} source={source}/>)}</div></>}
+      {modal === 'sources' && <>
+        <h2>Your style guides</h2>
+        <p>Browse outfits from all four seasons using pieces you own, or open the original guides at full size.</p>
+        <button className="primary-button browse-guide-outfits" onClick={browseGuideOutfits}>Browse guide outfits <ArrowRight size={16}/></button>
+        <div className="source-guides">{Object.entries(sourceInfo).map(([key, source]) => <SourceGuideCard key={key} source={source}/>)}</div>
+      </>}
       {modal === 'about' && <><h2>Your clothes.<br/><em>New possibilities.</em></h2><p>Fit Picker is a personal outfit studio built around your three seasonal style guides. Choose an occasion, explore combinations, or make one of your own.</p><p>The 2D outfit uses realistic garment cutouts to show your selected combination. These are generated representations, rather than photographs of your exact items. The 3D fitting preview uses a generic body and fitted garment templates; neither view predicts sizing or fabric fit.</p><p>Saved looks are stored on this device’s browser. The prototype does not sync across devices.</p><button className="primary-button" onClick={() => openModal('sources')}>See the source guides <ArrowRight size={16}/></button></>}
     </dialog>
   </div>

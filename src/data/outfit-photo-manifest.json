@@ -823,5 +823,20 @@
     "width": 1024,
     "height": 1536,
     "appearance": "v1-7fd9975a"
+  },
+  "aw-quick-1": {
+    "width": 1024,
+    "height": 1536,
+    "appearance": "v1-6130c79c"
+  },
+  "aw-quick-2": {
+    "width": 1024,
+    "height": 1536,
+    "appearance": "v1-5e5a7326"
+  },
+  "aw-quick-3": {
+    "width": 1024,
+    "height": 1536,
+    "appearance": "v1-410b6e55"
   }
 }

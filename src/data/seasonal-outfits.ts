@@ -168,4 +168,55 @@ const edit01: Outfit[] = [
   }),
 ]
 
-export const seasonalOutfits: Outfit[] = [...edit01, ...createSeasonalEdit02([...guideOutfits, ...edit01])]
+const outerwearEdit = [
+  styledLook({
+    id: 'styled-outerwear-01',
+    edit: '03',
+    name: 'Beige coat, navy collar',
+    subtitle: 'Beige coat, navy short-sleeve shirt, grey slacks and black Adidas',
+    items: { tops: 'navy-shirt', layers: 'beige-coat', bottoms: 'grey-slacks', shoes: 'adidas-black' },
+    season: 'Autumn',
+    occasions: ['Everyday', 'Dinner', 'Date night'],
+    source: 'aw-updated',
+    vibe: 'Smart casual',
+    note: 'Wear the coat open to show the navy collar. Grey slacks and black trainers keep the rest simple for a mild autumn evening.',
+  }),
+  styledLook({
+    id: 'styled-outerwear-02',
+    edit: '03',
+    name: 'Off-white under beige',
+    subtitle: 'Beige coat, off-white sweatshirt, black ankle trousers and Converse',
+    items: { tops: 'offwhite-sweatshirt', layers: 'beige-coat', bottoms: 'black-ankle', shoes: 'converse-black' },
+    season: 'Winter',
+    occasions: ['Everyday', 'Dinner', 'Date night', 'With friends'],
+    source: 'aw-updated',
+    vibe: 'Relaxed smart casual',
+    note: 'The off-white crew softens the beige coat. Tapered black trousers give the longer coat a clean line, and the Converse keep it casual.',
+  }),
+  styledLook({
+    id: 'styled-outerwear-03',
+    edit: '03',
+    name: 'Puffer and white hoodie',
+    subtitle: 'Black puffer, white hoodie, brown barrel pants and white Skechers',
+    items: { tops: 'white-hoodie', layers: 'black-puffer', bottoms: 'brown-barrel', shoes: 'skechers-white' },
+    season: 'Winter',
+    occasions: ['Everyday', 'With friends', 'Outdoors'],
+    source: 'aw-updated',
+    vibe: 'Relaxed winter layers',
+    note: 'Let the white hood sit outside the puffer collar. The brown barrel pants add warmth to the palette, and white trainers pick up the hoodie.',
+  }),
+  styledLook({
+    id: 'styled-outerwear-04',
+    edit: '03',
+    name: 'Brown flannel under black',
+    subtitle: 'Black puffer, solid brown flannel, black ankle trousers and black Adidas',
+    items: { tops: 'brown-flannel', layers: 'black-puffer', bottoms: 'black-ankle', shoes: 'adidas-black' },
+    season: 'Winter',
+    occasions: ['Everyday', 'With friends'],
+    source: 'aw-updated',
+    vibe: 'Winter city casual',
+    note: 'The solid brown flannel breaks up the black layers. The tapered trousers balance the fuller jacket for errands or meeting friends.',
+  }),
+]
+
+export const seasonalOutfits: Outfit[] = [...edit01, ...createSeasonalEdit02([...guideOutfits, ...edit01]), ...outerwearEdit]

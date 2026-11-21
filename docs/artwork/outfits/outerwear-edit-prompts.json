@@ -1,0 +1,70 @@
+{
+  "generatedWith": "Built-in image generation",
+  "collection": "Seasonal Edit 03 · Coat and puffer",
+  "entries": [
+    {
+      "id": "styled-outerwear-01",
+      "original": "docs/artwork/outfits/originals/styled-outerwear-01.png",
+      "references": [
+        "public/garments/beige-coat.webp",
+        "public/garments/navy-shirt.webp",
+        "public/garments/grey-slacks.webp",
+        "public/garments/adidas-black.webp"
+      ],
+      "prompt": "Use case: product-mockup. Create one polished photorealistic full-length men's outfit portrait for Fit Picker. Portrait 2:3 composition, warm ivory seamless backdrop and soft studio daylight with natural contact shadow. One East Asian adult male fashion model with short dark hair and natural proportions, centered from top of hair to the soles with comfortable margins. Show textures, garment lengths and footwear clearly. Use reference 1 for the exact construction and color of the outerwear, and the other reference images for the other garment pieces in the same order as the description. Take styling from the supplied pieces. No captions, collage, accessories, bag or framing graphics. The outerwear is a beige single-breasted wool-look coat with notch lapels and dark buttons, falling closer to the knee than the hip. Wear it open over a navy short-sleeve button-through shirt, tailored grey slacks and all-black low-top Adidas trainers. Calm smart casual, suitable for a mild autumn dinner.",
+      "assets": [
+        "public/outfits/styled-outerwear-01.webp",
+        "public/outfits/400/styled-outerwear-01.webp",
+        "public/outfits/800/styled-outerwear-01.webp"
+      ]
+    },
+    {
+      "id": "styled-outerwear-02",
+      "original": "docs/artwork/outfits/originals/styled-outerwear-02.png",
+      "references": [
+        "public/garments/beige-coat.webp",
+        "public/garments/offwhite-sweatshirt.webp",
+        "public/garments/black-ankle.webp",
+        "public/garments/converse-black.webp"
+      ],
+      "prompt": "Use case: product-mockup. Create one polished photorealistic full-length men's outfit portrait for Fit Picker. Portrait 2:3 composition, warm ivory seamless backdrop and soft studio daylight with natural contact shadow. One East Asian adult male fashion model with short dark hair and natural proportions, centered from top of hair to the soles with comfortable margins. Show textures, garment lengths and footwear clearly. Use reference 1 for the exact construction and color of the outerwear, and the other reference images for the other garment pieces in the same order as the description. Take styling from the supplied pieces. No captions, collage, accessories, bag or framing graphics. The outerwear is a beige single-breasted wool-look coat with notch lapels and dark buttons, falling closer to the knee than the hip. Wear it open over an off-white crewneck sweatshirt. Pair with clean black straight-tapered ankle trousers and black low-top Converse with white toe bumpers and white soles. Easy smart casual. Match the shape and proportions of the garments from the cutouts.",
+      "assets": [
+        "public/outfits/styled-outerwear-02.webp",
+        "public/outfits/400/styled-outerwear-02.webp",
+        "public/outfits/800/styled-outerwear-02.webp"
+      ]
+    },
+    {
+      "id": "styled-outerwear-03",
+      "original": "docs/artwork/outfits/originals/styled-outerwear-03.png",
+      "references": [
+        "public/garments/black-puffer.webp",
+        "public/garments/white-hoodie.webp",
+        "public/garments/brown-barrel.webp",
+        "public/garments/skechers-white.webp"
+      ],
+      "prompt": "Use case: product-mockup. Create one polished photorealistic full-length men's outfit portrait for Fit Picker. Portrait 2:3 composition, warm ivory seamless backdrop and soft studio daylight with natural contact shadow. One East Asian adult male fashion model with short dark hair and natural proportions, centered from top of hair to the soles with comfortable margins. Show textures, garment lengths and footwear clearly. Use reference 1 for the exact construction and color of the outerwear, and the other reference images for the other garment pieces in the same order as the description. Take styling from the supplied pieces. No captions, collage, accessories, bag or framing graphics. A black baffle puffer jacket with a high stand collar and front zip, unzipped enough to see the white hoodie, with the white hood down and outside the puffer at the back. Brown wide barrel-leg trousers that taper naturally, and all-white low-top Skechers trainers. Casual winter day, soft drape and a natural standing stance.",
+      "assets": [
+        "public/outfits/styled-outerwear-03.webp",
+        "public/outfits/400/styled-outerwear-03.webp",
+        "public/outfits/800/styled-outerwear-03.webp"
+      ]
+    },
+    {
+      "id": "styled-outerwear-04",
+      "original": "docs/artwork/outfits/originals/styled-outerwear-04.png",
+      "references": [
+        "public/garments/black-puffer.webp",
+        "public/garments/brown-flannel.webp",
+        "public/garments/black-ankle.webp",
+        "public/garments/adidas-black.webp"
+      ],
+      "prompt": "Use case: product-mockup. Create one polished photorealistic full-length men's outfit portrait for Fit Picker. Portrait 2:3 composition, warm ivory seamless backdrop and soft studio daylight with natural contact shadow. One East Asian adult male fashion model with short dark hair and natural proportions, centered from top of hair to the soles with comfortable margins. Show textures, garment lengths and footwear clearly. Use reference 1 for the exact construction and color of the outerwear, and the other reference images for the other garment pieces in the same order as the description. Take styling from the supplied pieces. No captions, collage, accessories, bag or framing graphics. A black baffle puffer jacket with a high stand collar and front zip, worn open over a solid brown button-up flannel shirt (plain brown with no check or stripe). Tapered black ankle trousers and all-black Adidas low trainers. Keep the brown shirt clearly visible as the only color accent. Unfussy winter city outfit.",
+      "assets": [
+        "public/outfits/styled-outerwear-04.webp",
+        "public/outfits/400/styled-outerwear-04.webp",
+        "public/outfits/800/styled-outerwear-04.webp"
+      ]
+    }
+  ]
+}

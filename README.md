@@ -13,7 +13,7 @@ A personal wardrobe studio for Kevin. Assemble outfits on a fitted retail manneq
 - 41 confirmed garment entries, 2 clearly separated suggested sweatshirts, 8 unowned archive records, and 54 original combinations transcribed from three source images.
 - Seasonal Edit 01: 12 new combinations (three per season), with independent high-resolution styling photographs and why-it-works notes.
 - Seasonal Edit 02: 96 additional combinations (24 per season), each with its own generated full-body model photograph. Every season/occasion has multiple choices; all compositions are distinct from the existing guides and edit.
-- The recommendation edit features 29 curated outfits. Open **View style guides → Browse guide outfits** in the studio to see all 45 guide looks that use confirmed pieces, including four Quick Ideas. You can browse by season and optionally narrow by occasion. Spring and summer share a guide.
+- Curated picks features 33 outfits, including four looks from the outerwear edit. Choose the beige coat or black puffer in **Build around a piece** to find them. Open **View style guides → Browse guide outfits** in the studio to see all 45 guide looks that use confirmed pieces, including four Quick Ideas. You can browse by season and optionally narrow by occasion. Spring and summer share a guide.
 - Recommendation filters live under “Right for the occasion”. They change the suggested looks only; the outfit builder shows the confirmed wardrobe independently. Wardrobe browsing has its own season filter.
 - Exact season/occasion filtering over confirmed garments; no AI API, accounts or live-weather dependency.
 - Searchable wardrobe, source guide viewer, local saved looks and responsive desktop/tablet/mobile navigation.

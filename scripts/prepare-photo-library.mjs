@@ -8,13 +8,14 @@ const partial = process.argv.includes('--available')
 const original = JSON.parse(await readFile('docs/artwork/outfits/prompts.json', 'utf8'))
 const library = JSON.parse(await readFile('docs/artwork/outfits/library-prompts.json', 'utf8')).entries
 const quickIdeas = JSON.parse(await readFile('docs/artwork/outfits/quick-ideas-prompts.json', 'utf8')).entries
+const outerwear = JSON.parse(await readFile('docs/artwork/outfits/outerwear-edit-prompts.json', 'utf8')).entries
 const previous = JSON.parse(await readFile('src/data/outfit-photo-manifest.json', 'utf8'))
 const {garments,outfits,seasonalOutfits,guideQuickIdeas,outfitAppearance}=await wardrobeData()
 const looks=new Map([...outfits,...seasonalOutfits,...guideQuickIdeas].map(o=>[o.id,o]))
 const manifest = {}
 for (const width of [400, 800]) await mkdir(`public/outfits/${width}`, { recursive: true })
 let encoded = 0
-for (const entry of [...original, ...library, ...quickIdeas]) {
+for (const entry of [...original, ...library, ...quickIdeas, ...outerwear]) {
   if(previous[entry.id]?.revision){manifest[entry.id]=previous[entry.id];continue}
   let source
   try { source = await stat(entry.original) }

@@ -838,5 +838,25 @@
     "width": 1024,
     "height": 1536,
     "appearance": "v1-410b6e55"
+  },
+  "styled-outerwear-01": {
+    "width": 1024,
+    "height": 1536,
+    "appearance": "v1-9e2e8cc8"
+  },
+  "styled-outerwear-02": {
+    "width": 1024,
+    "height": 1536,
+    "appearance": "v1-0e0365c4"
+  },
+  "styled-outerwear-03": {
+    "width": 1024,
+    "height": 1536,
+    "appearance": "v1-c4972be6"
+  },
+  "styled-outerwear-04": {
+    "width": 1024,
+    "height": 1536,
+    "appearance": "v1-4b119a67"
   }
 }

@@ -9,6 +9,7 @@ export const curatedOutfitIds = [
   // Autumn: smart layers, earthy colour, and one checked streetwear look.
   'styled-autumn-01',          // Navy and grey ground the brown overshirt.
   'aw-autumn-1',               // Beige coat and navy crew with clean white barrels.
+  'styled-outerwear-01',       // The navy collar makes the beige coat dinner-ready.
   'styled-autumn-edit02-06',   // Navy bomber, rust tee and slim grey slacks.
   'aw-autumn-4',               // Checked overshirt over a quiet white-and-black base.
   'styled-autumn-02',          // Cream trousers lighten the brown and rust layers.
@@ -18,6 +19,9 @@ export const curatedOutfitIds = [
 
   // Winter: a warm walk, a cleaner evening coat and distinct lighter layers.
   'styled-winter-03',          // Black puffer and shoes frame olive wide pants.
+  'styled-outerwear-02',       // A light crew and tapered black trousers balance the coat.
+  'styled-outerwear-03',       // White hoodie and trainers ground the brown barrels.
+  'styled-outerwear-04',       // Brown flannel adds colour to a mostly black city outfit.
   'aw-winter-2',               // Beige, cream and brown with white trainers.
   'aw-winter-3',               // Navy under beige, with a dark, relaxed bottom half.
   'aw-winter-4',               // Navy bomber over a white hoodie for milder days.

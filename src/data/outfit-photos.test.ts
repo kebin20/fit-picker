@@ -18,7 +18,7 @@ const newPortraits = guideQuickIdeas.filter(look => look.id !== 'aw-quick-4')
 
 describe('complete model-photo library', () => {
   it('covers every selectable new and original guide combination', () => {
-    expect(selectable).toHaveLength(132)
+    expect(selectable).toHaveLength(136)
     // Preserve original IDs/photos as historical assets when ownership changes.
     expect(Object.keys(manifest).sort()).toEqual([...archivedPhotos, ...newPortraits].map(look => look.id).sort())
     for (const look of [...selectable, ...guideQuickIdeas]) expect(outfitPhoto(look), look.id).toBeDefined()
